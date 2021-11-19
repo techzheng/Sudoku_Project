@@ -133,6 +133,7 @@ def answer_record(puzzle):
 
 
 if __name__ == '__main__':
+    random.seed(0)
     t0 = time.time()
     # print(generate_board_origin())
     answer = generate_board_new(generate_board_origin())
