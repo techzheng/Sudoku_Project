@@ -1,7 +1,7 @@
 import random
 import numpy as np
 import time
-# get all the grids of the row where the grid is located
+import copy
 
 
 def get_row(sudo, row):
@@ -88,9 +88,22 @@ def generate_board_new(sudo):
     return sudo
 
 
+def generate_puzzle(sudo, blank_num):
+    puzzle = copy.deepcopy(sudo)
+    blank_pos = random.sample(range(81), blank_num)
+    for blank in blank_pos:
+        blank_row = blank // 9
+        blank_col = blank % 9
+        puzzle[blank_row][blank_col] = 0
+    return puzzle
+
+
 if __name__ == '__main__':
     t0 = time.time()
     # print(generate_board_origin())
-    print(generate_board_new(generate_board_origin()))
+    answer = generate_board_new(generate_board_origin())
+    print(answer)
+    puzzle = generate_puzzle(answer, 64)
+    print(puzzle)
     t1 = time.time()
-    print(t1-t0)
+    # print(t1-t0)
