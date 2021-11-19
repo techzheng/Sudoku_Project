@@ -4,56 +4,56 @@ import time
 import copy
 
 
-class Seed(object):
-    def __init__(self, seed):
-        self.seed = seed
+# class Seed(object):
+#     def __init__(self, seed):
+#         self.seed = seed
     
-    def generate_board_origin(self):
-        """Generate a 9*9 sudoku
+def generate_board_origin():
+    """Generate a 9*9 sudoku
 
-        Returns:
-            list: A 9*9 list of integer which represents the original board
-        """
-        # generate a basic board fulfilled by '0'
-        random.seed = self.seed
-        self.sudo = np.zeros((9, 9), int)
-        num = random.randint(1, 9)
-        for row in range(9):
-            for col in range(9):
-                sudo_row = get_row(self.sudo, row)
-                sudo_col = get_col(self.sudo, col)
-                sudo_board = get_board(self.sudo, row, col)
-                while (num in sudo_row) or (num in sudo_col) or (num in sudo_board):
-                    num = num % 9 + 1
-                self.sudo[row, col] = num
+    Returns:
+        list: A 9*9 list of integer which represents the original board
+    """
+    # generate a basic board fulfilled by '0'
+    # random.seed = self.seed
+    sudo = np.zeros((9, 9), int)
+    num = random.randint(1, 9)
+    for row in range(9):
+        for col in range(9):
+            sudo_row = get_row(sudo, row)
+            sudo_col = get_col(sudo, col)
+            sudo_board = get_board(sudo, row, col)
+            while (num in sudo_row) or (num in sudo_col) or (num in sudo_board):
                 num = num % 9 + 1
-        return self.sudo
+            sudo[row, col] = num
+            num = num % 9 + 1
+    return sudo
     
-    def generate_board_new(self, sudo):
-        """Generate a new sudoku board by exchanging row and column
+def generate_board_new(sudo):
+    """Generate a new sudoku board by exchanging row and column
 
-        Args:
-            sudo (list): A 9*9 list of integer
+    Args:
+        sudo (list): A 9*9 list of integer
 
-        Returns:
-            list: A 9*9 list of integer which represents a new board
-        """
-        random.seed = self.seed
-        seed = self.seed
-        refresh = abs(seed) % 100
-        for i in range(refresh):
-            change_row = random.choice([0, 3, 6])
-            change_row_num = random.sample([0, 1, 2], k=2)
-            row_index_1 = change_row + change_row_num[0]
-            row_index_2 = change_row + change_row_num[1]
-            self.sudo[[row_index_1, row_index_2], :] = self.sudo[[row_index_2, row_index_1], :]
+    Returns:
+        list: A 9*9 list of integer which represents a new board
+    """
+    # random.seed = self.seed
+    # seed = self.seed
+    # refresh = abs(seed) % 100
+    for i in range(100):
+        change_row = random.choice([0, 3, 6])
+        change_row_num = random.sample([0, 1, 2], k=2)
+        row_index_1 = change_row + change_row_num[0]
+        row_index_2 = change_row + change_row_num[1]
+        sudo[[row_index_1, row_index_2], :] = sudo[[row_index_2, row_index_1], :]
 
-            change_col = random.choice([0, 3, 6])
-            change_col_num = random.sample([0, 1, 2], k=2)
-            col_index_1 = change_col + change_col_num[0]
-            col_index_2 = change_col + change_col_num[1]
-            self.sudo[:, [col_index_1, col_index_2]] = self.sudo[:, [col_index_2, col_index_1]]
-        return self.sudo
+        change_col = random.choice([0, 3, 6])
+        change_col_num = random.sample([0, 1, 2], k=2)
+        col_index_1 = change_col + change_col_num[0]
+        col_index_2 = change_col + change_col_num[1]
+        sudo[:, [col_index_1, col_index_2]] = sudo[:, [col_index_2, col_index_1]]
+    return sudo
 
 def get_row(sudo, row):
     """Get all the grids of the row where the grid is located
@@ -120,6 +120,24 @@ def generate_puzzle(sudo, level):
     return puzzle
 
 
+def answer_record(puzzle):
+    """Record the position of blanks
+
+    Args:
+        puzzle (list): A 9*9 list of integer which represents the puzzle
+
+    Returns:
+        list: A list contains the position of blankss
+    """
+    # find the index of blanks
+    answer_index = np.where(puzzle == 0)
+    answer_row = answer_index[0]
+    answer_col = answer_index[1]
+    # convert the index into coordinate form
+    answer_position = np.stack((answer_row, answer_col), axis=1).tolist()
+    return answer_position
+
+
 if __name__ == '__main__':
     t0 = time.time()
     # print(generate_board_origin())
@@ -127,5 +145,9 @@ if __name__ == '__main__':
     print(answer)
     puzzle = generate_puzzle(answer, 5)
     print(puzzle)
+    # print(type(puzzle))
+    answer_index = answer_record(puzzle)
+    # print(answer_index)
+    # print(type(answer_index))
     t1 = time.time()
     # print(t1-t0)
