@@ -2,6 +2,8 @@ import random
 import numpy as np
 import time
 # get all the grids of the row where the grid is located
+
+
 def get_row(sudo, row):
     """Get all the grids of the row where the grid is located
 
@@ -41,8 +43,8 @@ def get_board(sudo, row, col):
     Returns:
         list: All the grids of the small board where the grid is located
     """
-    row_start = 3 * (row // 3)
-    col_start = 3 * (col // 3)
+    row_start = row // 3 * 3
+    col_start = col // 3 * 3
     return sudo[row_start: row_start+3, col_start: col_start+3]
 
 
@@ -55,13 +57,12 @@ def generate_board_origin():
     # generate a basic board fulfilled by '0'
     sudo = np.zeros((9, 9), int)
     num = random.randint(1, 9)
-
     for row in range(9):
         for col in range(9):
             sudo_row = get_row(sudo, row)
             sudo_col = get_col(sudo, col)
             sudo_board = get_board(sudo, row, col)
-            if (num in sudo_row) or (num in sudo_col) or (num in sudo_board):
+            while (num in sudo_row) or (num in sudo_col) or (num in sudo_board):
                 num = num % 9 + 1
             sudo[row, col] = num
             num = num % 9 + 1
@@ -86,8 +87,10 @@ def generate_board_new(sudo):
         sudo[:, [col_index_1, col_index_2]] = sudo[:, [col_index_2, col_index_1]]
     return sudo
 
+
 if __name__ == '__main__':
     t0 = time.time()
+    # print(generate_board_origin())
     print(generate_board_new(generate_board_origin()))
     t1 = time.time()
     print(t1-t0)
