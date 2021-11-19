@@ -8,7 +8,7 @@ def get_row(sudo, row):
     """Get all the grids of the row where the grid is located
 
     Args:
-        sudo (list): A 9*9 list of integers
+        sudo (list): A 9*9 list of integer
         row (list): The row where the grid is located
 
     Returns:
@@ -22,7 +22,7 @@ def get_col(sudo, col):
     """Get all the grids of the column where the grid is located
 
     Args:
-        sudo (list): A 9*9 list of integers
+        sudo (list): A 9*9 list of integer
         col (list): The column where the grid is located
 
     Returns:
@@ -36,7 +36,7 @@ def get_board(sudo, row, col):
     """Get all the grid of the small board where the grid is located
 
     Args:
-        sudo (list): A 9*9 list of integers
+        sudo (list): A 9*9 list of integer
         row (list): The row where the grid is located
         col (list): The column where the grid is located
 
@@ -52,7 +52,7 @@ def generate_board_origin():
     """Generate a 9*9 sudoku
 
     Returns:
-        list: A 9*9 list of integer
+        list: A 9*9 list of integer which represents the original board
     """
     # generate a basic board fulfilled by '0'
     sudo = np.zeros((9, 9), int)
@@ -70,27 +70,42 @@ def generate_board_origin():
 
 
 def generate_board_new(sudo):
+    """Generate a new sudoku board by exchanging row and column
+
+    Args:
+        sudo (list): A 9*9 list of integer
+
+    Returns:
+        list: A 9*9 list of integer which represents a new board
+    """
     for i in range(100):
         change_row = random.choice([0, 3, 6])
         change_row_num = random.sample([0, 1, 2], k=2)
         row_index_1 = change_row + change_row_num[0]
         row_index_2 = change_row + change_row_num[1]
-        # print(col_index_1, col_index_2, row_index_1, row_index_2)
         sudo[[row_index_1, row_index_2], :] = sudo[[row_index_2, row_index_1], :]
 
         change_col = random.choice([0, 3, 6])
-        # print(change_col)
         change_col_num = random.sample([0, 1, 2], k=2)
         col_index_1 = change_col + change_col_num[0]
         col_index_2 = change_col + change_col_num[1]
-        # print()
         sudo[:, [col_index_1, col_index_2]] = sudo[:, [col_index_2, col_index_1]]
     return sudo
 
 
-def generate_puzzle(sudo, blank_num):
+def generate_puzzle(sudo, level):
+    """Generate puzzles
+
+    Args:
+        sudo (list): A 9*9 list of integer
+        level (integer): The number of grids be erased depends on level, up to 5
+
+    Returns:
+        list: A 9*9 list of integer which represents the puzzle
+    """
     puzzle = copy.deepcopy(sudo)
     blank_pos = random.sample(range(81), blank_num)
+
     for blank in blank_pos:
         blank_row = blank // 9
         blank_col = blank % 9
@@ -103,7 +118,7 @@ if __name__ == '__main__':
     # print(generate_board_origin())
     answer = generate_board_new(generate_board_origin())
     print(answer)
-    puzzle = generate_puzzle(answer, 64)
+    puzzle = generate_puzzle(answer, 5)
     print(puzzle)
     t1 = time.time()
     # print(t1-t0)
