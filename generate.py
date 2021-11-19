@@ -46,15 +46,15 @@ def get_board(sudo, row, col):
     return sudo[row_start: row_start+3, col_start: col_start+3]
 
 
-def generate_origin():
+def generate_board_origin():
     """Generate a 9*9 sudoku
 
     Returns:
-        list: A 9*9 sudoku
+        list: A 9*9 list of integer
     """
     # generate a basic board fulfilled by '0'
     sudo = np.zeros((9, 9), int)
-    num = random.randrange(9) + 1
+    num = random.randint(1, 9)
 
     for row in range(9):
         for col in range(9):
@@ -68,8 +68,23 @@ def generate_origin():
     return sudo
 
 
+def generate_board_new(sudo):
+    for i in range(100):
+        change_col = random.choice([0, 3, 6])
+        change_col_num = random.sample([0, 1, 2], k=2)
+        col_index_1 = change_col + change_col_num[0]
+        col_index_2 = change_col + change_col_num[1]
+        sudo[:, [col_index_1, col_index_2]] = sudo[:, [col_index_2, col_index_1]]
+    
+        change_row = random.choice([0, 3, 6])
+        change_row_num = random.sample([0, 1, 2], k=2)
+        row_index_1 = change_row + change_row_num[0]
+        row_index_2 = change_row + change_row_num[1]
+        sudo[[row_index_1, row_index_2], :] = sudo[[row_index_2, row_index_1], :]
+    
+
 if __name__ == '__main__':
     t0 = time.time()
-    print(generate_origin())
+    print(generate_board_new(generate_board_origin()))
     t1 = time.time()
     print(t1-t0)
