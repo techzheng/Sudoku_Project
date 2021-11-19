@@ -71,17 +71,20 @@ def generate_board_origin():
 def generate_board_new(sudo):
     for i in range(100):
         change_col = random.choice([0, 3, 6])
+        # print(change_col)
         change_col_num = random.sample([0, 1, 2], k=2)
         col_index_1 = change_col + change_col_num[0]
         col_index_2 = change_col + change_col_num[1]
+        # print()
         sudo[:, [col_index_1, col_index_2]] = sudo[:, [col_index_2, col_index_1]]
     
         change_row = random.choice([0, 3, 6])
         change_row_num = random.sample([0, 1, 2], k=2)
         row_index_1 = change_row + change_row_num[0]
         row_index_2 = change_row + change_row_num[1]
+        print(col_index_1, col_index_2, row_index_1, row_index_2)
         sudo[[row_index_1, row_index_2], :] = sudo[[row_index_2, row_index_1], :]
-    
+    return sudo
 
 if __name__ == '__main__':
     t0 = time.time()
