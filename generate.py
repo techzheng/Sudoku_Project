@@ -104,6 +104,7 @@ def generate_puzzle(sudo, level):
         list: A 9*9 list of integer which represents the puzzle
     """
     puzzle = copy.deepcopy(sudo)
+    blank_num = 64 - 10 * level
     blank_pos = random.sample(range(81), blank_num)
 
     for blank in blank_pos:
