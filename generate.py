@@ -110,7 +110,7 @@ def generate_puzzle(sudo, level):
         list: A 9*9 list of integer which represents the puzzle
     """
     puzzle = copy.deepcopy(sudo)
-    blank_num = 64 - 10 * level
+    blank_num = 64 - 10 * (6-level)
     blank_pos = random.sample(range(81), blank_num)
 
     for blank in blank_pos:
@@ -143,7 +143,7 @@ if __name__ == '__main__':
     # print(generate_board_origin())
     answer = generate_board_new(generate_board_origin())
     print(answer)
-    puzzle = generate_puzzle(answer, 5)
+    puzzle = generate_puzzle(answer, 1)
     print(puzzle)
     # print(type(puzzle))
     answer_index = answer_record(puzzle)
