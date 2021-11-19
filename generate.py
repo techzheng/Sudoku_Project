@@ -120,34 +120,12 @@ def generate_puzzle(sudo, level):
     return puzzle
 
 
-def answer_record(puzzle):
-    """Record the position of blanks
-
-    Args:
-        puzzle (list): A 9*9 list of integer which represents the puzzle
-
-    Returns:
-        list: A list contains the position of blankss
-    """
-    # find the index of blanks
-    answer_index = np.where(puzzle == 0)
-    answer_row = answer_index[0]
-    answer_col = answer_index[1]
-    # convert the index into coordinate form
-    answer_position = np.stack((answer_row, answer_col), axis=1).tolist()
-    return answer_position
-
-
 if __name__ == '__main__':
     t0 = time.time()
     # print(generate_board_origin())
     answer = generate_board_new(generate_board_origin())
-    # print(answer)
+    print(answer)
     puzzle = generate_puzzle(answer, 5)
     print(puzzle)
-    print(type(puzzle))
-    answer_index = answer_record(puzzle)
-    print(answer_index)
-    # print(type(answer_index))
     t1 = time.time()
     # print(t1-t0)
