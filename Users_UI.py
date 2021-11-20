@@ -68,17 +68,15 @@ def grid_setup(screen, grid, text_font):
 
 def insert(screen, position, text_font, grid, update_grid):
     while True:
-        if 1 <= position[0] <= 9 and 1 <= position[1] <= 9:
+        if 1 <= position[0] <= 9 and 1 <= position[1] <= 9 and grid[position[1] - 1][position[0] - 1] == 0:
             for event in pygame.event.get():
                 # # change the color into dark gray when selected
-                # pygame.draw.rect(screen, (100, 100, 100), (position[0]*60 + 5, position[1]*60 + 5, 60 - 8, 60 - 8))
-                # pygame.display.update()
+                pygame.draw.rect(screen, (100, 100, 100), (position[0]*60 + 5, position[1]*60 + 5, 60 - 8, 60 - 8))
+                pygame.display.update()
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     return update_grid
                 if event.type == pygame.KEYDOWN:
-                    if grid[position[1] - 1][position[0] - 1] != 0:
-                        return update_grid
                     if event.key - 8 == 0: # checking with backspace (8 is the ascII number of 'backspace')
                         # replace the space with a rectangel with the same color as the background
                         pygame.draw.rect(screen, (230, 230, 230), (position[0]*60 + 5, position[1]*60 + 5, 60 - 8, 60 - 8))
