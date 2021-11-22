@@ -4,7 +4,7 @@ import pygame, copy
 
 
 def running():
-    background_color = (210, 210, 210)
+    background_color = (235, 235, 235)
     # initialize the pygame
     pygame.init()
     # create the screen (width, hight)
@@ -67,7 +67,7 @@ def grid_setup(screen, grid, text_font):
         for j in range (0, len(grid[i])):
             if 1 <= grid[i][j] <= 9:
                 value = text_font.render(str(grid[i][j]), True, (0,0,0))
-                screen.blit(value, ((j+1)*60 + 23, (i+1)*60 + 20))
+                screen.blit(value, ((j+1)*60 + 23, (i+1)*60 + 19))
 
 def insert(screen, position, text_font, grid, update_grid, background_color):
     shaded_color = (100, 100, 100)
@@ -95,8 +95,13 @@ def insert(screen, position, text_font, grid, update_grid, background_color):
                         pygame.display.update()
                         update_grid[position[1] - 1][position[0] - 1] = event.key - 48
                         return update_grid
-                    return update_grid
-        else:
+                    else: 
+                        pygame.draw.rect(screen, background_color, (position[0]*60 + 5, position[1]*60 + 5, 60 - 8, 60 - 8))
+                        value = text_font.render(str(update_grid[position[1] - 1][position[0] - 1]), True, text_insert_color)
+                        screen.blit(value, (position[0]*60 + 23, position[1]*60 + 20))
+                        pygame.display.update()
+                        return update_grid         
+        else: 
             return update_grid
 
 
