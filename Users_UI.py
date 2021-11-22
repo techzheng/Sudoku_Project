@@ -95,12 +95,17 @@ def insert(screen, position, text_font, grid, update_grid, background_color):
                         pygame.display.update()
                         update_grid[position[1] - 1][position[0] - 1] = event.key - 48
                         return update_grid
-                    else: 
-                        pygame.draw.rect(screen, background_color, (position[0]*60 + 5, position[1]*60 + 5, 60 - 8, 60 - 8))
-                        value = text_font.render(str(update_grid[position[1] - 1][position[0] - 1]), True, text_insert_color)
-                        screen.blit(value, (position[0]*60 + 23, position[1]*60 + 20))
-                        pygame.display.update()
-                        return update_grid         
+                    else: # if input a wrong letter, the grid stays the same as before
+                        if 1 <= update_grid[position[1] - 1][position[0] - 1] <=9:
+                            pygame.draw.rect(screen, background_color, (position[0]*60 + 5, position[1]*60 + 5, 60 - 8, 60 - 8))
+                            value = text_font.render(str(update_grid[position[1] - 1][position[0] - 1]), True, text_insert_color)
+                            screen.blit(value, (position[0]*60 + 23, position[1]*60 + 20))
+                            pygame.display.update()
+                            return update_grid
+                        else: 
+                            pygame.draw.rect(screen, background_color, (position[0]*60 + 5, position[1]*60 + 5, 60 - 8, 60 - 8))
+                            pygame.display.update()
+                            return update_grid       
         else: 
             return update_grid
 
