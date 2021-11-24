@@ -9,17 +9,17 @@ text_insert_color = (0, 0, 200)
 
 def running():
     background_color = (235, 235, 235)
-    text_color = (0, 0, 0)
     # initialize the pygame
     pygame.init()
-    # create the screen (width, hight)
+    # create the screen with 660 pixel in width and 800 pixel in hight
     screen = pygame.display.set_mode((660,800))
     # text font, title and icon
     text_font = pygame.font.Font(pygame.font.get_default_font(), 30) # need adding a font file 
+    # setup game caption and icon
     pygame.display.set_caption('Sudoku Game')
     icon = pygame.image.load('icon.png')
     pygame.display.set_icon(icon)
-    # set background color
+    # fill the window background color
     screen.fill(background_color)
     # call function to set up 9*9 grid
     grid = [[1,9,1,1,3,5,1,8,7],
@@ -40,17 +40,20 @@ def running():
                 [4,2,1,1,1,7,1,1,9],
                 [1,1,9,3,2,4,1,7,6],
                 [7,1,6,1,8,1,2,4,1]]
+    # copy another updating grid for varifing the answer
     update_grid = copy.deepcopy(grid)
+    # run grid setup the draw the grid in the window
     grid_setup(screen, grid, text_font)
     pygame.display.update()
-    
-    # identify initial time for timer
+    # initialize the  initial time for timer
     t0 = time.time()
     # game loop to maintain and quit the window
     while True:
         # show timer
         game_clock(screen, text_font, t0)
+        # capture every operation in the window
         for event in pygame.event.get():
+            # if the mouse is clicked
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 position = pygame.mouse.get_pos()
                 update_grid = insert(screen, (position[0]//60, position[1]//60), text_font, grid, update_grid, background_color, t0)
@@ -58,6 +61,7 @@ def running():
             if update_grid == solution:
                 t_tot = time.time() - t0
                 win(screen, t_tot, text_font)
+            # if the game is quit
             if event.type == pygame.QUIT:
                 pygame.quit()
                 return
@@ -114,14 +118,18 @@ def insert(screen, position, text_font, grid, update_grid, background_color, t0)
                         else: 
                             pygame.draw.rect(screen, background_color, (position[0]*60 + 5, position[1]*60 + 5, 60 - 8, 60 - 8))
                         pygame.display.update()
-                        return update_grid   
+                        return update_grid 
+                # change the selecting block when click to another block  
                 if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                    # recover the original block into its background color
                     pygame.draw.rect(screen, background_color, (position[0]*60 + 5, position[1]*60 + 5, 60 - 8, 60 - 8))
+                    # if the original block is filled with a number, fill the block with it rather than only background color
                     if 1 <= update_grid[position[1] - 1][position[0] - 1] <= 9:
                         if grid[position[1] - 1][position[0] - 1] == 0:
                             value = text_font.render(str(update_grid[position[1] - 1][position[0] - 1]), True, text_insert_color)
                             screen.blit(value, (position[0]*60 + 23, position[1]*60 + 20))
                     pygame.display.update()
+                    # run the insert function again using the different position and no operation to the update_grid
                     position_ = pygame.mouse.get_pos()
                     update_grid = insert(screen, (position_[0]//60, position_[1]//60), text_font, grid, update_grid, background_color, t0) 
                     return update_grid   
