@@ -115,17 +115,23 @@ def insert(screen, position, text_font, grid, update_grid, background_color, t0)
                             pygame.draw.rect(screen, background_color, (position[0]*60 + 5, position[1]*60 + 5, 60 - 8, 60 - 8))
                         pygame.display.update()
                         return update_grid   
-                # else:
-                #     pygame.draw.rect(screen, background_color, (position[0]*60 + 5, position[1]*60 + 5, 60 - 8, 60 - 8))
-                #     pygame.display.update()
-                #     return update_grid    
+                if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                    pygame.draw.rect(screen, background_color, (position[0]*60 + 5, position[1]*60 + 5, 60 - 8, 60 - 8))
+                    if 1 <= update_grid[position[1] - 1][position[0] - 1] <= 9:
+                        if grid[position[1] - 1][position[0] - 1] == 0:
+                            value = text_font.render(str(update_grid[position[1] - 1][position[0] - 1]), True, text_insert_color)
+                            screen.blit(value, (position[0]*60 + 23, position[1]*60 + 20))
+                    pygame.display.update()
+                    position_ = pygame.mouse.get_pos()
+                    update_grid = insert(screen, (position_[0]//60, position_[1]//60), text_font, grid, update_grid, background_color, t0) 
+                    return update_grid   
         else: 
             return update_grid
 
 def game_clock(screen, text_font, t0):
     pygame.draw.rect(screen, background_color, (60, 610, 600, 100))
     t = time.time() - t0
-    value = text_font.render('Time(s): ' + (str(round(t, 2))), True, text_color)
+    value = text_font.render('Time(s): ' + (str(round(t, 1))), True, text_color)
     screen.blit(value, (60, 610))
     pygame.display.update()
 
@@ -138,9 +144,9 @@ def win(screen, t_tot, text_font):
                     return
         screen.fill(background_color)
         value_1 = text_font.render('WIN!', True, text_color)
-        value_2 = text_font.render('Time: ' + (str(round(t_tot, 2))) + 's', True, text_color)
+        value_2 = text_font.render('Time: ' + (str(round(t_tot, 1))) + 's', True, text_color)
         screen.blit(value_1, (280, 250))
-        screen.blit(value_2, (240, 300))
+        screen.blit(value_2, (240, 350))
         pygame.display.update()
 
 
