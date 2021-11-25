@@ -1,4 +1,4 @@
-import pygame, copy, time
+import pygame, copy, time, random
 
 background_color = (235, 235, 235)
 text_color = (0, 0, 0)
@@ -56,7 +56,14 @@ def running():
             # if the mouse is clicked
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 position = pygame.mouse.get_pos()
-                update_grid = insert(screen, (position[0]//60, position[1]//60), text_font, grid, update_grid, background_color, t0)
+                # if the position is inside the grid, run insert function
+                if 1 <= position[0]//60 <= 9 and 1 <= position[1]//60 <= 9:
+                    update_grid = insert(screen, (position[0]//60, position[1]//60), text_font, grid, update_grid, background_color, t0)
+                # if the position is inside the 'hint' button
+                if 303 <= position[0] <= 365 and 700 <= position[1] <= 725:
+                    grid, update_grid = hint(screen, grid, update_grid, solution, text_font, t0)
+                
+                    
             # check if the answer is correct
             if update_grid == solution:
                 t_tot = time.time() - t0
@@ -69,6 +76,7 @@ def running():
 def grid_setup(screen, grid, text_font):
     line_color = (0, 0, 0)
     text_color = (0, 0, 0)
+    # setup 9*9 grid
     for i in range(0, 10):
         if i % 3 == 0:
             pygame.draw.line(screen, line_color, (60*i + 60, 60), (60*i + 60, 600), 5)
@@ -76,12 +84,15 @@ def grid_setup(screen, grid, text_font):
         else:
             pygame.draw.line(screen, line_color, (60*i + 60, 60), (60*i + 60, 600), 2)
             pygame.draw.line(screen, line_color, (60, 60*i + 60), (600, 60*i + 60), 2)
-    
+    # setup numbers
     for i in range (0, len(grid)):
         for j in range (0, len(grid[i])):
             if 1 <= grid[i][j] <= 9:
-                value = text_font.render(str(grid[i][j]), True, text_color)
-                screen.blit(value, ((j+1)*60 + 23, (i+1)*60 + 19))
+                value_1 = text_font.render(str(grid[i][j]), True, text_color)
+                screen.blit(value_1, ((j+1)*60 + 23, (i+1)*60 + 19))
+    # setup hint button
+    value_2 = text_font.render('Hint', True, text_color)
+    screen.blit(value_2, (303, 700))
 
 def insert(screen, position, text_font, grid, update_grid, background_color, t0):
     shaded_color = (100, 100, 100)
@@ -137,7 +148,7 @@ def insert(screen, position, text_font, grid, update_grid, background_color, t0)
             return update_grid
 
 def game_clock(screen, text_font, t0):
-    pygame.draw.rect(screen, background_color, (60, 610, 600, 100))
+    pygame.draw.rect(screen, background_color, (60, 610, 600, 70))
     t = time.time() - t0
     value = text_font.render('Time(s): ' + (str(round(t, 1))), True, text_color)
     screen.blit(value, (60, 610))
@@ -157,6 +168,21 @@ def win(screen, t_tot, text_font):
         screen.blit(value_2, (240, 350))
         pygame.display.update()
 
+def hint(screen, grid, update_grid, solution, text_font, t0):
+    game_clock(screen, text_font, t0)
+    hint_pool = []
+    for i in range(0, len(update_grid)):
+        for j in range(0, len(update_grid[i])):
+            if grid[i][j] == 0:
+                if update_grid[i][j] != solution[i][j]:
+                    hint_pool.append([i, j])
+    hint_loc = random.choice(hint_pool)
+    update_grid[hint_loc[0]][hint_loc[1]] = solution[hint_loc[0]][hint_loc[1]]
+    pygame.draw.rect(screen, background_color, (((hint_loc[1] + 1)*60 + 5, (hint_loc[0] + 1)*60 + 5, 60 - 8, 60 - 8)))
+    value = text_font.render(str(update_grid[hint_loc[0]][hint_loc[1]]), True, text_color)
+    screen.blit(value, ((hint_loc[1] + 1)*60 + 23, (hint_loc[0] + 1)*60 + 20))
+    pygame.display.update()
+    return grid, update_grid
 
 running()
 
