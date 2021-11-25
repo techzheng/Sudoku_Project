@@ -183,7 +183,7 @@ def hint(screen, grid, update_grid, solution, text_font, t0):
     update_grid[hint_loc[0]][hint_loc[1]] = solution[hint_loc[0]][hint_loc[1]]
     grid[hint_loc[0]][hint_loc[1]] = solution[hint_loc[0]][hint_loc[1]]
     pygame.draw.rect(screen, background_color, (((hint_loc[1] + 1)*60 + 5, (hint_loc[0] + 1)*60 + 5, 60 - 8, 60 - 8)))
-    value = text_font.render(str(update_grid[hint_loc[0]][hint_loc[1]]), True, text_color)
+    value = text_font.render(str(update_grid[hint_loc[0]][hint_loc[1]]), True, (255, 0, 0))
     screen.blit(value, ((hint_loc[1] + 1)*60 + 23, (hint_loc[0] + 1)*60 + 20))
     pygame.display.update()
     return grid, update_grid
