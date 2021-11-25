@@ -103,6 +103,9 @@ def insert(screen, position, text_font, grid, update_grid, background_color, t0)
             for event in pygame.event.get():
                 # # change the color into dark gray when selected
                 pygame.draw.rect(screen, shaded_color, (position[0]*60 + 5, position[1]*60 + 5, 60 - 8, 60 - 8))
+                if update_grid[position[1] - 1][position[0] - 1] != 0:
+                    value = text_font.render(str(update_grid[position[1] - 1][position[0] - 1]), True, text_insert_color)
+                    screen.blit(value, (position[0]*60 + 23, position[1]*60 + 20))
                 pygame.display.update()
                 if event.type == pygame.QUIT:
                     pygame.quit()
@@ -178,6 +181,7 @@ def hint(screen, grid, update_grid, solution, text_font, t0):
                     hint_pool.append([i, j])
     hint_loc = random.choice(hint_pool)
     update_grid[hint_loc[0]][hint_loc[1]] = solution[hint_loc[0]][hint_loc[1]]
+    grid[hint_loc[0]][hint_loc[1]] = solution[hint_loc[0]][hint_loc[1]]
     pygame.draw.rect(screen, background_color, (((hint_loc[1] + 1)*60 + 5, (hint_loc[0] + 1)*60 + 5, 60 - 8, 60 - 8)))
     value = text_font.render(str(update_grid[hint_loc[0]][hint_loc[1]]), True, text_color)
     screen.blit(value, ((hint_loc[1] + 1)*60 + 23, (hint_loc[0] + 1)*60 + 20))
