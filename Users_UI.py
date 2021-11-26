@@ -1,6 +1,5 @@
+from numpy import int_
 import pygame, copy, time, random
-
-score = 5
 
 def home_window(score):
     background_color = (235, 235, 235)
@@ -48,23 +47,6 @@ def home_window(score):
 
 
 def sudoku_window(screen, score, text_font, grid_color, background_color, text_color, hint_text_color, line_color, shaded_color, text_insert_color):
-    # background_color = (235, 235, 235)
-    # text_color = (0, 0, 0)
-    # line_color = (0, 0, 0)
-    # shaded_color = (100, 100, 100)
-    # grid_color = (180, 180, 180)
-    # hint_text_color = (0, 150, 0)
-    # text_insert_color = (0, 0, 200)
-    # # initialize the pygame
-    # pygame.init()
-    # # create the screen with 660 pixel in width and 800 pixel in hight
-    # screen = pygame.display.set_mode((660,800))
-    # # text font, title and icon
-    # text_font = pygame.font.Font(pygame.font.get_default_font(), 30) # need adding a font file 
-    # # setup game caption and icon
-    # pygame.display.set_caption('Sudoku Game')
-    # icon = pygame.image.load('icon.png')
-    # pygame.display.set_icon(icon)
     # fill the window background color
     screen.fill(background_color)
     # call function to set up 9*9 grid
@@ -284,4 +266,5 @@ def hint(screen, grid, update_grid, solution, text_font, t0, dark_grid_loc, grid
 def time_to_score(t_tot, score):
     return 10
 
-home_window(score)
+if __name__ == "__main__":
+    home_window(score = 5)
