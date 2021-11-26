@@ -2,12 +2,13 @@ import random
 import numpy as np
 import time
 import copy
-
+import re
 
 # class Seed(object):
 #     def __init__(self, seed):
 #         self.seed = seed
-    
+
+
 def generate_board_origin():
     """Generate a 9*9 sudoku
 
@@ -28,7 +29,8 @@ def generate_board_origin():
             sudo[row, col] = num
             num = num % 9 + 1
     return sudo
-    
+
+
 def generate_board_new(sudo):
     """Generate a new sudoku board by exchanging row and column
 
@@ -54,6 +56,7 @@ def generate_board_new(sudo):
         col_index_2 = change_col + change_col_num[1]
         sudo[:, [col_index_1, col_index_2]] = sudo[:, [col_index_2, col_index_1]]
     return sudo
+
 
 def get_row(sudo, row):
     """Get all the grids of the row where the grid is located
@@ -95,8 +98,6 @@ def get_board(sudo, row, col):
     row_start = row // 3 * 3
     col_start = col // 3 * 3
     return sudo[row_start: row_start+3, col_start: col_start+3]
-
-
 
 
 def generate_puzzle(sudo, level):
@@ -142,9 +143,13 @@ if __name__ == '__main__':
     t0 = time.time()
     # print(generate_board_origin())
     answer = generate_board_new(generate_board_origin())
-    print(answer)
+    answer_out = re.sub(r"(\d)\s(\d)\s(\d)\s(\d)\s(\d)\s(\d)\s(\d)\s(\d)\s(\d)",
+                        r"\1,\2,\3,\4,\5,\6,\7,\8,\9", str(answer))
+    print(answer_out)
     puzzle = generate_puzzle(answer, 1)
-    print(puzzle)
+    puzzle_out = re.sub(r"(\d)\s(\d)\s(\d)\s(\d)\s(\d)\s(\d)\s(\d)\s(\d)\s(\d)",
+                        r"\1,\2,\3,\4,\5,\6,\7,\8,\9", str(puzzle))
+    print(puzzle_out)
     # print(type(puzzle))
     answer_index = answer_record(puzzle)
     # print(answer_index)
