@@ -2,7 +2,7 @@ import pygame, copy, time, random
 
 score = 5
 
-def sudoku_window(score):
+def home_window(score):
     background_color = (235, 235, 235)
     text_color = (0, 0, 0)
     line_color = (0, 0, 0)
@@ -14,12 +14,57 @@ def sudoku_window(score):
     pygame.init()
     # create the screen with 660 pixel in width and 800 pixel in hight
     screen = pygame.display.set_mode((660,800))
+    # title font
+    title_font = pygame.font.Font(pygame.font.get_default_font(), 40) # need adding a font file 
     # text font, title and icon
     text_font = pygame.font.Font(pygame.font.get_default_font(), 30) # need adding a font file 
     # setup game caption and icon
     pygame.display.set_caption('Sudoku Game')
     icon = pygame.image.load('icon.png')
     pygame.display.set_icon(icon)
+    # fill the window background color
+    screen.fill(background_color)
+    # print text on screen
+    value_1 = title_font.render(str('SUDOKU'), True, text_color)
+    value_2 = text_font.render(str('Start game'), True, text_color)
+    value_3 = text_font.render(str('Quit'), True, text_color)
+    screen.blit(value_1, (230, 150))
+    screen.blit(value_2, (240, 450))
+    screen.blit(value_3, (285, 650))
+    pygame.display.update()
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                position = pygame.mouse.get_pos()
+                if 240 <= position[0] <= 410 and 450 <= position[1] <= 475:
+                    sudoku_window(screen, score, text_font, grid_color, background_color, text_color, hint_text_color, line_color, shaded_color, text_insert_color)
+                if 285 <= position[0] <= 365 and 650 <= position[1] <= 675:
+                    pygame.quit()
+                    return
+            if event.type == pygame.QUIT:
+                    pygame.quit()
+                    return
+
+
+
+def sudoku_window(screen, score, text_font, grid_color, background_color, text_color, hint_text_color, line_color, shaded_color, text_insert_color):
+    # background_color = (235, 235, 235)
+    # text_color = (0, 0, 0)
+    # line_color = (0, 0, 0)
+    # shaded_color = (100, 100, 100)
+    # grid_color = (180, 180, 180)
+    # hint_text_color = (0, 150, 0)
+    # text_insert_color = (0, 0, 200)
+    # # initialize the pygame
+    # pygame.init()
+    # # create the screen with 660 pixel in width and 800 pixel in hight
+    # screen = pygame.display.set_mode((660,800))
+    # # text font, title and icon
+    # text_font = pygame.font.Font(pygame.font.get_default_font(), 30) # need adding a font file 
+    # # setup game caption and icon
+    # pygame.display.set_caption('Sudoku Game')
+    # icon = pygame.image.load('icon.png')
+    # pygame.display.set_icon(icon)
     # fill the window background color
     screen.fill(background_color)
     # call function to set up 9*9 grid
@@ -44,13 +89,13 @@ def sudoku_window(score):
     # copy another updating grid for varifing the answer
     update_grid = copy.deepcopy(grid)
     # run grid setup the draw the grid in the window
-    grid_setup(screen, grid, text_font, grid_color)
+    grid_setup(screen, grid, text_font, grid_color, line_color, text_color)
     # initialize dark location
     dark_grid_loc = [[1, 1],[1, 2],[1, 3],[2, 1],[2, 2],[2, 3],[3, 1],[3, 2],[3, 3],
-                    [7, 1],[7, 2],[7, 3],[8, 1],[8, 2],[8, 3],[9, 1],[9, 2],[9, 3],
-                    [4, 4],[4, 5],[4, 6],[5, 4],[5, 5],[5, 6],[6, 4],[6, 5],[6, 6],
-                    [1, 7],[1, 8],[1, 9],[2, 7],[2, 8],[2, 9],[3, 7],[3, 8],[3, 9],
-                    [7, 7],[7, 8],[7, 9],[8, 7],[8, 8],[8, 9],[9, 7],[9, 8],[9, 9]]
+                     [7, 1],[7, 2],[7, 3],[8, 1],[8, 2],[8, 3],[9, 1],[9, 2],[9, 3],
+                     [4, 4],[4, 5],[4, 6],[5, 4],[5, 5],[5, 6],[6, 4],[6, 5],[6, 6],
+                     [1, 7],[1, 8],[1, 9],[2, 7],[2, 8],[2, 9],[3, 7],[3, 8],[3, 9],
+                     [7, 7],[7, 8],[7, 9],[8, 7],[8, 8],[8, 9],[9, 7],[9, 8],[9, 9]]
     pygame.display.update()
     # initialize the  initial time for timer
     t0 = time.time()
@@ -69,12 +114,10 @@ def sudoku_window(score):
                 position = pygame.mouse.get_pos()
                 # if the position is inside the grid, run insert function
                 if 1 <= position[0]//60 <= 9 and 1 <= position[1]//60 <= 9:
-                    update_grid = insert(screen, (position[0]//60, position[1]//60), text_font, grid, update_grid, background_color, t0, dark_grid_loc, grid_color, text_color)
+                    update_grid = insert(screen, (position[0]//60, position[1]//60), text_font, grid, update_grid, background_color, t0, dark_grid_loc, grid_color, text_color, shaded_color, text_insert_color)
                 # if the position is inside the 'hint' button
                 if 303 <= position[0] <= 365 and 700 <= position[1] <= 725:
                     grid, update_grid, score = hint(screen, grid, update_grid, solution, text_font, t0, dark_grid_loc, grid_color, background_color, hint_text_color, text_color, score)
-                
-                    
             # check if the answer is correct
             if update_grid == solution:
                 t_tot = time.time() - t0
@@ -84,9 +127,7 @@ def sudoku_window(score):
                 pygame.quit()
                 return
 
-def grid_setup(screen, grid, text_font, grid_color):
-    line_color = (0, 0, 0)
-    text_color = (0, 0, 0)
+def grid_setup(screen, grid, text_font, grid_color, line_color, text_color):
     # setup background color of grid
     pygame.draw.rect(screen, grid_color, (60, 60, 180, 180))
     pygame.draw.rect(screen, grid_color, (420, 60, 180, 180))
@@ -111,9 +152,7 @@ def grid_setup(screen, grid, text_font, grid_color):
     value_2 = text_font.render('Hint', True, text_color)
     screen.blit(value_2, (303, 700))
 
-def insert(screen, position, text_font, grid, update_grid, background_color, t0, dark_grid_loc, grid_color, text_color):
-    shaded_color = (100, 100, 100)
-    text_insert_color = (0, 0, 200)
+def insert(screen, position, text_font, grid, update_grid, background_color, t0, dark_grid_loc, grid_color, text_color, shaded_color, text_insert_color):
     while True:
         game_clock(screen, text_font, t0, background_color, text_color)
         if 1 <= position[0] <= 9 and 1 <= position[1] <= 9 and grid[position[1] - 1][position[0] - 1] == 0:
@@ -177,7 +216,7 @@ def insert(screen, position, text_font, grid, update_grid, background_color, t0,
                     pygame.display.update()
                     # run the insert function again using the different position and no operation to the update_grid
                     position_ = pygame.mouse.get_pos()
-                    update_grid = insert(screen, (position_[0]//60, position_[1]//60), text_font, grid, update_grid, background_color, t0, dark_grid_loc, grid_color, text_color) 
+                    update_grid = insert(screen, (position_[0]//60, position_[1]//60), text_font, grid, update_grid, background_color, t0, dark_grid_loc, grid_color, text_color, shaded_color, text_insert_color) 
                     return update_grid   
         else: 
             return update_grid
@@ -196,14 +235,14 @@ def win_window(screen, t_tot, text_font, background_color, text_color, score):
         screen.fill(background_color)
         value_1 = text_font.render('WIN!', True, text_color)
         value_2 = text_font.render('Time: ' + (str(round(t_tot, 1))) + 's', True, text_color)
-        value_3 = text_font.render('Score earned:' + (str(score_earned)) + 'pt', True, text_color)
+        value_3 = text_font.render('Score earned: ' + (str(score_earned)) + 'pt', True, text_color)
         value_4 = text_font.render('Total score: ' + (str(score)) + 'pt', True, text_color)
         value_5 = text_font.render('Return to menu', True, text_color)
         value_6 = text_font.render('Quit', True, text_color)
-        screen.blit(value_1, (278, 150))
-        screen.blit(value_2, (240, 250))
-        screen.blit(value_3, (200, 350))
-        screen.blit(value_4, (210, 450))
+        screen.blit(value_1, (278, 80))
+        screen.blit(value_2, (240, 180))
+        screen.blit(value_3, (185, 280))
+        screen.blit(value_4, (195, 380))
         screen.blit(value_5, (210, 550))
         screen.blit(value_6, (285, 650))
         pygame.display.update()
@@ -214,7 +253,7 @@ def win_window(screen, t_tot, text_font, background_color, text_color, score):
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 position = pygame.mouse.get_pos()
                 if 210 <= position[0] <= 445 and 550 <= position[1] <= 575:
-                    sudoku_window(score)
+                    home_window(score)
                 if 285 <= position[0] <= 370 and 650 <= position[1] <= 675:
                     pygame.quit()
                     return
@@ -245,5 +284,4 @@ def hint(screen, grid, update_grid, solution, text_font, t0, dark_grid_loc, grid
 def time_to_score(t_tot, score):
     return 10
 
-sudoku_window(score)
-
+home_window(score)
