@@ -111,7 +111,7 @@ def generate_puzzle(sudo, level):
         list: A 9*9 list of integer which represents the puzzle
     """
     puzzle = copy.deepcopy(sudo)
-    blank_num = 64 - 10 * (6-level)
+    blank_num = round(64 - 10 * (6-level))
     blank_pos = random.sample(range(81), blank_num)
 
     for blank in blank_pos:
@@ -143,13 +143,15 @@ if __name__ == '__main__':
     t0 = time.time()
     # print(generate_board_origin())
     answer = generate_board_new(generate_board_origin())
-    answer_out = re.sub(r"(\d)\s(\d)\s(\d)\s(\d)\s(\d)\s(\d)\s(\d)\s(\d)\s(\d)",
+    answer_out1 = re.sub(r"(\d)\s(\d)\s(\d)\s(\d)\s(\d)\s(\d)\s(\d)\s(\d)\s(\d)",
                         r"\1,\2,\3,\4,\5,\6,\7,\8,\9", str(answer))
-    print(answer_out)
-    puzzle = generate_puzzle(answer, 1)
-    puzzle_out = re.sub(r"(\d)\s(\d)\s(\d)\s(\d)\s(\d)\s(\d)\s(\d)\s(\d)\s(\d)",
+    answer_out2 = re.sub(r'\s+', ',\n', answer_out1)
+    print(answer_out2)
+    puzzle = generate_puzzle(answer, 2)
+    puzzle_out1 = re.sub(r"(\d)\s(\d)\s(\d)\s(\d)\s(\d)\s(\d)\s(\d)\s(\d)\s(\d)",
                         r"\1,\2,\3,\4,\5,\6,\7,\8,\9", str(puzzle))
-    print(puzzle_out)
+    puzzle_out2 = re.sub(r'\s+', ',\n', puzzle_out1)
+    print(puzzle_out2)
     # print(type(puzzle))
     answer_index = answer_record(puzzle)
     # print(answer_index)
