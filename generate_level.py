@@ -18,7 +18,7 @@ def encrypt(content, N=17947, E=7):
 
 
 def write_dat(file, content, N=17947, E=7):
-    """Create an encrypted .data file containing information about the level
+    """Create an encrypted .dat file containing information about the level
 
     Args:
         file (str): The file name
