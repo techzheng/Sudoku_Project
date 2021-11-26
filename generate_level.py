@@ -4,10 +4,28 @@ import re
 
 
 def encrypt(content, N=17947, E=7):
+    """Encrypt level information
+
+    Args:
+        content (str): Level information
+        N (int, optional): A parameter for RSA encryption algorithm. Defaults to 17947.
+        E (int, optional): A parameter for RSA encryption algorithm. Defaults to 7.
+
+    Returns:
+        str: Encrypt message
+    """
     return [(ord(s) ** E) % N for s in str(content)]
 
 
 def write_dat(file, content, N=17947, E=7):
+    """Create an encrypted .data file containing information about the level
+
+    Args:
+        file (str): The file name
+        content (str): Encrypt level information
+        N (int, optional): A parameter for RSA encryption algorithm. Defaults to 17947.
+        E (int, optional): A parameter for RSA encryption algorithm. Defaults to 7.
+    """
     filename = '.'.join(file.split('.')[0:-1]) + '.dat'
     with open(filename, 'w+') as f:
         enc_content = encrypt(content, N, E)
