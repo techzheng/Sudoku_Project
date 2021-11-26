@@ -37,7 +37,7 @@ def write_dat(file, content, N=17947, E=7):
 if __name__ == '__main__':
     L = (1, 2, 3, 4, 5)
     ori_path = os.getcwd()
-    dat_path = ori_path + '\data\levels'
+    dat_path = ori_path + '/data/levels'
     os.chdir(dat_path)
     for i in L:
         for j in L:

@@ -1,5 +1,6 @@
 from numpy import int_
 import pygame, copy, time, random
+import generate_sudo
 
 def home_window(score):
     background_color = (235, 235, 235)
@@ -50,24 +51,26 @@ def sudoku_window(screen, score, text_font, grid_color, background_color, text_c
     # fill the window background color
     screen.fill(background_color)
     # call function to set up 9*9 grid
-    grid = [[1,9,1,1,3,5,1,8,7],
-            [8,1,1,1,9,1,1,5,1],
-            [5,3,4,1,6,8,1,2,1],
-            [9,7,8,2,1,3,4,6,5],
-            [1,1,1,5,1,6,7,9,8],
-            [6,1,5,8,7,9,1,1,1],
-            [4,2,1,1,1,7,1,1,9],
-            [1,0,9,3,2,4,0,7,6],
-            [7,0,6,0,8,0,2,4,0]]
-    solution = [[1,9,1,1,3,5,1,8,7],
-                [8,1,1,1,9,1,1,5,1],
-                [5,3,4,1,6,8,1,2,1],
-                [9,7,8,2,1,3,4,6,5],
-                [1,1,1,5,1,6,7,9,8],
-                [6,1,5,8,7,9,1,1,1],
-                [4,2,1,1,1,7,1,1,9],
-                [1,1,9,3,2,4,1,7,6],
-                [7,1,6,1,8,1,2,4,1]]
+    # grid = [[1,9,1,1,3,5,1,8,7],
+    #         [8,1,1,1,9,1,1,5,1],
+    #         [5,3,4,1,6,8,1,2,1],
+    #         [9,7,8,2,1,3,4,6,5],
+    #         [1,1,1,5,1,6,7,9,8],
+    #         [6,1,5,8,7,9,1,1,1],
+    #         [4,2,1,1,1,7,1,1,9],
+    #         [1,0,9,3,2,4,0,7,6],
+    #         [7,0,6,0,8,0,2,4,0]]
+    # solution = [[1,9,1,1,3,5,1,8,7],
+    #             [8,1,1,1,9,1,1,5,1],
+    #             [5,3,4,1,6,8,1,2,1],
+    #             [9,7,8,2,1,3,4,6,5],
+    #             [1,1,1,5,1,6,7,9,8],
+    #             [6,1,5,8,7,9,1,1,1],
+    #             [4,2,1,1,1,7,1,1,9],
+    #             [1,1,9,3,2,4,1,7,6],
+    #             [7,1,6,1,8,1,2,4,1]]
+    solution = generate_sudo.generate_board_new(generate_sudo.generate_board_origin())
+    grid = generate_sudo.generate_puzzle(solution, 2)
     # copy another updating grid for varifing the answer
     update_grid = copy.deepcopy(grid)
     # run grid setup the draw the grid in the window
@@ -101,7 +104,7 @@ def sudoku_window(screen, score, text_font, grid_color, background_color, text_c
                 if 303 <= position[0] <= 365 and 700 <= position[1] <= 725:
                     grid, update_grid, score = hint(screen, grid, update_grid, solution, text_font, t0, dark_grid_loc, grid_color, background_color, hint_text_color, text_color, score)
             # check if the answer is correct
-            if update_grid == solution:
+            if update_grid.all() == solution.all():
                 t_tot = time.time() - t0
                 score = win_window(screen, t_tot, text_font, background_color, text_color, score)
             # if the game is quit
@@ -264,7 +267,7 @@ def hint(screen, grid, update_grid, solution, text_font, t0, dark_grid_loc, grid
     return grid, update_grid, score
 
 def time_to_score(t_tot, score):
-    return 10
+    return 100
 
 if __name__ == "__main__":
-    home_window(score = 5)
+    home_window(score = 100)

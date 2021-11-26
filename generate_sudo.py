@@ -146,12 +146,16 @@ if __name__ == '__main__':
     answer_out1 = re.sub(r"(\d)\s(\d)\s(\d)\s(\d)\s(\d)\s(\d)\s(\d)\s(\d)\s(\d)",
                         r"\1,\2,\3,\4,\5,\6,\7,\8,\9", str(answer))
     answer_out2 = re.sub(r'\s+', ',\n', answer_out1)
-    print(answer_out2)
+    print(answer)
+    # print(answer_out2)
+
     puzzle = generate_puzzle(answer, 2)
     puzzle_out1 = re.sub(r"(\d)\s(\d)\s(\d)\s(\d)\s(\d)\s(\d)\s(\d)\s(\d)\s(\d)",
                         r"\1,\2,\3,\4,\5,\6,\7,\8,\9", str(puzzle))
     puzzle_out2 = re.sub(r'\s+', ',\n', puzzle_out1)
-    print(puzzle_out2)
+    print(puzzle)
+    # print(puzzle_out2)
+
     # print(type(puzzle))
     answer_index = answer_record(puzzle)
     # print(answer_index)
