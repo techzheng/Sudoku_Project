@@ -4,7 +4,7 @@ import pygame, copy, time, random
 import generate_sudo
 import read_level
 
-def home_window(score):
+def home_window(score = 100):
     background_color = (235, 235, 235)
     text_color = (0, 0, 0)
     line_color = (0, 0, 0)
@@ -373,4 +373,4 @@ def time_to_score(t_tot, score, diff):
     return 100
 
 if __name__ == "__main__":
-    home_window(score = 100)
+    home_window()
