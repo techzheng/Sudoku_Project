@@ -1,5 +1,5 @@
 from os import stat_result
-from numpy import int_
+from numpy import diff, int_
 import pygame, copy, time, random
 import generate_sudo
 import read_level
@@ -175,7 +175,7 @@ def sudoku_window(screen, score, text_font, grid_color, background_color, text_c
             if 1 <= puzzle <= 5 :
                 if update_grid == solution:
                     t_tot = time.time() - t0
-                    score = win_window_single(screen, t_tot, text_font, background_color, text_color, score)
+                    score = win_window_single(screen, t_tot, text_font, background_color, text_color, score, diff)
             # if the game is quit
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -282,8 +282,8 @@ def game_clock(screen, text_font, t0, background_color, text_color):
     screen.blit(value, (60, 610))
     pygame.display.update()
 
-def win_window_single(screen, t_tot, text_font, background_color, text_color, score):
-    score_earned = time_to_score(t_tot, score)
+def win_window_single(screen, t_tot, text_font, background_color, text_color, score, diff):
+    score_earned = time_to_score(t_tot, score, diff)
     score = score_earned + score
     while True:
         screen.fill(background_color)
@@ -313,7 +313,7 @@ def win_window_single(screen, t_tot, text_font, background_color, text_color, sc
                     return
 
 def win_window_endless(screen, t_tot, text_font, background_color, text_color, score, grid_color, hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle):
-    score_earned = time_to_score(t_tot, score)
+    score_earned = time_to_score(t_tot, score, diff)
     score = score_earned + score
     while True:
         screen.fill(background_color)
@@ -369,7 +369,7 @@ def hint(screen, grid, update_grid, solution, text_font, t0, dark_grid_loc, grid
     pygame.display.update()
     return grid, update_grid, score
 
-def time_to_score(t_tot, score):
+def time_to_score(t_tot, score, diff):
     return 100
 
 if __name__ == "__main__":
