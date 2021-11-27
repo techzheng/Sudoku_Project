@@ -39,7 +39,7 @@ def home_window(score):
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 position = pygame.mouse.get_pos()
                 if 240 <= position[0] <= 410 and 450 <= position[1] <= 475:
-                    diff_puzzle_window(screen, background_color, title_font, text_font, text_color)
+                    diff_puzzle_window(screen, background_color, title_font, text_font, text_color, score, grid_color, hint_text_color, line_color, shaded_color, text_insert_color)
                 if 285 <= position[0] <= 365 and 650 <= position[1] <= 675:
                     pygame.quit()
                     return
@@ -134,7 +134,8 @@ def sudoku_window(screen, score, text_font, grid_color, background_color, text_c
         solution = generate_sudo.generate_board_new(generate_sudo.generate_board_origin())
         grid = generate_sudo.generate_puzzle(solution, diff)
     if 1 <= puzzle <= 5:
-        solution = 
+        solution = read_level.decrypt(diff, puzzle)[0]
+        grid = read_level.decrypt(diff, puzzle)[1]
     # copy another updating grid for varifing the answer
     update_grid = copy.deepcopy(grid)
     # fill the window background color
@@ -170,7 +171,7 @@ def sudoku_window(screen, score, text_font, grid_color, background_color, text_c
                 if 303 <= position[0] <= 365 and 700 <= position[1] <= 725:
                     grid, update_grid, score = hint(screen, grid, update_grid, solution, text_font, t0, dark_grid_loc, grid_color, background_color, hint_text_color, text_color, score)
             # check if the answer is correct
-            if update_grid.all() == solution.all():
+            if update_grid == solution:
                 t_tot = time.time() - t0
                 score = win_window(screen, t_tot, text_font, background_color, text_color, score)
             # if the game is quit

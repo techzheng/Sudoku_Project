@@ -12,7 +12,10 @@ def decrypt(diff, puzzle, N=17947, D=10103):
     Returns:
         str: The decrypt level information
     """
-    file_name = str(diff) + '-' + str(puzzle) + '.dat'
+    ori_path = os.getcwd()
+    # dat_path = ori_path + '/' + str(diff) + '-' + str(puzzle) + '.dat'
+    # os.chdir(dat_path)
+    file_name = ori_path + '/data/levels/' + str(diff) + '-' + str(puzzle) + '.dat'
     messages = str()
     with open(file_name, 'r') as file:
         lines = file.readlines()
@@ -28,12 +31,30 @@ def decrypt(diff, puzzle, N=17947, D=10103):
                                       for s in message_list[i]])
         if i < len(message_list)-1:
             messages = messages + '\n'
-    return messages
 
+    # convert str messages to list
+    row_list = []
+    solution = []
+    grid = []
+    for i in range(0, len(messages)//2):
+        if messages[i] != '[' and messages[i] != ']' and messages[i] != ',' and messages[i] != '\n':
+            row_list.append(int(messages[i]))
+            if len(row_list) == 9:
+                solution.append(row_list)
+                row_list = []
+    for i in range(len(messages)//2, len(messages)):
+        if messages[i] != '[' and messages[i] != ']' and messages[i] != ',' and messages[i] != '\n':
+            row_list.append(int(messages[i]))
+            if len(row_list) == 9:
+                grid.append(row_list)
+                row_list = []
+    
+    return solution, grid
+            
 
 if __name__ == '__main__':
-    ori_path = os.getcwd()
-    dat_path = ori_path + '/data/levels'
-    os.chdir(dat_path)
+    # ori_path = os.getcwd()
+    # dat_path = ori_path + '/data/levels'
+    # os.chdir(dat_path)
     messages = decrypt(5, 5)
-    print(messages[0])
+    print(messages[0], messages[1])
