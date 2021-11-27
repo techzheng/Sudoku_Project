@@ -117,16 +117,13 @@ def diff_puzzle_window(screen, background_color, title_font, text_font, text_col
                 if 326 <= position[0] <= 343 and 490 <= position[1] <= 515:
                     puzzle = 4
                 if 326 <= position[0] <= 343 and 570 <= position[1] <= 595:
-                    puzzle = 4
+                    puzzle = 5
                 if 275 <= position[0] <= 393 and 650 <= position[1] <= 675:
-                    puzzle = 4
+                    puzzle = 6
                 sudoku_window(screen, score, text_font, grid_color, background_color, text_color, hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle)
             if event.type == pygame.QUIT:
                     pygame.quit()
                     return
-
-
-
 
 def sudoku_window(screen, score, text_font, grid_color, background_color, text_color, hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle):
     if puzzle == 6:
@@ -171,9 +168,14 @@ def sudoku_window(screen, score, text_font, grid_color, background_color, text_c
                 if 303 <= position[0] <= 365 and 700 <= position[1] <= 725:
                     grid, update_grid, score = hint(screen, grid, update_grid, solution, text_font, t0, dark_grid_loc, grid_color, background_color, hint_text_color, text_color, score)
             # check if the answer is correct
-            if update_grid == solution:
-                t_tot = time.time() - t0
-                score = win_window(screen, t_tot, text_font, background_color, text_color, score)
+            if puzzle == 6:
+                if update_grid.all() == solution.all():
+                    t_tot = time.time() - t0
+                    score = win_window_endless(screen, t_tot, text_font, background_color, text_color, score, grid_color, hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle)
+            if 1 <= puzzle <= 5 :
+                if update_grid == solution:
+                    t_tot = time.time() - t0
+                    score = win_window_single(screen, t_tot, text_font, background_color, text_color, score)
             # if the game is quit
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -280,7 +282,7 @@ def game_clock(screen, text_font, t0, background_color, text_color):
     screen.blit(value, (60, 610))
     pygame.display.update()
 
-def win_window(screen, t_tot, text_font, background_color, text_color, score):
+def win_window_single(screen, t_tot, text_font, background_color, text_color, score):
     score_earned = time_to_score(t_tot, score)
     score = score_earned + score
     while True:
@@ -304,9 +306,43 @@ def win_window(screen, t_tot, text_font, background_color, text_color, score):
                     return
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 position = pygame.mouse.get_pos()
-                if 210 <= position[0] <= 445 and 550 <= position[1] <= 575:
+                if 210 <= position[0] <= 440 and 550 <= position[1] <= 575:
                     home_window(score)
-                if 285 <= position[0] <= 370 and 650 <= position[1] <= 675:
+                if 285 <= position[0] <= 363 and 650 <= position[1] <= 675:
+                    pygame.quit()
+                    return
+
+def win_window_endless(screen, t_tot, text_font, background_color, text_color, score, grid_color, hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle):
+    score_earned = time_to_score(t_tot, score)
+    score = score_earned + score
+    while True:
+        screen.fill(background_color)
+        value_1 = text_font.render('WIN!', True, text_color)
+        value_2 = text_font.render('Time: ' + (str(round(t_tot, 1))) + 's', True, text_color)
+        value_3 = text_font.render('Score earned: ' + (str(score_earned)) + 'pt', True, text_color)
+        value_4 = text_font.render('Total score: ' + (str(score)) + 'pt', True, text_color)
+        value_5 = text_font.render('Continue', True, text_color)
+        value_6 = text_font.render('Return to menu', True, text_color)
+        value_7 = text_font.render('Quit', True, text_color)
+        screen.blit(value_1, (278, 80))
+        screen.blit(value_2, (240, 180))
+        screen.blit(value_3, (185, 280))
+        screen.blit(value_4, (195, 380))
+        screen.blit(value_5, (250, 510))
+        screen.blit(value_6, (210, 580))
+        screen.blit(value_7, (285, 650))
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                    pygame.quit()
+                    return
+            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                position = pygame.mouse.get_pos()
+                if 250 <= position[0] <= 385 and 510 <= position[1] <= 535:
+                    sudoku_window(screen, score, text_font, grid_color, background_color, text_color, hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle)
+                if 210 <= position[0] <= 440 and 580 <= position[1] <= 605:
+                    home_window(score)
+                if 285 <= position[0] <= 363 and 650 <= position[1] <= 675:
                     pygame.quit()
                     return
 
