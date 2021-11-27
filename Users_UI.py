@@ -1,6 +1,8 @@
+from os import stat_result
 from numpy import int_
 import pygame, copy, time, random
 import generate_sudo
+import read_level
 
 def home_window(score):
     background_color = (235, 235, 235)
@@ -37,7 +39,7 @@ def home_window(score):
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 position = pygame.mouse.get_pos()
                 if 240 <= position[0] <= 410 and 450 <= position[1] <= 475:
-                    sudoku_window(screen, score, text_font, grid_color, background_color, text_color, hint_text_color, line_color, shaded_color, text_insert_color)
+                    diff_puzzle_window(screen, background_color, title_font, text_font, text_color)
                 if 285 <= position[0] <= 365 and 650 <= position[1] <= 675:
                     pygame.quit()
                     return
@@ -45,34 +47,98 @@ def home_window(score):
                     pygame.quit()
                     return
 
+def diff_puzzle_window(screen, background_color, title_font, text_font, text_color, score, grid_color, hint_text_color, line_color, shaded_color, text_insert_color):
 
-
-def sudoku_window(screen, score, text_font, grid_color, background_color, text_color, hint_text_color, line_color, shaded_color, text_insert_color):
     # fill the window background color
     screen.fill(background_color)
-    # call function to set up 9*9 grid
-    # grid = [[1,9,1,1,3,5,1,8,7],
-    #         [8,1,1,1,9,1,1,5,1],
-    #         [5,3,4,1,6,8,1,2,1],
-    #         [9,7,8,2,1,3,4,6,5],
-    #         [1,1,1,5,1,6,7,9,8],
-    #         [6,1,5,8,7,9,1,1,1],
-    #         [4,2,1,1,1,7,1,1,9],
-    #         [1,0,9,3,2,4,0,7,6],
-    #         [7,0,6,0,8,0,2,4,0]]
-    # solution = [[1,9,1,1,3,5,1,8,7],
-    #             [8,1,1,1,9,1,1,5,1],
-    #             [5,3,4,1,6,8,1,2,1],
-    #             [9,7,8,2,1,3,4,6,5],
-    #             [1,1,1,5,1,6,7,9,8],
-    #             [6,1,5,8,7,9,1,1,1],
-    #             [4,2,1,1,1,7,1,1,9],
-    #             [1,1,9,3,2,4,1,7,6],
-    #             [7,1,6,1,8,1,2,4,1]]
-    solution = generate_sudo.generate_board_new(generate_sudo.generate_board_origin())
-    grid = generate_sudo.generate_puzzle(solution, 2)
+    value_1 = title_font.render(str('Select your difficulty'), True, text_color)
+    value_2 = text_font.render(str('1'), True, text_color)
+    value_3 = text_font.render(str('2'), True, text_color)
+    value_4 = text_font.render(str('3'), True, text_color)
+    value_5 = text_font.render(str('4'), True, text_color)
+    value_6 = text_font.render(str('5'), True, text_color)
+    screen.blit(value_1, (130, 150))
+    screen.blit(value_2, (326, 250))
+    screen.blit(value_3, (326, 350))
+    screen.blit(value_4, (326, 450))
+    screen.blit(value_5, (326, 550))
+    screen.blit(value_6, (326, 650))
+    pygame.display.update()
+    status = True
+    while status:
+        for event in pygame.event.get():
+            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                position = pygame.mouse.get_pos()
+                if 326 <= position[0] <= 343 and 250 <= position[1] <= 275:
+                    diff = 1
+                    status = False
+                if 326 <= position[0] <= 343 and 350 <= position[1] <= 375:
+                    diff = 2
+                    status = False
+                if 326 <= position[0] <= 343 and 450 <= position[1] <= 475:
+                    diff = 3
+                    status = False
+                if 326 <= position[0] <= 343 and 550 <= position[1] <= 575:
+                    diff = 4
+                    status = False
+                if 326 <= position[0] <= 343 and 650 <= position[1] <= 675:
+                    diff = 5
+                    status = False
+            if event.type == pygame.QUIT:
+                    pygame.quit()
+                    return
+
+    screen.fill(background_color)
+    value_1 = title_font.render(str('Select your puzzle'), True, text_color)
+    value_2 = text_font.render(str('1'), True, text_color)
+    value_3 = text_font.render(str('2'), True, text_color)
+    value_4 = text_font.render(str('3'), True, text_color)
+    value_5 = text_font.render(str('4'), True, text_color)
+    value_6 = text_font.render(str('5'), True, text_color)
+    value_7 = text_font.render(str('Endless'), True, text_color)
+    screen.blit(value_1, (140, 150))
+    screen.blit(value_2, (326, 250))
+    screen.blit(value_3, (326, 330))
+    screen.blit(value_4, (326, 410))
+    screen.blit(value_5, (326, 490))
+    screen.blit(value_6, (326, 570))
+    screen.blit(value_7, (275, 650))
+    pygame.display.update()
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                position = pygame.mouse.get_pos()
+                if 326 <= position[0] <= 343 and 250 <= position[1] <= 275:
+                    puzzle = 1
+                if 326 <= position[0] <= 343 and 330 <= position[1] <= 355:
+                    puzzle = 2
+                if 326 <= position[0] <= 343 and 410 <= position[1] <= 435:
+                    puzzle = 3
+                if 326 <= position[0] <= 343 and 490 <= position[1] <= 515:
+                    puzzle = 4
+                if 326 <= position[0] <= 343 and 570 <= position[1] <= 595:
+                    puzzle = 4
+                if 275 <= position[0] <= 393 and 650 <= position[1] <= 675:
+                    puzzle = 4
+                sudoku_window(screen, score, text_font, grid_color, background_color, text_color, hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle)
+            if event.type == pygame.QUIT:
+                    pygame.quit()
+                    return
+
+
+
+
+def sudoku_window(screen, score, text_font, grid_color, background_color, text_color, hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle):
+    if puzzle == 6:
+        # call function to set up 9*9 grid
+        solution = generate_sudo.generate_board_new(generate_sudo.generate_board_origin())
+        grid = generate_sudo.generate_puzzle(solution, diff)
+    if 1 <= puzzle <= 5:
+        solution = 
     # copy another updating grid for varifing the answer
     update_grid = copy.deepcopy(grid)
+    # fill the window background color
+    screen.fill(background_color)
     # run grid setup the draw the grid in the window
     grid_setup(screen, grid, text_font, grid_color, line_color, text_color)
     # initialize dark location

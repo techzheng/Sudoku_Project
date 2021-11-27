@@ -1,7 +1,7 @@
 import os
 
 
-def decrypt(file_name, N=17947, D=10103):
+def decrypt(diff, puzzle, N=17947, D=10103):
     """Read and decrypted level information
 
     Args:
@@ -12,6 +12,7 @@ def decrypt(file_name, N=17947, D=10103):
     Returns:
         str: The decrypt level information
     """
+    file_name = str(diff) + '-' + str(puzzle) + '.dat'
     messages = str()
     with open(file_name, 'r') as file:
         lines = file.readlines()
@@ -32,7 +33,7 @@ def decrypt(file_name, N=17947, D=10103):
 
 if __name__ == '__main__':
     ori_path = os.getcwd()
-    dat_path = ori_path + '\data\levels'
+    dat_path = ori_path + '/data/levels'
     os.chdir(dat_path)
-    messages = decrypt('5-5.dat')
-    print(messages)
+    messages = decrypt(5, 5)
+    print(messages[0])
