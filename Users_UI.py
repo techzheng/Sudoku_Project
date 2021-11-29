@@ -40,16 +40,23 @@ def home_window(score):
     screen.blit(value_2, (240, 450))
     screen.blit(value_3, (285, 650))
     pygame.display.update()
+    # while true loop to maintain the window
     while True:
+        # get event of clicking mouse in game
         for event in pygame.event.get():
+            # if the event type is clicking the left button of nouse
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                # obtain the position of the mouse
                 position = pygame.mouse.get_pos()
+                # if click 'start game'
                 if 240 <= position[0] <= 410 and 450 <= position[1] <= 475:
                     diff_puzzle_window(screen, background_color, title_font, text_font, text_color,
                                        score, grid_color, hint_text_color, line_color, shaded_color, text_insert_color)
+                # if click 'quit game'
                 if 285 <= position[0] <= 365 and 650 <= position[1] <= 675:
                     pygame.quit()
                     return
+            # if quit the game
             if event.type == pygame.QUIT:
                 pygame.quit()
                 return
@@ -59,6 +66,7 @@ def diff_puzzle_window(screen, background_color, title_font, text_font, text_col
 
     # fill the window background color
     screen.fill(background_color)
+    # setup the text on the window
     value_1 = title_font.render(
         str('Select your difficulty'), True, text_color)
     value_2 = text_font.render(str('1'), True, text_color)
@@ -67,6 +75,7 @@ def diff_puzzle_window(screen, background_color, title_font, text_font, text_col
     value_5 = text_font.render(str('4'), True, text_color)
     value_6 = text_font.render(str('5'), True, text_color)
     value_7 = text_font.render(str('Back'), True, text_color)
+    # blit all text on the window
     screen.blit(value_1, (130, 150))
     screen.blit(value_2, (326, 250))
     screen.blit(value_3, (326, 350))
@@ -75,14 +84,21 @@ def diff_puzzle_window(screen, background_color, title_font, text_font, text_col
     screen.blit(value_6, (326, 650))
     screen.blit(value_7, (450, 700))
     pygame.display.update()
+    # initialize a parameter that secure the text while true loop
     status = True
+    # initialize difficulty
+    diff = 0
+    # while true loop to maintain the window
     while status:
+         # get event of clicking mouse in game
         for event in pygame.event.get():
+            # if the event type is clicking the left button of nouse
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                # obtain the position of the mouse and give corresponding values to variables
                 position = pygame.mouse.get_pos()
                 if 326 <= position[0] <= 343 and 250 <= position[1] <= 275:
                     diff = 1
-                    status = False
+                    status = False # set to false to jump out of the ifinity loop
                 if 326 <= position[0] <= 343 and 350 <= position[1] <= 375:
                     diff = 2
                     status = False
@@ -95,13 +111,16 @@ def diff_puzzle_window(screen, background_color, title_font, text_font, text_col
                 if 326 <= position[0] <= 343 and 650 <= position[1] <= 675:
                     diff = 5
                     status = False
+                # if click on 'back', go back to the home window
                 if 450 <= position[0] <= 525 and 700 <= position[1] <= 725:
                     home_window(score)
             if event.type == pygame.QUIT:
                 pygame.quit()
                 return
 
+    # fill the window background color
     screen.fill(background_color)
+    # setup the text on the window
     value_1 = title_font.render(str('Select your puzzle'), True, text_color)
     value_2 = text_font.render(str('1'), True, text_color)
     value_3 = text_font.render(str('2'), True, text_color)
@@ -110,6 +129,7 @@ def diff_puzzle_window(screen, background_color, title_font, text_font, text_col
     value_6 = text_font.render(str('5'), True, text_color)
     value_7 = text_font.render(str('Endless'), True, text_color)
     value_8 = text_font.render(str('Back'), True, text_color)
+    # blit all text on the window
     screen.blit(value_1, (140, 150))
     screen.blit(value_2, (326, 250))
     screen.blit(value_3, (326, 330))
@@ -119,27 +139,40 @@ def diff_puzzle_window(screen, background_color, title_font, text_font, text_col
     screen.blit(value_7, (275, 650))
     screen.blit(value_8, (450, 700))
     pygame.display.update()
+    # while true loop to maintain the window
     while True:
         for event in pygame.event.get():
+            # if the event type is clicking the left button of nouse, obtain the position and give corresponding values to variables
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 position = pygame.mouse.get_pos()
                 if 326 <= position[0] <= 343 and 250 <= position[1] <= 275:
                     puzzle = 1
+                    sudoku_window(screen, score, text_font, grid_color, background_color, text_color,
+                              hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle)
                 if 326 <= position[0] <= 343 and 330 <= position[1] <= 355:
                     puzzle = 2
+                    sudoku_window(screen, score, text_font, grid_color, background_color, text_color,
+                              hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle)
                 if 326 <= position[0] <= 343 and 410 <= position[1] <= 435:
                     puzzle = 3
+                    sudoku_window(screen, score, text_font, grid_color, background_color, text_color,
+                              hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle)
                 if 326 <= position[0] <= 343 and 490 <= position[1] <= 515:
                     puzzle = 4
+                    sudoku_window(screen, score, text_font, grid_color, background_color, text_color,
+                              hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle)
                 if 326 <= position[0] <= 343 and 570 <= position[1] <= 595:
                     puzzle = 5
+                    sudoku_window(screen, score, text_font, grid_color, background_color, text_color,
+                              hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle)
                 if 275 <= position[0] <= 393 and 650 <= position[1] <= 675:
                     puzzle = 6
+                    sudoku_window(screen, score, text_font, grid_color, background_color, text_color,
+                              hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle)
+                # if click on 'back', start this function over
                 if 450 <= position[0] <= 525 and 700 <= position[1] <= 725:
                     diff_puzzle_window(screen, background_color, title_font, text_font, text_color,
                                        score, grid_color, hint_text_color, line_color, shaded_color, text_insert_color)
-                sudoku_window(screen, score, text_font, grid_color, background_color, text_color,
-                              hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle)
             if event.type == pygame.QUIT:
                 pygame.quit()
                 return
@@ -194,12 +227,17 @@ def sudoku_window(screen, score, text_font, grid_color, background_color, text_c
                 if 303 <= position[0] <= 365 and 700 <= position[1] <= 725:
                     grid, update_grid, score = hint(screen, grid, update_grid, solution, text_font, t0,
                                                     dark_grid_loc, grid_color, background_color, hint_text_color, text_color, score)
+                # if the position is inside the 'back' button
+                if 450 <= position[0] <= 525 and 700 <= position[1] <= 725:
+                    home_window(score)
             # check if the answer is correct
+            # when in 'endless' mode
             if puzzle == 6:
                 if update_grid.all() == solution.all():
                     t_tot = time.time() - t0
                     score = win_window_endless(screen, t_tot, text_font, background_color, text_color, score,
                                                grid_color, hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle)
+            # when in normal mode
             if 1 <= puzzle <= 5:
                 if update_grid == solution:
                     t_tot = time.time() - t0
@@ -218,7 +256,7 @@ def grid_setup(screen, grid, text_font, grid_color, line_color, text_color):
     pygame.draw.rect(screen, grid_color, (240, 240, 180, 180))
     pygame.draw.rect(screen, grid_color, (60, 420, 180, 180))
     pygame.draw.rect(screen, grid_color, (420, 420, 180, 180))
-    # setup 9*9 grid
+    # setup 9*9 grid by drawing 10 lines
     for i in range(0, 10):
         if i % 3 == 0:
             pygame.draw.line(screen, line_color,
@@ -230,7 +268,7 @@ def grid_setup(screen, grid, text_font, grid_color, line_color, text_color):
                              (60*i + 60, 60), (60*i + 60, 600), 2)
             pygame.draw.line(screen, line_color,
                              (60, 60*i + 60), (600, 60*i + 60), 2)
-    # setup numbers
+    # write numbers inside the grid
     for i in range(0, len(grid)):
         for j in range(0, len(grid[i])):
             if 1 <= grid[i][j] <= 9:
@@ -239,6 +277,10 @@ def grid_setup(screen, grid, text_font, grid_color, line_color, text_color):
     # setup hint button
     value_2 = text_font.render('Hint', True, text_color)
     screen.blit(value_2, (303, 700))
+    # setup back button
+    value_3 = text_font.render(str('Back'), True, text_color)
+    screen.blit(value_3, (450, 700))
+
 
 
 def insert(screen, position, text_font, grid, update_grid, background_color, t0, dark_grid_loc, grid_color, text_color, shaded_color, text_insert_color):
