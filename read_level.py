@@ -5,7 +5,8 @@ def decrypt(diff, puzzle, N=17947, D=10103):
     """Read and decrypted level information
 
     Args:
-        file_name (str): The file name
+        diff (int): The difficulty.
+        puzzle (int): The level.
         N (int, optional): A parameter for RSA encryption algorithm. Defaults to 17947.
         D (int, optional): A parameter for RSA encryption algorithm. Defaults to 10103.
 
