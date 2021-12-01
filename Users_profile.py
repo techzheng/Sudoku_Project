@@ -15,8 +15,8 @@ def encrypt(content, N=17947, E=7):
     return [(ord(s) ** E) % N for s in str(content)]
 
 
-def register(username):
-    data[username] = User(username)
+def register(username, init_score=100):
+    data[username] = User(username, init_score)
     filename = str(username) + '.dat'
     print(filename)
     with open(filename, 'w+') as f:
@@ -27,7 +27,7 @@ def register(username):
 
 
 class User(object):
-    def __init__(self, username, init_score=100):
+    def __init__(self, username, init_score):
         self.username = username
         self.score = init_score
 
@@ -40,5 +40,5 @@ if __name__ == '__main__':
     os.chdir(dat_path)
 
     # print(dat_path)
-    # register('zmz')
+    register('zmz')
     print(str(data))
