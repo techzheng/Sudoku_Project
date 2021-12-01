@@ -18,21 +18,16 @@ def encrypt(content, N=17947, E=7):
 def register(username, score=100, level = '1-1'):
     data[score] = level
     filename = str(username) + '.dat'
-    print(filename)
+    # print(filename)
     with open(filename, 'w+') as f:
-        # enc_content = encrypt(data)
-        f.write(str(list(data.keys())) + str(data[score]))
+        enc_content = encrypt(str(list(data.keys())) + str(data[score]))
+        num_list = [str(x) for x in enc_content]
+        f.write(' '.join(num_list))
         f.write('\n')
 
-
-
-# class User(object):
-#     def __init__(self, username, score):
-#         self.username = username
-#         self.score = score
-
-#     def user_info(self, score):
-#         pass
+def save_profile(username, score, level):
+    # data[score]
+    pass
 
 if __name__ == '__main__':
     ori_path = os.getcwd()
@@ -40,5 +35,4 @@ if __name__ == '__main__':
     os.chdir(dat_path)
 
     # print(dat_path)
-    register('a')
-    print(str(data.keys()))
+    register('zmz')
