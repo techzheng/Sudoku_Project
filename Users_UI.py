@@ -90,7 +90,7 @@ def diff_puzzle_window(screen, background_color, title_font, text_font, text_col
     diff = 0
     # while true loop to maintain the window
     while status:
-         # get event of clicking mouse in game
+        # get event of clicking mouse in game
         for event in pygame.event.get():
             # if the event type is clicking the left button of nouse
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
@@ -98,7 +98,7 @@ def diff_puzzle_window(screen, background_color, title_font, text_font, text_col
                 position = pygame.mouse.get_pos()
                 if 326 <= position[0] <= 343 and 250 <= position[1] <= 275:
                     diff = 1
-                    status = False # set to false to jump out of the ifinity loop
+                    status = False  # set to false to jump out of the ifinity loop
                 if 326 <= position[0] <= 343 and 350 <= position[1] <= 375:
                     diff = 2
                     status = False
@@ -148,27 +148,27 @@ def diff_puzzle_window(screen, background_color, title_font, text_font, text_col
                 if 326 <= position[0] <= 343 and 250 <= position[1] <= 275:
                     puzzle = 1
                     sudoku_window(screen, score, text_font, grid_color, background_color, text_color,
-                              hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle)
+                                  hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle)
                 if 326 <= position[0] <= 343 and 330 <= position[1] <= 355:
                     puzzle = 2
                     sudoku_window(screen, score, text_font, grid_color, background_color, text_color,
-                              hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle)
+                                  hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle)
                 if 326 <= position[0] <= 343 and 410 <= position[1] <= 435:
                     puzzle = 3
                     sudoku_window(screen, score, text_font, grid_color, background_color, text_color,
-                              hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle)
+                                  hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle)
                 if 326 <= position[0] <= 343 and 490 <= position[1] <= 515:
                     puzzle = 4
                     sudoku_window(screen, score, text_font, grid_color, background_color, text_color,
-                              hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle)
+                                  hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle)
                 if 326 <= position[0] <= 343 and 570 <= position[1] <= 595:
                     puzzle = 5
                     sudoku_window(screen, score, text_font, grid_color, background_color, text_color,
-                              hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle)
+                                  hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle)
                 if 275 <= position[0] <= 393 and 650 <= position[1] <= 675:
                     puzzle = 6
                     sudoku_window(screen, score, text_font, grid_color, background_color, text_color,
-                              hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle)
+                                  hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle)
                 # if click on 'back', start this function over
                 if 450 <= position[0] <= 525 and 700 <= position[1] <= 725:
                     diff_puzzle_window(screen, background_color, title_font, text_font, text_color,
@@ -282,7 +282,6 @@ def grid_setup(screen, grid, text_font, grid_color, line_color, text_color):
     screen.blit(value_3, (450, 700))
 
 
-
 def insert(screen, position, text_font, grid, update_grid, background_color, t0, dark_grid_loc, grid_color, text_color, shaded_color, text_insert_color):
     while True:
         game_clock(screen, text_font, t0, background_color, text_color)
@@ -329,6 +328,40 @@ def insert(screen, position, text_font, grid, update_grid, background_color, t0,
                         update_grid[position[1] -
                                     1][position[0] - 1] = event.key - 48
                         return update_grid
+                    if event.key == pygame.K_KP1 or event.key == pygame.K_KP2 or event.key == pygame.K_KP3 or event.key == pygame.K_KP4 or event.key == pygame.K_KP5 or event.key == pygame.K_KP6 or event.key == pygame.K_KP7 or event.key == pygame.K_KP8 or event.key == pygame.K_KP9:  # check input for 1-9
+                        print('here')
+                        if [position[0], position[1]] in dark_grid_loc:
+                            pygame.draw.rect(
+                                screen, grid_color, (position[0]*60 + 5, position[1]*60 + 5, 60 - 8, 60 - 8))
+                        else:
+                            pygame.draw.rect(
+                                screen, background_color, (position[0]*60 + 5, position[1]*60 + 5, 60 - 8, 60 - 8))
+                        if event.key == pygame.K_KP1:
+                            num = 1
+                        elif event.key == pygame.K_KP1:
+                            num = 2
+                        elif event.key == pygame.K_KP2:
+                            num = 3
+                        elif event.key == pygame.K_KP3:
+                            num = 4
+                        elif event.key == pygame.K_KP4:
+                            num = 5
+                        elif event.key == pygame.K_KP5:
+                            num = 6
+                        elif event.key == pygame.K_KP6:
+                            num = 7
+                        elif event.key == pygame.K_KP7:
+                            num = 8
+                        elif event.key == pygame.K_KP8:
+                            num = 9
+                        value = text_font.render(
+                            str(num), True, text_insert_color)
+                        screen.blit(
+                            value, (position[0]*60 + 23, position[1]*60 + 20))
+                        pygame.display.update()
+                        update_grid[position[1] -
+                                    1][position[0] - 1] = num
+                        return update_grid
                     else:  # if input a wrong letter, the grid stays the same as before
                         if 1 <= update_grid[position[1] - 1][position[0] - 1] <= 9:
                             if [position[0], position[1]] in dark_grid_loc:
@@ -350,7 +383,7 @@ def insert(screen, position, text_font, grid, update_grid, background_color, t0,
                                     screen, background_color, (position[0]*60 + 5, position[1]*60 + 5, 60 - 8, 60 - 8))
                         pygame.display.update()
                         return update_grid
-                # change the selecting block when click to another block
+                # change the selecting block after click to another block
                 if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                     # recover the original block into its background color
                     if [position[0], position[1]] in dark_grid_loc:
