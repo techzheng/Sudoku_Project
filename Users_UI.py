@@ -338,21 +338,21 @@ def insert(screen, position, text_font, grid, update_grid, background_color, t0,
                                 screen, background_color, (position[0]*60 + 5, position[1]*60 + 5, 60 - 8, 60 - 8))
                         if event.key == pygame.K_KP1:
                             num = 1
-                        elif event.key == pygame.K_KP1:
-                            num = 2
                         elif event.key == pygame.K_KP2:
-                            num = 3
+                            num = 2
                         elif event.key == pygame.K_KP3:
-                            num = 4
+                            num = 3
                         elif event.key == pygame.K_KP4:
-                            num = 5
+                            num = 4
                         elif event.key == pygame.K_KP5:
-                            num = 6
+                            num = 5
                         elif event.key == pygame.K_KP6:
-                            num = 7
+                            num = 6
                         elif event.key == pygame.K_KP7:
-                            num = 8
+                            num = 7
                         elif event.key == pygame.K_KP8:
+                            num = 8
+                        elif event.key == pygame.K_KP9:
                             num = 9
                         value = text_font.render(
                             str(num), True, text_insert_color)
