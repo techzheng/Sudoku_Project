@@ -38,7 +38,7 @@ def save_profile(username, score, diff, puzzle):
     # filename = str(username) + '.dat'
     # print(filename)
     with open(file_name, 'w+') as f:
-        enc_content = encrypt(str(list(data.keys())) + str(data[score]))
+        enc_content = generate_level.encrypt(str(list(data.keys())) + str(data[score]))
         num_list = [str(x) for x in enc_content]
         f.write(' '.join(num_list))
         f.write('\n')
