@@ -142,7 +142,7 @@ def diff_puzzle_window(screen, background_color, title_font, text_font, text_col
                         status = False
                 # if clicking on 'back', go back to the home window
                 if 450 <= position[0] <= 525 and 700 <= position[1] <= 725:
-                    home_window(score, curr_diff, curr_puzzle)
+                    home_window(score, curr_diff, curr_puzzle, username)
 
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -284,7 +284,7 @@ def sudoku_window(screen, score, text_font, grid_color, background_color, text_c
                                                     dark_grid_loc, grid_color, background_color, hint_text_color, text_color, score)
                 # if the position is inside the 'back' button
                 if 450 <= position[0] <= 525 and 700 <= position[1] <= 725:
-                    home_window(score, curr_diff, curr_puzzle)
+                    home_window(score, curr_diff, curr_puzzle, username)
             # check if the answer is correct
             # when in 'endless' mode
             if puzzle == 6:
@@ -630,9 +630,9 @@ def win_window_endless(screen, t_tot, text_font, background_color, text_color, s
                 position = pygame.mouse.get_pos()
                 if 250 <= position[0] <= 385 and 510 <= position[1] <= 535:
                     sudoku_window(screen, score, text_font, grid_color, background_color, text_color,
-                                  hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle, curr_diff, curr_puzzle)
+                                  hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle, curr_diff, curr_puzzle, username)
                 if 210 <= position[0] <= 440 and 580 <= position[1] <= 605:
-                    home_window(score, curr_diff, curr_puzzle)
+                    home_window(score, curr_diff, curr_puzzle, username)
                 if 285 <= position[0] <= 363 and 650 <= position[1] <= 675:
                     pygame.quit()
                     return
