@@ -31,10 +31,10 @@ def register(username, score=100, start_level='1-1'):
         f.write('\n')
 
 
-def save_profile(username, score, level):
+def save_profile(username, score, diff, puzzle):
     ori_path = os.getcwd()
     file_name = ori_path + '/data/users/' + str(username) + '.dat'
-    data[score] = level
+    data[score] = str(diff) + '-' + str(puzzle)
     # filename = str(username) + '.dat'
     # print(filename)
     with open(file_name, 'w+') as f:
@@ -83,4 +83,5 @@ def read_profile(username, N=17947, D=10103):
 
 
 if __name__ == '__main__':
-    print(read_profile('who'))
+    save_profile('zmz', 10, 2, 2)
+    print(read_profile('zmz'))
