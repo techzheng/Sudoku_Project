@@ -8,11 +8,14 @@ import generate_sudo
 import read_level
 
 
-def home_window(score):
+
+def home_window(score, curr_diff, curr_puzzle):
     """This function aims to gemerate the home window of the game where users can start and quit the game.
 
     Args:
         score (int): The points earned by users and can be consumed for the hints.
+        curr_diff (int): The stored highest difficulty the user accomplish.
+        curr_puzzle (int): The stored highest number of puzzle the user accomplish.
     """
     background_color = (235, 235, 235)
     text_color = (0, 0, 0)
@@ -56,7 +59,7 @@ def home_window(score):
                 # if click 'start game'
                 if 240 <= position[0] <= 410 and 450 <= position[1] <= 475:
                     diff_puzzle_window(screen, background_color, title_font, text_font, text_color,
-                                       score, grid_color, hint_text_color, line_color, shaded_color, text_insert_color)
+                                       score, grid_color, hint_text_color, line_color, shaded_color, text_insert_color, curr_diff, curr_puzzle)
                 # if click 'quit game'
                 if 285 <= position[0] <= 365 and 650 <= position[1] <= 675:
                     pygame.quit()
@@ -67,7 +70,7 @@ def home_window(score):
                 return
 
 
-def diff_puzzle_window(screen, background_color, title_font, text_font, text_color, score, grid_color, hint_text_color, line_color, shaded_color, text_insert_color):
+def diff_puzzle_window(screen, background_color, title_font, text_font, text_color, score, grid_color, hint_text_color, line_color, shaded_color, text_insert_color, curr_diff, curr_puzzle):
     """This function aims to create difficulty and level choosing window.
 
     Args:
@@ -83,15 +86,9 @@ def diff_puzzle_window(screen, background_color, title_font, text_font, text_col
         shaded_color (tuple): The RGB value of the selected grid color.
         text_insert_color (tuple): The RGB value of the inserted text color.
     """
-    ##################
-    # read available difficulties and puzzles
-    curr_diff = 2
-    curr_puzzle = 3
-    ##################
     # fill the window background color
     screen.fill(background_color)
     # setup the text on the window
-
     value_1 = title_font.render(str('Select your difficulty'), True, text_color)
     for i in range(0,5):
         if i+1 <= curr_diff:
@@ -213,7 +210,7 @@ def diff_puzzle_window(screen, background_color, title_font, text_font, text_col
                 # if click on 'back', start this function over
                 if 450 <= position[0] <= 525 and 700 <= position[1] <= 725:
                     diff_puzzle_window(screen, background_color, title_font, text_font, text_color,
-                                       score, grid_color, hint_text_color, line_color, shaded_color, text_insert_color)
+                                       score, grid_color, hint_text_color, line_color, shaded_color, text_insert_color, curr_diff, curr_puzzle)
             if event.type == pygame.QUIT:
                 pygame.quit()
                 return
@@ -695,4 +692,4 @@ def time_to_score(t_tot, score, diff):
 
 
 if __name__ == "__main__":
-    home_window(score = 100)
+    home_window(score = 100, curr_diff=4, curr_puzzle=2)
