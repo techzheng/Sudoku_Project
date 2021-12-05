@@ -4,7 +4,7 @@ import generate_level
 data = {}
 
 
-def register(username, score=3, start_level='1-1'):
+def register(username, score=300, start_level='1-1'):
     """Register a new profile.
 
     Args:
@@ -21,6 +21,7 @@ def register(username, score=3, start_level='1-1'):
         num_list = [str(x) for x in enc_content]
         f.write(' '.join(num_list))
         f.write('\n')
+    return read_profile(username)
 
 
 def save_profile(username, score, diff, puzzle):
