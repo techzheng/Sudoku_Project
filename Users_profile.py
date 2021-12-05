@@ -1,25 +1,29 @@
 import os
-import pathlib
-import Users_UI
 data = {}
-data1 = {}
 
 
 def encrypt(content, N=17947, E=7):
-    """Encrypt level information
+    """Encrypt level information.
 
     Args:
-        content (str): Level information
+        content (str): User's information
         N (int, optional): A parameter for RSA encryption algorithm. Defaults to 17947.
         E (int, optional): A parameter for RSA encryption algorithm. Defaults to 7.
 
     Returns:
-        str: Encrypt message
+        str: Encrypt message.
     """
     return [(ord(s) ** E) % N for s in str(content)]
 
 
 def register(username, score=100, start_level='1-1'):
+    """Register a new profile.
+
+    Args:
+        username (str): The username.
+        score (int, optional): The original score. Defaults to 100.
+        start_level (str, optional): The start level. Defaults to '1-1'.
+    """
     ori_path = os.getcwd()
     file_name = ori_path + '/data/users/' + str(username) + '.dat'
     data[score] = start_level
@@ -32,6 +36,14 @@ def register(username, score=100, start_level='1-1'):
 
 
 def save_profile(username, score, diff, puzzle):
+    """Save current score and level information.
+
+    Args:
+        username (str): The username.
+        score (int): The user's current score.
+        diff (int): The user's current difficulty.
+        puzzle (int): The user's current puzzle.
+    """
     ori_path = os.getcwd()
     file_name = ori_path + '/data/users/' + str(username) + '.dat'
     data[score] = str(diff) + '-' + str(puzzle)
@@ -45,6 +57,16 @@ def save_profile(username, score, diff, puzzle):
 
 
 def read_profile(username, N=17947, D=10103):
+    """Read a profile.
+
+    Args:
+        username (str): The username.
+        N (int, optional): A parameter for RSA encryption algorithm. Defaults to 17947.
+        E (int, optional): A parameter for RSA encryption algorithm. Defaults to 7.
+
+    Returns:
+        list: A list contains current score and level.
+    """
     ori_path = os.getcwd()
     file_name = ori_path + '/data/users/' + str(username) + '.dat'
     if os.path.exists(file_name):
