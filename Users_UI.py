@@ -9,6 +9,11 @@ import read_level
 
 
 def home_window(score):
+    """This function aims to gemerate the home window of the game where users can start and quit the game.
+
+    Args:
+        score (int): The points earned by users and can be consumed for the hints.
+    """
     background_color = (235, 235, 235)
     text_color = (0, 0, 0)
     line_color = (0, 0, 0)
@@ -63,7 +68,21 @@ def home_window(score):
 
 
 def diff_puzzle_window(screen, background_color, title_font, text_font, text_color, score, grid_color, hint_text_color, line_color, shaded_color, text_insert_color):
+    """This function aims to create difficulty and level choosing window.
 
+    Args:
+        screen (pygame.Surface): The game window.
+        background_color (tuple): The RGB value of the window background color.
+        title_font (pygame.font.Font): Font of title.
+        text_font (pygame.font.Font): Font of normal text.
+        text_color (tuple): The RGB value of the text color.
+        score (int): The points earned by users.
+        grid_color (tuple): The RGB value of the dark grid color.
+        hint_text_color (tuple): The RGB value of the hint text color.
+        line_color (tuple): The RGB value of the line color.
+        shaded_color (tuple): The RGB value of the selected grid color.
+        text_insert_color (tuple): The RGB value of the inserted text color.
+    """
     # fill the window background color
     screen.fill(background_color)
     # setup the text on the window
@@ -179,6 +198,22 @@ def diff_puzzle_window(screen, background_color, title_font, text_font, text_col
 
 
 def sudoku_window(screen, score, text_font, grid_color, background_color, text_color, hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle):
+    """This function aims to gemerate the sudoku gaming window.
+
+    Args:
+        screen (pygame.Surface): The game window.
+        score (int): The points earned by users.
+        text_font (pygame.font.Font): Font of normal text.
+        grid_color (tuple): The RGB value of the dark grid color.
+        background_color (tuple): The RGB value of the window background color.
+        text_color (tuple): The RGB value of the text color.
+        hint_text_color (tuple): The RGB value of the hint text color.
+        line_color (tuple): The RGB value of the line color.
+        shaded_color (tuple): The RGB value of the selected grid color.
+        text_insert_color (tuple): The RGB value of the inserted text color.
+        diff (int): The difficulty selected by users.
+        puzzle ([type]): The puzzle number selected by users.
+    """
     if puzzle == 6:
         # call function to set up 9*9 grid
         solution = generate_sudo.generate_board_new(
@@ -250,6 +285,16 @@ def sudoku_window(screen, score, text_font, grid_color, background_color, text_c
 
 
 def grid_setup(screen, grid, text_font, grid_color, line_color, text_color):
+    """This function amis to gemerate a game board on the window.
+
+    Args:
+        screen (pygame.Surface): The game window.
+        grid (list): The generated sudoku puzzle problem list.
+        text_font (pygame.font.Font): Font of normal text.
+        grid_color (tuple): The RGB value of the dark grid color.
+        line_color (tuple): The RGB value of the line color.
+        text_color (tuple): The RGB value of the text color.
+    """
     # setup background color of grid
     pygame.draw.rect(screen, grid_color, (60, 60, 180, 180))
     pygame.draw.rect(screen, grid_color, (420, 60, 180, 180))
@@ -283,6 +328,25 @@ def grid_setup(screen, grid, text_font, grid_color, line_color, text_color):
 
 
 def insert(screen, position, text_font, grid, update_grid, background_color, t0, dark_grid_loc, grid_color, text_color, shaded_color, text_insert_color):
+    """This function aims to realize thr insert function.
+
+    Args:
+        screen (pygame.Surface): The game window.
+        position (list): The position of the mouse when clicked.
+        text_font (pygame.font.Font): Font of normal text.
+        grid (list): The generated sudoku puzzle problem list.
+        update_grid (list): The updated sudoku number list according to users filling-in.
+        background_color (tuple): The RGB value of the window background color.
+        t0 (float): The initial time when a puzzle starts.
+        dark_grid_loc (list): The coordination of where the dark background is.
+        grid_color (tuple): The RGB value of the dark grid color.
+        text_color (tuple): The RGB value of the text color.
+        shaded_color (tuple): The RGB value of the selected grid color.
+        text_insert_color (tuple): The RGB value of the inserted text color.
+
+    Returns:
+        update_grid (list): The updated sudoku number list according to users filling-in.
+    """
     while True:
         game_clock(screen, text_font, t0, background_color, text_color)
         if 1 <= position[0] <= 9 and 1 <= position[1] <= 9 and grid[position[1] - 1][position[0] - 1] == 0:
@@ -410,6 +474,15 @@ def insert(screen, position, text_font, grid, update_grid, background_color, t0,
 
 
 def game_clock(screen, text_font, t0, background_color, text_color):
+    """This function aims to realize the timing and display the real-time click on the screen.
+
+    Args:
+        screen (pygame.Surface): The game window.
+        text_font (pygame.font.Font): Font of normal text.
+        t0 (float): The initial time when a puzzle starts.
+        background_color (tuple): The RGB value of the window background color.
+        text_color (tuple): The RGB value of the text color.
+    """
     pygame.draw.rect(screen, background_color, (60, 610, 600, 25))
     t = time.time() - t0
     value = text_font.render(
@@ -419,6 +492,23 @@ def game_clock(screen, text_font, t0, background_color, text_color):
 
 
 def win_window_single(screen, t_tot, text_font, background_color, text_color, score, diff, grid_color, hint_text_color, line_color, shaded_color, text_insert_color, puzzle):
+    """This function amis to create a winning window if the puzzle is NOT a endless mode.
+
+    Args:
+        screen (pygame.Surface): The game window.
+        t_tot (float): The time consumed when doing one puzzle.
+        text_font (pygame.font.Font): Font of normal text.
+        background_color (tuple): The RGB value of the window background color.
+        text_color (tuple): The RGB value of the text color.
+        score (int): The points earned by users.
+        diff (int): The difficulty selected by users.
+        grid_color (tuple): The RGB value of the dark grid color.
+        hint_text_color (tuple): The RGB value of the hint text color.
+        line_color (tuple): The RGB value of the line color.
+        shaded_color (tuple): The RGB value of the selected grid color.
+        text_insert_color (tuple): The RGB value of the inserted text color.
+        puzzle ([type]): The puzzle number selected by users.
+    """
     score_earned = time_to_score(t_tot, score, diff)
     score = score_earned + score
     while True:
@@ -466,6 +556,23 @@ def win_window_single(screen, t_tot, text_font, background_color, text_color, sc
 
 
 def win_window_endless(screen, t_tot, text_font, background_color, text_color, score, grid_color, hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle):
+    """This function amis to create a winning window if the puzzle IS a endless mode.
+
+    Args:
+        screen (pygame.Surface): The game window.
+        t_tot (float): The time consumed when doing one puzzle.
+        text_font (pygame.font.Font): Font of normal text.
+        background_color (tuple): The RGB value of the window background color.
+        text_color (tuple): The RGB value of the text color.
+        score (int): The points earned by users.
+        grid_color (tuple): The RGB value of the dark grid color.
+        hint_text_color (tuple): The RGB value of the hint text color.
+        line_color (tuple): The RGB value of the line color.
+        shaded_color (tuple): The RGB value of the selected grid color.
+        text_insert_color (tuple): The RGB value of the inserted text color.
+        diff (int): The difficulty selected by users.
+        puzzle ([type]): The puzzle number selected by users.
+    """
     score_earned = time_to_score(t_tot, score, diff)
     score = score_earned + score
     while True:
@@ -505,6 +612,25 @@ def win_window_endless(screen, t_tot, text_font, background_color, text_color, s
 
 
 def hint(screen, grid, update_grid, solution, text_font, t0, dark_grid_loc, grid_color, background_color, hint_text_color, text_color, score):
+    """This function aims to realize the hint for the puzzle and consume a number of scores.
+
+    Args:
+        screen ([type]): [description]
+        grid ([type]): [description]
+        update_grid ([type]): [description]
+        solution ([type]): [description]
+        text_font ([type]): [description]
+        t0 ([type]): [description]
+        dark_grid_loc ([type]): [description]
+        grid_color ([type]): [description]
+        background_color ([type]): [description]
+        hint_text_color ([type]): [description]
+        text_color ([type]): [description]
+        score ([type]): [description]
+
+    Returns:
+        [type]: [description]
+    """
     game_clock(screen, text_font, t0, background_color, text_color)
     score = score - 1
     if score < 0:
