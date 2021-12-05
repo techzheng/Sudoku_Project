@@ -1,22 +1,10 @@
 import os
+import Users_UI as ui
+import generate_level
 data = {}
 
 
-def encrypt(content, N=17947, E=7):
-    """Encrypt level information.
-
-    Args:
-        content (str): User's information
-        N (int, optional): A parameter for RSA encryption algorithm. Defaults to 17947.
-        E (int, optional): A parameter for RSA encryption algorithm. Defaults to 7.
-
-    Returns:
-        str: Encrypt message.
-    """
-    return [(ord(s) ** E) % N for s in str(content)]
-
-
-def register(username, score=100, start_level='1-1'):
+def register(username, score=3, start_level='1-1'):
     """Register a new profile.
 
     Args:
@@ -29,7 +17,7 @@ def register(username, score=100, start_level='1-1'):
     data[score] = start_level
     # print(filename)
     with open(file_name, 'w+') as f:
-        enc_content = encrypt(str(list(data.keys())) + str(data[score]))
+        enc_content = generate_level.encrypt(str(list(data.keys())) + str(data[score]))
         num_list = [str(x) for x in enc_content]
         f.write(' '.join(num_list))
         f.write('\n')
@@ -105,5 +93,7 @@ def read_profile(username, N=17947, D=10103):
 
 
 if __name__ == '__main__':
-    save_profile('zmz', 10, 2, 2)
-    print(read_profile('zmz'))
+    username = input('Please input the username:\n')
+    result = read_profile(username)
+    score = result[0]
+    ui.home_window(score)
