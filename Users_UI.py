@@ -6,10 +6,10 @@ import time
 import random
 import generate_sudo
 import read_level
+import Users_profile
 
 
-
-def home_window(score, curr_diff, curr_puzzle):
+def home_window(score, curr_diff, curr_puzzle, username):
     """This function aims to gemerate the home window of the game where users can start and quit the game.
 
     Args:
@@ -58,8 +58,8 @@ def home_window(score, curr_diff, curr_puzzle):
                 position = pygame.mouse.get_pos()
                 # if click 'start game'
                 if 240 <= position[0] <= 410 and 450 <= position[1] <= 475:
-                    diff_puzzle_window(screen, background_color, title_font, text_font, text_color,
-                                       score, grid_color, hint_text_color, line_color, shaded_color, text_insert_color, curr_diff, curr_puzzle)
+                    diff_puzzle_window(screen, background_color, title_font, text_font, text_color, score, grid_color,
+                                       hint_text_color, line_color, shaded_color, text_insert_color, curr_diff, curr_puzzle, username)
                 # if click 'quit game'
                 if 285 <= position[0] <= 365 and 650 <= position[1] <= 675:
                     pygame.quit()
@@ -70,7 +70,7 @@ def home_window(score, curr_diff, curr_puzzle):
                 return
 
 
-def diff_puzzle_window(screen, background_color, title_font, text_font, text_color, score, grid_color, hint_text_color, line_color, shaded_color, text_insert_color, curr_diff, curr_puzzle):
+def diff_puzzle_window(screen, background_color, title_font, text_font, text_color, score, grid_color, hint_text_color, line_color, shaded_color, text_insert_color, curr_diff, curr_puzzle, username):
     """This function aims to create difficulty and level choosing window.
 
     Args:
@@ -89,8 +89,9 @@ def diff_puzzle_window(screen, background_color, title_font, text_font, text_col
     # fill the window background color
     screen.fill(background_color)
     # setup the text on the window
-    value_1 = title_font.render(str('Select your difficulty'), True, text_color)
-    for i in range(0,5):
+    value_1 = title_font.render(
+        str('Select your difficulty'), True, text_color)
+    for i in range(0, 5):
         if i+1 <= curr_diff:
             color = text_color
         else:
@@ -141,8 +142,8 @@ def diff_puzzle_window(screen, background_color, title_font, text_font, text_col
                         status = False
                 # if clicking on 'back', go back to the home window
                 if 450 <= position[0] <= 525 and 700 <= position[1] <= 725:
-                    home_window(score)
-                
+                    home_window(score, curr_diff, curr_puzzle)
+
             if event.type == pygame.QUIT:
                 pygame.quit()
                 return
@@ -151,7 +152,7 @@ def diff_puzzle_window(screen, background_color, title_font, text_font, text_col
     screen.fill(background_color)
     # setup the text on the window
     value_3 = title_font.render(str('Select your puzzle'), True, text_color)
-    for i in range(0,6):
+    for i in range(0, 6):
         if diff == curr_diff:
             if i+1 <= curr_puzzle:
                 color = text_color
@@ -162,7 +163,7 @@ def diff_puzzle_window(screen, background_color, title_font, text_font, text_col
         if i < 5:
             value = text_font.render(str(i+1), True, color)
             screen.blit(value, (326, 250 + 80*i))
-        else: 
+        else:
             value = text_font.render(str('Endless'), True, color)
             screen.blit(value, (275, 250 + 80*i))
     value_4 = text_font.render(str('Back'), True, text_color)
@@ -180,43 +181,43 @@ def diff_puzzle_window(screen, background_color, title_font, text_font, text_col
                     puzzle = 1
                     if (diff == curr_diff and puzzle <= curr_puzzle) or (diff < curr_diff):
                         sudoku_window(screen, score, text_font, grid_color, background_color, text_color,
-                                    hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle)
-                    
+                                      hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle, curr_diff, curr_puzzle, username)
+
                 if 326 <= position[0] <= 343 and 330 <= position[1] <= 355:
                     puzzle = 2
                     if (diff == curr_diff and puzzle <= curr_puzzle) or (diff < curr_diff):
                         sudoku_window(screen, score, text_font, grid_color, background_color, text_color,
-                                    hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle)
+                                      hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle, curr_diff, curr_puzzle, username)
                 if 326 <= position[0] <= 343 and 410 <= position[1] <= 435:
                     puzzle = 3
                     if (diff == curr_diff and puzzle <= curr_puzzle) or (diff < curr_diff):
                         sudoku_window(screen, score, text_font, grid_color, background_color, text_color,
-                                    hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle)
+                                      hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle, curr_diff, curr_puzzle, username)
                 if 326 <= position[0] <= 343 and 490 <= position[1] <= 515:
                     puzzle = 4
                     if (diff == curr_diff and puzzle <= curr_puzzle) or (diff < curr_diff):
                         sudoku_window(screen, score, text_font, grid_color, background_color, text_color,
-                                    hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle)
+                                      hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle, curr_diff, curr_puzzle, username)
                 if 326 <= position[0] <= 343 and 570 <= position[1] <= 595:
                     puzzle = 5
                     if (diff == curr_diff and puzzle <= curr_puzzle) or (diff < curr_diff):
                         sudoku_window(screen, score, text_font, grid_color, background_color, text_color,
-                                    hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle)
+                                      hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle, curr_diff, curr_puzzle, username)
                 if 275 <= position[0] <= 393 and 650 <= position[1] <= 675:
                     puzzle = 6
                     if (diff == curr_diff and puzzle <= curr_puzzle) or (diff < curr_diff):
                         sudoku_window(screen, score, text_font, grid_color, background_color, text_color,
-                                    hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle)
+                                      hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle, curr_diff, curr_puzzle, username)
                 # if click on 'back', start this function over
                 if 450 <= position[0] <= 525 and 700 <= position[1] <= 725:
                     diff_puzzle_window(screen, background_color, title_font, text_font, text_color,
-                                       score, grid_color, hint_text_color, line_color, shaded_color, text_insert_color, curr_diff, curr_puzzle)
+                                       score, grid_color, hint_text_color, line_color, shaded_color, text_insert_color, curr_diff, curr_puzzle, username)
             if event.type == pygame.QUIT:
                 pygame.quit()
                 return
 
 
-def sudoku_window(screen, score, text_font, grid_color, background_color, text_color, hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle):
+def sudoku_window(screen, score, text_font, grid_color, background_color, text_color, hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle, curr_diff, curr_puzzle, username):
     """This function aims to gemerate the sudoku gaming window.
 
     Args:
@@ -283,20 +284,20 @@ def sudoku_window(screen, score, text_font, grid_color, background_color, text_c
                                                     dark_grid_loc, grid_color, background_color, hint_text_color, text_color, score)
                 # if the position is inside the 'back' button
                 if 450 <= position[0] <= 525 and 700 <= position[1] <= 725:
-                    home_window(score)
+                    home_window(score, curr_diff, curr_puzzle)
             # check if the answer is correct
             # when in 'endless' mode
             if puzzle == 6:
                 if update_grid.all() == solution.all():
                     t_tot = time.time() - t0
                     score = win_window_endless(screen, t_tot, text_font, background_color, text_color, score,
-                                               grid_color, hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle)
+                                               grid_color, hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle, curr_diff, curr_puzzle, username)
             # when in normal mode
             if 1 <= puzzle <= 5:
                 if update_grid == solution:
                     t_tot = time.time() - t0
                     score = win_window_single(
-                        screen, t_tot, text_font, background_color, text_color, score, diff, grid_color, hint_text_color, line_color, shaded_color, text_insert_color, puzzle)
+                        screen, t_tot, text_font, background_color, text_color, score, diff, grid_color, hint_text_color, line_color, shaded_color, text_insert_color, puzzle, curr_diff, curr_puzzle, username)
             # if the game is quit
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -509,7 +510,7 @@ def game_clock(screen, text_font, t0, background_color, text_color):
     pygame.display.update()
 
 
-def win_window_single(screen, t_tot, text_font, background_color, text_color, score, diff, grid_color, hint_text_color, line_color, shaded_color, text_insert_color, puzzle):
+def win_window_single(screen, t_tot, text_font, background_color, text_color, score, diff, grid_color, hint_text_color, line_color, shaded_color, text_insert_color, puzzle, curr_diff, curr_puzzle, username):
     """This function amis to create a winning window if the puzzle is NOT a endless mode.
 
     Args:
@@ -529,6 +530,13 @@ def win_window_single(screen, t_tot, text_font, background_color, text_color, sc
     """
     score_earned = time_to_score(t_tot, score, diff)
     score = score_earned + score
+    if puzzle == curr_puzzle and diff == curr_diff:
+        if puzzle < 5:
+            curr_puzzle += 1
+        else:
+            curr_puzzle = 1
+            curr_diff += 1
+    Users_profile.save_profile(username, score, curr_diff, curr_puzzle)
     while True:
         screen.fill(background_color)
         value_1 = text_font.render('WIN!', True, text_color)
@@ -558,7 +566,7 @@ def win_window_single(screen, t_tot, text_font, background_color, text_color, sc
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 position = pygame.mouse.get_pos()
                 if 210 <= position[0] <= 440 and 550 <= position[1] <= 575:
-                    home_window(score)
+                    home_window(score, curr_diff, curr_puzzle, username)
                 if 245 <= position[0] <= 390 and 450 <= position[1] <= 475:
                     if puzzle <= 4:
                         puzzle += 1
@@ -566,13 +574,14 @@ def win_window_single(screen, t_tot, text_font, background_color, text_color, sc
                         diff += 1
                         puzzle = 1
                     if diff <= 5:
-                        sudoku_window(screen, score, text_font, grid_color, background_color, text_color, hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle)
+                        sudoku_window(screen, score, text_font, grid_color, background_color, text_color, hint_text_color,
+                                      line_color, shaded_color, text_insert_color, diff, puzzle, curr_diff, curr_puzzle, username)
                 if 285 <= position[0] <= 363 and 650 <= position[1] <= 675:
                     pygame.quit()
                     return
 
 
-def win_window_endless(screen, t_tot, text_font, background_color, text_color, score, grid_color, hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle):
+def win_window_endless(screen, t_tot, text_font, background_color, text_color, score, grid_color, hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle, curr_diff, curr_puzzle, username):
     """This function amis to create a winning window if the puzzle IS a endless mode.
 
     Args:
@@ -592,6 +601,7 @@ def win_window_endless(screen, t_tot, text_font, background_color, text_color, s
     """
     score_earned = time_to_score(t_tot, score, diff)
     score = score_earned + score
+    Users_profile.save_profile(username, score, curr_diff, curr_puzzle)
     while True:
         screen.fill(background_color)
         value_1 = text_font.render('WIN!', True, text_color)
@@ -620,9 +630,9 @@ def win_window_endless(screen, t_tot, text_font, background_color, text_color, s
                 position = pygame.mouse.get_pos()
                 if 250 <= position[0] <= 385 and 510 <= position[1] <= 535:
                     sudoku_window(screen, score, text_font, grid_color, background_color, text_color,
-                                  hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle)
+                                  hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle, curr_diff, curr_puzzle)
                 if 210 <= position[0] <= 440 and 580 <= position[1] <= 605:
-                    home_window(score)
+                    home_window(score, curr_diff, curr_puzzle)
                 if 285 <= position[0] <= 363 and 650 <= position[1] <= 675:
                     pygame.quit()
                     return
@@ -692,4 +702,4 @@ def time_to_score(t_tot, score, diff):
 
 
 if __name__ == "__main__":
-    home_window(score = 100, curr_diff=4, curr_puzzle=2)
+    home_window(score=100, curr_diff=4, curr_puzzle=2, username='zmz')

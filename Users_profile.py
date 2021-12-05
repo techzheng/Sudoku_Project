@@ -99,4 +99,4 @@ if __name__ == '__main__':
     diff = result[1]
     puzzle = result[2]
 
-    ui.home_window(score, diff, puzzle)
+    ui.home_window(score, diff, puzzle, username)
