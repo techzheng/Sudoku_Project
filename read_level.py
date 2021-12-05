@@ -2,7 +2,7 @@ import os
 
 
 def decrypt(diff, puzzle, N=17947, D=10103):
-    """Read and decrypted level information
+    """Read and decrypted level information.
 
     Args:
         diff (int): The difficulty.
@@ -11,7 +11,7 @@ def decrypt(diff, puzzle, N=17947, D=10103):
         D (int, optional): A parameter for RSA encryption algorithm. Defaults to 10103.
 
     Returns:
-        str: The decrypt level information
+        str: The decrypt level information.
     """
     ori_path = os.getcwd()
     # dat_path = ori_path + '/' + str(diff) + '-' + str(puzzle) + '.dat'

@@ -4,16 +4,12 @@ import time
 import copy
 import re
 
-# class Seed(object):
-#     def __init__(self, seed):
-#         self.seed = seed
-
 
 def generate_board_origin():
-    """Generate a 9*9 sudoku
+    """Generate a 9*9 sudoku.
 
     Returns:
-        list: A 9*9 list of integer which represents the original board
+        list: A 9*9 list of integer which represents the original board.
     """
     # generate a basic board fulfilled by '0'
     # random.seed = self.seed
@@ -32,13 +28,13 @@ def generate_board_origin():
 
 
 def generate_board_new(sudo):
-    """Generate a new sudoku board by exchanging row and column
+    """Generate a new sudoku board by exchanging row and column.
 
     Args:
-        sudo (list): A 9*9 list of integer
+        sudo (list): A 9*9 list of integer.
 
     Returns:
-        list: A 9*9 list of integer which represents a new board
+        list: A 9*9 list of integer which represents a new board.
     """
     # random.seed = self.seed
     # seed = self.seed
@@ -59,41 +55,41 @@ def generate_board_new(sudo):
 
 
 def get_row(sudo, row):
-    """Get all the grids of the row where the grid is located
+    """Get all the grids of the row where the grid is located.
 
     Args:
-        sudo (list): A 9*9 list of integer
-        row (list): The row where the grid is located
+        sudo (list): A 9*9 list of integer.
+        row (list): The row where the grid is located.
 
     Returns:
-        list: All the grids of the row where the grid is located
+        list: All the grids of the row where the grid is located.
     """
     return sudo[row, :]
 
 
 def get_col(sudo, col):
-    """Get all the grids of the column where the grid is located
+    """Get all the grids of the column where the grid is located.
 
     Args:
-        sudo (list): A 9*9 list of integer
-        col (list): The column where the grid is located
+        sudo (list): A 9*9 list of integer.
+        col (list): The column where the grid is located.
 
     Returns:
-        list: All the grids of the column where the grid is located
+        list: All the grids of the column where the grid is located.
     """
     return sudo[:, col]
 
 
 def get_board(sudo, row, col):
-    """Get all the grid of the small board where the grid is located
+    """Get all the grid of the small board where the grid is located.
 
     Args:
-        sudo (list): A 9*9 list of integer
-        row (list): The row where the grid is located
-        col (list): The column where the grid is located
+        sudo (list): A 9*9 list of integer.
+        row (list): The row where the grid is located.
+        col (list): The column where the grid is located.
 
     Returns:
-        list: All the grids of the small board where the grid is located
+        list: All the grids of the small board where the grid is located.
     """
     row_start = row // 3 * 3
     col_start = col // 3 * 3
@@ -101,14 +97,14 @@ def get_board(sudo, row, col):
 
 
 def generate_puzzle(sudo, level):
-    """Generate puzzles
+    """Generate puzzles.
 
     Args:
-        sudo (list): A 9*9 list of integer
-        level (integer): The number of grids be erased depends on level, up to 5
+        sudo (list): A 9*9 list of integer.
+        level (integer): The number of grids be erased depends on level, up to 5.
 
     Returns:
-        list: A 9*9 list of integer which represents the puzzle
+        list: A 9*9 list of integer which represents the puzzle.
     """
     puzzle = copy.deepcopy(sudo)
     blank_num = round(64 - 10 * (6-level))
@@ -122,13 +118,13 @@ def generate_puzzle(sudo, level):
 
 
 def answer_record(puzzle):
-    """Record the position of blanks
+    """Record the position of blanks.
 
     Args:
-        puzzle (list): A 9*9 list of integer which represents the puzzle
+        puzzle (list): A 9*9 list of integer which represents the puzzle.
 
     Returns:
-        list: A list contains the position of blankss
+        list: A list contains the position of blanks.
     """
     # find the index of blanks
     answer_index = np.where(puzzle == 0)

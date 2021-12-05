@@ -4,15 +4,15 @@ import re
 
 
 def encrypt(content, N=17947, E=7):
-    """Encrypt level information
+    """Encrypt level information.
 
     Args:
-        content (str): Level information
+        content (str): Level information.
         N (int, optional): A parameter for RSA encryption algorithm. Defaults to 17947.
         E (int, optional): A parameter for RSA encryption algorithm. Defaults to 7.
 
     Returns:
-        str: Encrypt message
+        str: Encrypt message.
     """
     return [(ord(s) ** E) % N for s in str(content)]
 
