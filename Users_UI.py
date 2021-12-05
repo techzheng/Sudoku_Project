@@ -83,25 +83,27 @@ def diff_puzzle_window(screen, background_color, title_font, text_font, text_col
         shaded_color (tuple): The RGB value of the selected grid color.
         text_insert_color (tuple): The RGB value of the inserted text color.
     """
+    ##################
+    # read available difficulties and puzzles
+    curr_diff = 2
+    curr_puzzle = 3
+    ##################
     # fill the window background color
     screen.fill(background_color)
     # setup the text on the window
-    value_1 = title_font.render(
-        str('Select your difficulty'), True, text_color)
-    value_2 = text_font.render(str('1'), True, text_color)
-    value_3 = text_font.render(str('2'), True, text_color)
-    value_4 = text_font.render(str('3'), True, text_color)
-    value_5 = text_font.render(str('4'), True, text_color)
-    value_6 = text_font.render(str('5'), True, text_color)
-    value_7 = text_font.render(str('Back'), True, text_color)
+
+    value_1 = title_font.render(str('Select your difficulty'), True, text_color)
+    for i in range(0,5):
+        if i+1 <= curr_diff:
+            color = text_color
+        else:
+            color = grid_color
+        value = text_font.render(str(i+1), True, color)
+        screen.blit(value, (326, 250 + 100*i))
+    value_2 = text_font.render(str('Back'), True, text_color)
     # blit all text on the window
     screen.blit(value_1, (130, 150))
-    screen.blit(value_2, (326, 250))
-    screen.blit(value_3, (326, 350))
-    screen.blit(value_4, (326, 450))
-    screen.blit(value_5, (326, 550))
-    screen.blit(value_6, (326, 650))
-    screen.blit(value_7, (450, 700))
+    screen.blit(value_2, (450, 700))
     pygame.display.update()
     # initialize a parameter that secure the text while true loop
     status = True
@@ -115,24 +117,35 @@ def diff_puzzle_window(screen, background_color, title_font, text_font, text_col
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 # obtain the position of the mouse and give corresponding values to variables
                 position = pygame.mouse.get_pos()
+                # if clicking '1'
                 if 326 <= position[0] <= 343 and 250 <= position[1] <= 275:
                     diff = 1
-                    status = False  # set to false to jump out of the ifinity loop
+                    if diff <= curr_diff:
+                        status = False  # set to false to jump out of the ifinity loop
+                # if clicking '2'
                 if 326 <= position[0] <= 343 and 350 <= position[1] <= 375:
                     diff = 2
-                    status = False
+                    if diff <= curr_diff:
+                        status = False
+                # if clicking '3'
                 if 326 <= position[0] <= 343 and 450 <= position[1] <= 475:
                     diff = 3
-                    status = False
+                    if diff <= curr_diff:
+                        status = False
+                # if clicking '4'
                 if 326 <= position[0] <= 343 and 550 <= position[1] <= 575:
                     diff = 4
-                    status = False
+                    if diff <= curr_diff:
+                        status = False
+                # if clicking '5'
                 if 326 <= position[0] <= 343 and 650 <= position[1] <= 675:
                     diff = 5
-                    status = False
-                # if click on 'back', go back to the home window
+                    if diff <= curr_diff:
+                        status = False
+                # if clicking on 'back', go back to the home window
                 if 450 <= position[0] <= 525 and 700 <= position[1] <= 725:
                     home_window(score)
+                
             if event.type == pygame.QUIT:
                 pygame.quit()
                 return
@@ -140,23 +153,25 @@ def diff_puzzle_window(screen, background_color, title_font, text_font, text_col
     # fill the window background color
     screen.fill(background_color)
     # setup the text on the window
-    value_1 = title_font.render(str('Select your puzzle'), True, text_color)
-    value_2 = text_font.render(str('1'), True, text_color)
-    value_3 = text_font.render(str('2'), True, text_color)
-    value_4 = text_font.render(str('3'), True, text_color)
-    value_5 = text_font.render(str('4'), True, text_color)
-    value_6 = text_font.render(str('5'), True, text_color)
-    value_7 = text_font.render(str('Endless'), True, text_color)
-    value_8 = text_font.render(str('Back'), True, text_color)
+    value_3 = title_font.render(str('Select your puzzle'), True, text_color)
+    for i in range(0,6):
+        if diff == curr_diff:
+            if i+1 <= curr_puzzle:
+                color = text_color
+            else:
+                color = grid_color
+        else:
+            color = text_color
+        if i < 5:
+            value = text_font.render(str(i+1), True, color)
+            screen.blit(value, (326, 250 + 80*i))
+        else: 
+            value = text_font.render(str('Endless'), True, color)
+            screen.blit(value, (275, 250 + 80*i))
+    value_4 = text_font.render(str('Back'), True, text_color)
     # blit all text on the window
-    screen.blit(value_1, (140, 150))
-    screen.blit(value_2, (326, 250))
-    screen.blit(value_3, (326, 330))
-    screen.blit(value_4, (326, 410))
-    screen.blit(value_5, (326, 490))
-    screen.blit(value_6, (326, 570))
-    screen.blit(value_7, (275, 650))
-    screen.blit(value_8, (450, 700))
+    screen.blit(value_3, (140, 150))
+    screen.blit(value_4, (450, 700))
     pygame.display.update()
     # while true loop to maintain the window
     while True:
@@ -166,28 +181,35 @@ def diff_puzzle_window(screen, background_color, title_font, text_font, text_col
                 position = pygame.mouse.get_pos()
                 if 326 <= position[0] <= 343 and 250 <= position[1] <= 275:
                     puzzle = 1
-                    sudoku_window(screen, score, text_font, grid_color, background_color, text_color,
-                                  hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle)
+                    if (diff == curr_diff and puzzle <= curr_puzzle) or (diff < curr_diff):
+                        sudoku_window(screen, score, text_font, grid_color, background_color, text_color,
+                                    hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle)
+                    
                 if 326 <= position[0] <= 343 and 330 <= position[1] <= 355:
                     puzzle = 2
-                    sudoku_window(screen, score, text_font, grid_color, background_color, text_color,
-                                  hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle)
+                    if (diff == curr_diff and puzzle <= curr_puzzle) or (diff < curr_diff):
+                        sudoku_window(screen, score, text_font, grid_color, background_color, text_color,
+                                    hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle)
                 if 326 <= position[0] <= 343 and 410 <= position[1] <= 435:
                     puzzle = 3
-                    sudoku_window(screen, score, text_font, grid_color, background_color, text_color,
-                                  hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle)
+                    if (diff == curr_diff and puzzle <= curr_puzzle) or (diff < curr_diff):
+                        sudoku_window(screen, score, text_font, grid_color, background_color, text_color,
+                                    hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle)
                 if 326 <= position[0] <= 343 and 490 <= position[1] <= 515:
                     puzzle = 4
-                    sudoku_window(screen, score, text_font, grid_color, background_color, text_color,
-                                  hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle)
+                    if (diff == curr_diff and puzzle <= curr_puzzle) or (diff < curr_diff):
+                        sudoku_window(screen, score, text_font, grid_color, background_color, text_color,
+                                    hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle)
                 if 326 <= position[0] <= 343 and 570 <= position[1] <= 595:
                     puzzle = 5
-                    sudoku_window(screen, score, text_font, grid_color, background_color, text_color,
-                                  hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle)
+                    if (diff == curr_diff and puzzle <= curr_puzzle) or (diff < curr_diff):
+                        sudoku_window(screen, score, text_font, grid_color, background_color, text_color,
+                                    hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle)
                 if 275 <= position[0] <= 393 and 650 <= position[1] <= 675:
                     puzzle = 6
-                    sudoku_window(screen, score, text_font, grid_color, background_color, text_color,
-                                  hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle)
+                    if (diff == curr_diff and puzzle <= curr_puzzle) or (diff < curr_diff):
+                        sudoku_window(screen, score, text_font, grid_color, background_color, text_color,
+                                    hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle)
                 # if click on 'back', start this function over
                 if 450 <= position[0] <= 525 and 700 <= position[1] <= 725:
                     diff_puzzle_window(screen, background_color, title_font, text_font, text_color,
@@ -393,7 +415,6 @@ def insert(screen, position, text_font, grid, update_grid, background_color, t0,
                                     1][position[0] - 1] = event.key - 48
                         return update_grid
                     if event.key == pygame.K_KP1 or event.key == pygame.K_KP2 or event.key == pygame.K_KP3 or event.key == pygame.K_KP4 or event.key == pygame.K_KP5 or event.key == pygame.K_KP6 or event.key == pygame.K_KP7 or event.key == pygame.K_KP8 or event.key == pygame.K_KP9:  # check input for 1-9
-                        print('here')
                         if [position[0], position[1]] in dark_grid_loc:
                             pygame.draw.rect(
                                 screen, grid_color, (position[0]*60 + 5, position[1]*60 + 5, 60 - 8, 60 - 8))
@@ -507,7 +528,7 @@ def win_window_single(screen, t_tot, text_font, background_color, text_color, sc
         line_color (tuple): The RGB value of the line color.
         shaded_color (tuple): The RGB value of the selected grid color.
         text_insert_color (tuple): The RGB value of the inserted text color.
-        puzzle ([type]): The puzzle number selected by users.
+        puzzle (int): The puzzle number selected by users.
     """
     score_earned = time_to_score(t_tot, score, diff)
     score = score_earned + score
@@ -547,7 +568,6 @@ def win_window_single(screen, t_tot, text_font, background_color, text_color, sc
                     elif puzzle == 5:
                         diff += 1
                         puzzle = 1
-                    print(diff)
                     if diff <= 5:
                         sudoku_window(screen, score, text_font, grid_color, background_color, text_color, hint_text_color, line_color, shaded_color, text_insert_color, diff, puzzle)
                 if 285 <= position[0] <= 363 and 650 <= position[1] <= 675:
@@ -571,7 +591,7 @@ def win_window_endless(screen, t_tot, text_font, background_color, text_color, s
         shaded_color (tuple): The RGB value of the selected grid color.
         text_insert_color (tuple): The RGB value of the inserted text color.
         diff (int): The difficulty selected by users.
-        puzzle ([type]): The puzzle number selected by users.
+        puzzle (int): The puzzle number selected by users.
     """
     score_earned = time_to_score(t_tot, score, diff)
     score = score_earned + score
@@ -612,24 +632,25 @@ def win_window_endless(screen, t_tot, text_font, background_color, text_color, s
 
 
 def hint(screen, grid, update_grid, solution, text_font, t0, dark_grid_loc, grid_color, background_color, hint_text_color, text_color, score):
-    """This function aims to realize the hint for the puzzle and consume a number of scores.
+    """This function aims to realize the hint for the puzzle and a number of scores will be consumed.
 
     Args:
-        screen ([type]): [description]
-        grid ([type]): [description]
-        update_grid ([type]): [description]
-        solution ([type]): [description]
-        text_font ([type]): [description]
-        t0 ([type]): [description]
-        dark_grid_loc ([type]): [description]
-        grid_color ([type]): [description]
-        background_color ([type]): [description]
-        hint_text_color ([type]): [description]
-        text_color ([type]): [description]
-        score ([type]): [description]
+        screen (pygame.Surface): The game window.
+        grid (list): The generated sudoku puzzle problem list.
+        update_grid (list): The updated sudoku number list according to users filling-in.
+        solution (list): The solution of the sudoku puzzle.
+        t0 (float): The initial time when a puzzle starts.
+        dark_grid_loc (list): The coordination of where the dark background is.
+        grid_color (tuple): The RGB value of the dark grid color.
+        background_color (tuple): The RGB value of the window background color.
+        hint_text_color (tuple): The RGB value of the hint text color.
+        text_color (tuple): The RGB value of the text color.
+        score (int): The points earned by users.
 
     Returns:
-        [type]: [description]
+        grid (list): The generated sudoku puzzle problem list.
+        update_grid (list): The updated sudoku number list according to users filling-in.
+        score (int): The points earned by users.
     """
     game_clock(screen, text_font, t0, background_color, text_color)
     score = score - 1
@@ -658,6 +679,15 @@ def hint(screen, grid, update_grid, solution, text_font, t0, dark_grid_loc, grid
 
 
 def time_to_score(t_tot, score, diff):
+    """This function aims to calculate the earned score when a puzzle is finished
+
+    Args:
+        t_tot (float): The time consumed when doing one puzzle.
+        score (int): The points earned by users.
+        diff (int): The difficulty selected by users.
+    Returns:
+        add_score (int): The calculated earned score.
+    """
     add_score = 100
     if add_score + score > 9999:
         add_score = 9999 - score
@@ -665,4 +695,4 @@ def time_to_score(t_tot, score, diff):
 
 
 if __name__ == "__main__":
-    home_window(score=100)
+    home_window(score = 100)
