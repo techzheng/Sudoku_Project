@@ -32,11 +32,12 @@ def register(username, score=100, start_level='1-1'):
 
 
 def save_profile(username, score, level):
-
+    ori_path = os.getcwd()
+    file_name = ori_path + '/data/users/' + str(username) + '.dat'
     data[score] = level
-    filename = str(username) + '.dat'
+    # filename = str(username) + '.dat'
     # print(filename)
-    with open(filename, 'w+') as f:
+    with open(file_name, 'w+') as f:
         enc_content = encrypt(str(list(data.keys())) + str(data[score]))
         num_list = [str(x) for x in enc_content]
         f.write(' '.join(num_list))
@@ -68,20 +69,18 @@ def read_profile(username, N=17947, D=10103):
         level = info[1].split('-')
         diff = int(level[0])
         puzzle = int(level[1])
-        return [score, diff, puzzle]
+        result = [score, diff, puzzle]
+        # print(result)
+        return result
     else:
         type_reg = input(
             'This profile does not exist, do you want to register?(y/n)\n')
         if type_reg in ['y', 'Y']:
             register(username)
         if type_reg in ['n', 'N']:
-            type_try = input('Do you want to try another name?(y/n)\n')
-            if type_try in ['y', 'Y']:
-                type_nam = input('Please type the name:\n')
-                read_profile(type_nam, N=17947, D=10103)
-            if type_try in ['n', 'N']:
-                return 0
+            type_name = input('Please type the name:\n')
+            return read_profile(type_name, N=17947, D=10103)
 
 
 if __name__ == '__main__':
-    print(read_profile('zmz1'))
+    print(read_profile('who'))
