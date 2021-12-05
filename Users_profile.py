@@ -96,7 +96,7 @@ if __name__ == '__main__':
     username = input('Please input the username:\n')
     result = read_profile(username)
     score = result[0]
-    level = result[1]
-    diff = result[2]
+    diff = result[1]
+    puzzle = result[2]
 
-    ui.home_window(score, )
+    ui.home_window(score, diff, puzzle)
