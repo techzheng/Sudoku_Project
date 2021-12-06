@@ -87,7 +87,7 @@ def read_profile(username, N=17947, D=10103):
         type_reg = input(
             'This profile does not exist, do you want to register?(y/n)\n')
         if type_reg in ['y', 'Y']:
-            register(username)
+            return register(username)
         if type_reg in ['n', 'N']:
             type_name = input('Please type the name:\n')
             return read_profile(type_name, N=17947, D=10103)
