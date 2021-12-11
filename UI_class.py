@@ -692,20 +692,20 @@ class UI:
                 add_score += 100 - t_tot
         elif diff == 2:
             add_score = 20
-            if t_tot < 100:
-                add_score += 100 - t_tot
+            if t_tot < 200:
+                add_score += 200 - t_tot
         elif diff == 3:
             add_score = 30
-            if t_tot < 100:
-                add_score += 100 - t_tot
+            if t_tot < 300:
+                add_score += 300 - t_tot
         elif diff == 4:
             add_score = 40
-            if t_tot < 100:
-                add_score += 100 - t_tot
+            if t_tot < 400:
+                add_score += 400 - t_tot
         elif diff == 5:
             add_score = 50
-            if t_tot < 100:
-                add_score += 100 - t_tot
+            if t_tot < 500:
+                add_score += 500 - t_tot
 
         if add_score + score > 9999:
             add_score = 9999 - score
