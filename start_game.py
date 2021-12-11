@@ -1,5 +1,5 @@
 import os
-import Users_UI as ui
+import UI_class
 import generate_level
 data = {}
 
@@ -100,4 +100,4 @@ if __name__ == '__main__':
     diff = result[1]
     puzzle = result[2]
 
-    ui.home_window(score, diff, puzzle, username)
+    UI_class.UI().home_window(score, diff, puzzle, username)

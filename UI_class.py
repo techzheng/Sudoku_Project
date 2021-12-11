@@ -4,7 +4,7 @@ import time
 import random
 import generate_sudo
 import read_level
-import setup
+import start_game
 
 class UI:
 
@@ -529,7 +529,7 @@ class UI:
             else:
                 curr_puzzle = 1
                 curr_diff += 1
-        setup.save_profile(username, score, curr_diff, curr_puzzle)
+        start_game.save_profile(username, score, curr_diff, curr_puzzle)
         while True:
             self.screen.fill(self.background_color)
             value_1 = self.text_font.render('WIN!', True, self.text_color)
@@ -593,7 +593,7 @@ class UI:
         """
         score_earned = self.time_to_score(t_tot, score, diff)
         score = score_earned + score
-        setup.save_profile(username, score, curr_diff, curr_puzzle)
+        start_game.save_profile(username, score, curr_diff, curr_puzzle)
         while True:
             self.screen.fill(self.background_color)
             value_1 = self.text_font.render('WIN!', True, self.text_color)
@@ -686,7 +686,27 @@ class UI:
         Returns:
             add_score (int): The calculated earned score.
         """
-        add_score = 100
+        if diff == 1:
+            add_score = 10
+            if t_tot < 100:
+                add_score += 100 - t_tot
+        elif diff == 2:
+            add_score = 20
+            if t_tot < 100:
+                add_score += 100 - t_tot
+        elif diff == 3:
+            add_score = 30
+            if t_tot < 100:
+                add_score += 100 - t_tot
+        elif diff == 4:
+            add_score = 40
+            if t_tot < 100:
+                add_score += 100 - t_tot
+        elif diff == 5:
+            add_score = 50
+            if t_tot < 100:
+                add_score += 100 - t_tot
+
         if add_score + score > 9999:
             add_score = 9999 - score
         return add_score
