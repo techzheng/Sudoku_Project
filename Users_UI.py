@@ -6,7 +6,7 @@ import time
 import random
 import generate_sudo
 import read_level
-import Users_profile
+import setup
 
 
 def home_window(score, curr_diff, curr_puzzle, username):
@@ -36,7 +36,7 @@ def home_window(score, curr_diff, curr_puzzle, username):
         pygame.font.get_default_font(), 30)  # need adding a font file
     # setup game caption and icon
     pygame.display.set_caption('Sudoku Game')
-    icon = pygame.image.load('icon.png')
+    icon = pygame.image.load('icon.ico')
     pygame.display.set_icon(icon)
     # fill the window background color
     screen.fill(background_color)
@@ -536,7 +536,7 @@ def win_window_single(screen, t_tot, text_font, background_color, text_color, sc
         else:
             curr_puzzle = 1
             curr_diff += 1
-    Users_profile.save_profile(username, score, curr_diff, curr_puzzle)
+    setup.save_profile(username, score, curr_diff, curr_puzzle)
     while True:
         screen.fill(background_color)
         value_1 = text_font.render('WIN!', True, text_color)
@@ -601,7 +601,7 @@ def win_window_endless(screen, t_tot, text_font, background_color, text_color, s
     """
     score_earned = time_to_score(t_tot, score, diff)
     score = score_earned + score
-    Users_profile.save_profile(username, score, curr_diff, curr_puzzle)
+    setup.save_profile(username, score, curr_diff, curr_puzzle)
     while True:
         screen.fill(background_color)
         value_1 = text_font.render('WIN!', True, text_color)
