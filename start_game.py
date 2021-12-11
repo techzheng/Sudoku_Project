@@ -4,7 +4,7 @@ import generate_level
 data = {}
 
 
-def register(username, score=300, start_level='1-1'):
+def register(username, score=100, start_level='1-1'):
     """Register a new profile.
 
     Args:
