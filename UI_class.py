@@ -651,9 +651,9 @@ class UI:
             score (int): The points earned by users.
         """
         self.game_clock(t0)
-        score = score - 1
+        score = score - 100
         if score < 0:
-            return grid, update_grid, score + 1
+            return grid, update_grid, score + 100
         hint_pool = []
         for i in range(0, len(update_grid)):
             for j in range(0, len(update_grid[i])):
@@ -687,28 +687,27 @@ class UI:
             add_score (int): The calculated earned score.
         """
         if diff == 1:
-            add_score = 10
+            add_score = 100
             if t_tot < 100:
-                add_score += 100 - t_tot
+                add_score += 100 - int(t_tot)
         elif diff == 2:
-            add_score = 20
+            add_score = 200
             if t_tot < 200:
-                add_score += 200 - t_tot
+                add_score += 200 - int(t_tot)
         elif diff == 3:
-            add_score = 30
+            add_score = 300
             if t_tot < 300:
-                add_score += 300 - t_tot
+                add_score += 300 - int(t_tot)
         elif diff == 4:
-            add_score = 40
+            add_score = 400
             if t_tot < 400:
-                add_score += 400 - t_tot
+                add_score += 400 - int(t_tot)
         elif diff == 5:
-            add_score = 50
+            add_score = 500
             if t_tot < 500:
-                add_score += 500 - t_tot
-
-        if add_score + score > 9999:
-            add_score = 9999 - score
+                add_score += 500 - int(t_tot)
+        if add_score + score > 99999:
+            add_score = 99999 - score
         return add_score
 
 

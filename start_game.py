@@ -99,5 +99,4 @@ if __name__ == '__main__':
     score = result[0]
     diff = result[1]
     puzzle = result[2]
-
     UI_class.UI().home_window(score, diff, puzzle, username)
