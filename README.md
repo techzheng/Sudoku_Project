@@ -41,7 +41,7 @@ This is a sudoku game based on the [pygame package](https://www.pygame.org/news)
 
 ### To delete archive
 
-Delete the file with the user name in ` ~\Sudoku_Project\data\users ` .
+Delete the file with the user name in ` ~\Sudoku_Project\data\users\ ` .
 
 ### To reset puzzles in level mode
 
@@ -50,4 +50,7 @@ Delete the file with the user name in ` ~\Sudoku_Project\data\users ` .
 > + Make sure you have cleared the game in at least one archive.
 > + Run `python generate_level.py` .
 
-###
+## Contributors
+This project exists thanks to all the people who contribute.  
+Mingze Zheng: mzheng15@jhu.edu, mzheng15  
+Zixiu Liu: zliu140@jhu.edu, zliu140
