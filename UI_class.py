@@ -40,7 +40,7 @@ class UI:
         # initialize text font
         self.text_font = pygame.font.Font('verdana.ttf', 30)
         # initialize icon file
-        self.icon = pygame.image.load('icon.png')
+        self.icon = pygame.image.load('icon.ico')
 
     def home_window(self, score, curr_diff, curr_puzzle, username):
         """This function aims to gemerate the home window of the game where users can start and quit the game.
@@ -53,7 +53,7 @@ class UI:
         """
         # setup game caption and icon
         pygame.display.set_caption('Sudoku Game')
-        icon = pygame.image.load('icon.png')
+        icon = pygame.image.load('icon.ico')
         pygame.display.set_icon(icon)
         # fill the window background color
         self.screen.fill(self.background_color)
