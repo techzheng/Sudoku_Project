@@ -114,11 +114,11 @@ class UI:
             curr_puzzle (int): The stored highest number of puzzle the user accomplish.
             username (str): The input username to locate saving file.
         """
+        # difficulty silection window
         # initialize a parameter that secure the text while true loop
         status = True
         # while true loop to maintain the window
         while status:
-
             # capture the position of mouse and change color of the botton when the mouse is on the botton
             pos_mouse = pygame.mouse.get_pos()
             if 326 <= pos_mouse[0] <= 343 and 250 <= pos_mouse[1] <= 290:
@@ -236,7 +236,6 @@ class UI:
                 self.screen.blit(value_1, (130, 150))
                 self.screen.blit(value_2, (450, 700))
                 pygame.display.update()
-
             # get event of clicking mouse in game
             for event in pygame.event.get():
                 # if the event type is clicking the left button of nouse
@@ -277,33 +276,250 @@ class UI:
                     pygame.quit()
                     return
 
-        # fill the window background color
-        self.screen.fill(self.background_color)
-        # setup the text on the window
-        value_3 = self.title_font.render(
-            str('Select your puzzle'), True, self.text_color)
-        # change the color if the puzzle is still lock
-        for i in range(0, 6):
-            if diff == curr_diff:
-                if i+1 <= curr_puzzle:
-                    color = self.text_color
-                else:
-                    color = self.grid_color
-            else:
-                color = self.text_color
-            if i < 5:
-                value = self.text_font.render(str(i+1), True, color)
-                self.screen.blit(value, (326, 250 + 80*i))
-            else:
-                value = self.text_font.render(str('Endless'), True, color)
-                self.screen.blit(value, (275, 250 + 80*i))
-        value_4 = self.text_font.render(str('Back'), True, self.text_color)
-        # blit all text on the window
-        self.screen.blit(value_3, (140, 150))
-        self.screen.blit(value_4, (450, 700))
-        pygame.display.update()
+        # puzzle selection window
         # while true loop to maintain the window
         while True:
+
+            pos_mouse = pygame.mouse.get_pos()
+            if 326 <= pos_mouse[0] <= 343 and 250 <= pos_mouse[1] <= 290:
+                # fill the window background color
+                self.screen.fill(self.background_color)
+                # setup the text on the window
+                value_3 = self.title_font.render(
+                    str('Select your puzzle'), True, self.text_color)
+                # change the color if the puzzle is still lock
+                for i in range(0, 6):
+                    if diff == curr_diff:
+                        if i+1 <= curr_puzzle and i+1 != 1:
+                            color = self.text_color
+                        elif i+1 > curr_puzzle:
+                            color = self.grid_color
+                        elif i+1 == 1:
+                            color = self.hint_text_color
+                    else:
+                        if i+1 != 1:
+                            color = self.text_color
+                        else:
+                            color = self.hint_text_color
+                    if i < 5:
+                        value = self.text_font.render(str(i+1), True, color)
+                        self.screen.blit(value, (326, 250 + 80*i))
+                    else:
+                        value = self.text_font.render(str('Endless'), True, color)
+                        self.screen.blit(value, (275, 250 + 80*i))
+                value_4 = self.text_font.render(str('Back'), True, self.text_color)
+                # blit all text on the window
+                self.screen.blit(value_3, (140, 150))
+                self.screen.blit(value_4, (450, 700))
+                pygame.display.update()
+            elif 326 <= pos_mouse[0] <= 343 and 330 <= pos_mouse[1] <= 370:
+                # fill the window background color
+                self.screen.fill(self.background_color)
+                # setup the text on the window
+                value_3 = self.title_font.render(
+                    str('Select your puzzle'), True, self.text_color)
+                # change the color if the puzzle is still lock
+                for i in range(0, 6):
+                    if diff == curr_diff:
+                        if i+1 <= curr_puzzle and i+1 != 2:
+                            color = self.text_color
+                        elif i+1 > curr_puzzle:
+                            color = self.grid_color
+                        elif i+1 == 2:
+                            color = self.hint_text_color
+                    else:
+                        if i+1 != 2:
+                            color = self.text_color
+                        else:
+                            color = self.hint_text_color
+                    if i < 5:
+                        value = self.text_font.render(str(i+1), True, color)
+                        self.screen.blit(value, (326, 250 + 80*i))
+                    else:
+                        value = self.text_font.render(str('Endless'), True, color)
+                        self.screen.blit(value, (275, 250 + 80*i))
+                value_4 = self.text_font.render(str('Back'), True, self.text_color)
+                # blit all text on the window
+                self.screen.blit(value_3, (140, 150))
+                self.screen.blit(value_4, (450, 700))
+                pygame.display.update()
+            elif 326 <= pos_mouse[0] <= 343 and 410 <= pos_mouse[1] <= 450:
+                # fill the window background color
+                self.screen.fill(self.background_color)
+                # setup the text on the window
+                value_3 = self.title_font.render(
+                    str('Select your puzzle'), True, self.text_color)
+                # change the color if the puzzle is still lock
+                for i in range(0, 6):
+                    if diff == curr_diff:
+                        if i+1 <= curr_puzzle and i+1 != 3:
+                            color = self.text_color
+                        elif i+1 > curr_puzzle:
+                            color = self.grid_color
+                        elif i+1 == 3:
+                            color = self.hint_text_color
+                    else:
+                        if i+1 != 3:
+                            color = self.text_color
+                        else:
+                            color = self.hint_text_color
+                    if i < 5:
+                        value = self.text_font.render(str(i+1), True, color)
+                        self.screen.blit(value, (326, 250 + 80*i))
+                    else:
+                        value = self.text_font.render(str('Endless'), True, color)
+                        self.screen.blit(value, (275, 250 + 80*i))
+                value_4 = self.text_font.render(str('Back'), True, self.text_color)
+                # blit all text on the window
+                self.screen.blit(value_3, (140, 150))
+                self.screen.blit(value_4, (450, 700))
+                pygame.display.update()
+            elif 326 <= pos_mouse[0] <= 343 and 490 <= pos_mouse[1] <= 530:
+                # fill the window background color
+                self.screen.fill(self.background_color)
+                # setup the text on the window
+                value_3 = self.title_font.render(
+                    str('Select your puzzle'), True, self.text_color)
+                # change the color if the puzzle is still lock
+                for i in range(0, 6):
+                    if diff == curr_diff:
+                        if i+1 <= curr_puzzle and i+1 != 4:
+                            color = self.text_color
+                        elif i+1 > curr_puzzle:
+                            color = self.grid_color
+                        elif i+1 == 4:
+                            color = self.hint_text_color
+                    else:
+                        if i+1 != 4:
+                            color = self.text_color
+                        else:
+                            color = self.hint_text_color
+                    if i < 5:
+                        value = self.text_font.render(str(i+1), True, color)
+                        self.screen.blit(value, (326, 250 + 80*i))
+                    else:
+                        value = self.text_font.render(str('Endless'), True, color)
+                        self.screen.blit(value, (275, 250 + 80*i))
+                value_4 = self.text_font.render(str('Back'), True, self.text_color)
+                # blit all text on the window
+                self.screen.blit(value_3, (140, 150))
+                self.screen.blit(value_4, (450, 700))
+                pygame.display.update()
+            elif 326 <= pos_mouse[0] <= 343 and 570 <= pos_mouse[1] <= 610:
+                # fill the window background color
+                self.screen.fill(self.background_color)
+                # setup the text on the window
+                value_3 = self.title_font.render(
+                    str('Select your puzzle'), True, self.text_color)
+                # change the color if the puzzle is still lock
+                for i in range(0, 6):
+                    if diff == curr_diff:
+                        if i+1 <= curr_puzzle and i+1 != 5:
+                            color = self.text_color
+                        elif i+1 > curr_puzzle:
+                            color = self.grid_color
+                        elif i+1 == 5:
+                            color = self.hint_text_color
+                    else:
+                        if i+1 != 5:
+                            color = self.text_color
+                        else:
+                            color = self.hint_text_color
+                    if i < 5:
+                        value = self.text_font.render(str(i+1), True, color)
+                        self.screen.blit(value, (326, 250 + 80*i))
+                    else:
+                        value = self.text_font.render(str('Endless'), True, color)
+                        self.screen.blit(value, (275, 250 + 80*i))
+                value_4 = self.text_font.render(str('Back'), True, self.text_color)
+                # blit all text on the window
+                self.screen.blit(value_3, (140, 150))
+                self.screen.blit(value_4, (450, 700))
+                pygame.display.update()
+            elif 275 <= pos_mouse[0] <= 393 and 650 <= pos_mouse[1] <= 690:
+                # fill the window background color
+                self.screen.fill(self.background_color)
+                # setup the text on the window
+                value_3 = self.title_font.render(
+                    str('Select your puzzle'), True, self.text_color)
+                # change the color if the puzzle is still lock
+                for i in range(0, 6):
+                    if diff == curr_diff:
+                        if i+1 <= curr_puzzle and i+1 != 6:
+                            color = self.text_color
+                        elif i+1 > curr_puzzle:
+                            color = self.grid_color
+                        elif i+1 == 6:
+                            color = self.hint_text_color
+                    else:
+                        if i+1 != 6:
+                            color = self.text_color
+                        else:
+                            color = self.hint_text_color
+                    if i < 5:
+                        value = self.text_font.render(str(i+1), True, color)
+                        self.screen.blit(value, (326, 250 + 80*i))
+                    else:
+                        value = self.text_font.render(str('Endless'), True, color)
+                        self.screen.blit(value, (275, 250 + 80*i))
+                value_4 = self.text_font.render(str('Back'), True, self.text_color)
+                # blit all text on the window
+                self.screen.blit(value_3, (140, 150))
+                self.screen.blit(value_4, (450, 700))
+                pygame.display.update()
+            elif 450 <= pos_mouse[0] <= 525 and 700 <= pos_mouse[1] <= 740:
+                # fill the window background color
+                self.screen.fill(self.background_color)
+                # setup the text on the window
+                value_3 = self.title_font.render(
+                    str('Select your puzzle'), True, self.text_color)
+                # change the color if the puzzle is still lock
+                for i in range(0, 6):
+                    if diff == curr_diff:
+                        if i+1 <= curr_puzzle :
+                            color = self.text_color
+                        elif i+1 > curr_puzzle:
+                            color = self.grid_color
+                    else:
+                        color = self.text_color
+                    if i < 5:
+                        value = self.text_font.render(str(i+1), True, color)
+                        self.screen.blit(value, (326, 250 + 80*i))
+                    else:
+                        value = self.text_font.render(str('Endless'), True, color)
+                        self.screen.blit(value, (275, 250 + 80*i))
+                value_4 = self.text_font.render(str('Back'), True, self.hint_text_color)
+                # blit all text on the window
+                self.screen.blit(value_3, (140, 150))
+                self.screen.blit(value_4, (450, 700))
+                pygame.display.update()
+            else:
+                # fill the window background color
+                self.screen.fill(self.background_color)
+                # setup the text on the window
+                value_3 = self.title_font.render(
+                    str('Select your puzzle'), True, self.text_color)
+                # change the color if the puzzle is still lock
+                for i in range(0, 6):
+                    if diff == curr_diff:
+                        if i+1 <= curr_puzzle :
+                            color = self.text_color
+                        else:
+                            color = self.grid_color
+                    else:
+                        color = self.text_color
+                    if i < 5:
+                        value = self.text_font.render(str(i+1), True, color)
+                        self.screen.blit(value, (326, 250 + 80*i))
+                    else:
+                        value = self.text_font.render(str('Endless'), True, color)
+                        self.screen.blit(value, (275, 250 + 80*i))
+                value_4 = self.text_font.render(str('Back'), True, self.text_color)
+                # blit all text on the window
+                self.screen.blit(value_3, (140, 150))
+                self.screen.blit(value_4, (450, 700))
+                pygame.display.update()
+
             for event in pygame.event.get():
                 # if the event type is clicking the left button of nouse, obtain the position and give corresponding values to variables
                 if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
@@ -377,6 +593,12 @@ class UI:
         self.screen.fill(self.background_color)
         # run grid setup the draw the grid in the window
         self.grid_setup(grid)
+        # setup hint button
+        value_1 = self.text_font.render('Hint', True, self.text_color)
+        self.screen.blit(value_1, (303, 700))
+        # setup back button
+        value_2 = self.text_font.render(str('Back'), True, self.text_color)
+        self.screen.blit(value_2, (450, 700))
         pygame.display.update()
         # initialize the  initial time for timer
         t0 = time.time()
@@ -456,12 +678,6 @@ class UI:
                     value_1 = self.text_font.render(
                         str(grid[i][j]), True, self.text_color)
                     self.screen.blit(value_1, ((j+1)*60 + 21, (i+1)*60 + 12))
-        # setup hint button
-        value_2 = self.text_font.render('Hint', True, self.text_color)
-        self.screen.blit(value_2, (303, 700))
-        # setup back button
-        value_3 = self.text_font.render(str('Back'), True, self.text_color)
-        self.screen.blit(value_3, (450, 700))
 
     def insert(self, position, grid, update_grid, t0):
         """This function aims to realize inserting numbers into the gameboards.
@@ -849,4 +1065,4 @@ class UI:
 
 
 if __name__ == "__main__":
-    UI().home_window(99999, 4, 2, 'zmz')
+    UI().home_window(99999, 4, 4, 'zmz')
