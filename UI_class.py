@@ -55,19 +55,37 @@ class UI:
         pygame.display.set_caption('Sudoku Game')
         icon = pygame.image.load('icon.ico')
         pygame.display.set_icon(icon)
-        # fill the window background color
-        self.screen.fill(self.background_color)
-        # print text on screen
-        value_1 = self.title_font.render(str('SUDOKU'), True, self.text_color)
-        value_2 = self.text_font.render(
-            str('Start game'), True, self.text_color)
-        value_3 = self.text_font.render(str('Quit'), True, self.text_color)
-        self.screen.blit(value_1, (230, 150))
-        self.screen.blit(value_2, (240, 450))
-        self.screen.blit(value_3, (285, 650))
-        pygame.display.update()
         # while true loop to maintain the window
         while True:
+            # capture the position of mouse and change color of the botton when the mouse is on the botton
+            pos_mouse = pygame.mouse.get_pos()
+            if 240 <= pos_mouse[0] <= 410 and 450 <= pos_mouse[1] <= 490:
+                # fill the screen with background color
+                self.screen.fill(self.background_color)
+                # setup words and text colors
+                value_1 = self.title_font.render(str('SUDOKU'), True, self.text_color)
+                value_2 = self.text_font.render(
+                    str('Start game'), True, self.hint_text_color)
+                value_3 = self.text_font.render(str('Quit'), True, self.text_color)
+            elif 285 <= pos_mouse[0] <= 365 and 650 <= pos_mouse[1] <= 690:
+                self.screen.fill(self.background_color)
+                value_1 = self.title_font.render(str('SUDOKU'), True, self.text_color)
+                value_2 = self.text_font.render(
+                    str('Start game'), True, self.text_color)
+                value_3 = self.text_font.render(str('Quit'), True, self.hint_text_color)
+            else: 
+                self.screen.fill(self.background_color)
+                value_1 = self.title_font.render(str('SUDOKU'), True, self.text_color)
+                value_2 = self.text_font.render(
+                    str('Start game'), True, self.text_color)
+                value_3 = self.text_font.render(str('Quit'), True, self.text_color)
+            # blit the words on thr screen
+            self.screen.blit(value_1, (230, 150))
+            self.screen.blit(value_2, (240, 450))
+            self.screen.blit(value_3, (285, 650))
+            # update the screen to realize changes
+            pygame.display.update()
+
             # get event of clicking mouse in game
             for event in pygame.event.get():
                 # if the event type is clicking the left button of nouse
@@ -96,27 +114,129 @@ class UI:
             curr_puzzle (int): The stored highest number of puzzle the user accomplish.
             username (str): The input username to locate saving file.
         """
-        # fill the window background color
-        self.screen.fill(self.background_color)
-        # setup the text on the window
-        value_1 = self.title_font.render(
-            str('Select your difficulty'), True, self.text_color)
-        for i in range(0, 5):
-            if i+1 <= curr_diff:
-                color = self.text_color
-            else:
-                color = self.grid_color
-            value = self.text_font.render(str(i+1), True, color)
-            self.screen.blit(value, (326, 250 + 100*i))
-        value_2 = self.text_font.render(str('Back'), True, self.text_color)
-        # blit all text on the window
-        self.screen.blit(value_1, (130, 150))
-        self.screen.blit(value_2, (450, 700))
-        pygame.display.update()
         # initialize a parameter that secure the text while true loop
         status = True
         # while true loop to maintain the window
         while status:
+
+            # capture the position of mouse and change color of the botton when the mouse is on the botton
+            pos_mouse = pygame.mouse.get_pos()
+            if 326 <= pos_mouse[0] <= 343 and 250 <= pos_mouse[1] <= 290:
+                self.screen.fill(self.background_color)
+                value_1 = self.title_font.render(
+                    str('Select your difficulty'), True, self.text_color)
+                for i in range(0, 5):
+                    if i+1 <= curr_diff and i+1 != 1:
+                        color = self.text_color
+                    elif i+1 > curr_diff:
+                        color = self.grid_color
+                    elif i+1 == 1:
+                        color = self.hint_text_color
+                    value = self.text_font.render(str(i+1), True, color)
+                    self.screen.blit(value, (326, 250 + 100*i))
+                value_2 = self.text_font.render(str('Back'), True, self.text_color)
+                self.screen.blit(value_1, (130, 150))
+                self.screen.blit(value_2, (450, 700))
+                pygame.display.update()
+            elif 326 <= pos_mouse[0] <= 343 and 350 <= pos_mouse[1] <= 390:
+                self.screen.fill(self.background_color)
+                value_1 = self.title_font.render(
+                    str('Select your difficulty'), True, self.text_color)
+                for i in range(0, 5):
+                    if i+1 <= curr_diff and i+1 != 2:
+                        color = self.text_color
+                    elif i+1 > curr_diff:
+                        color = self.grid_color
+                    elif i+1 == 2:
+                        color = self.hint_text_color
+                    value = self.text_font.render(str(i+1), True, color)
+                    self.screen.blit(value, (326, 250 + 100*i))
+                value_2 = self.text_font.render(str('Back'), True, self.text_color)
+                self.screen.blit(value_1, (130, 150))
+                self.screen.blit(value_2, (450, 700))
+                pygame.display.update()
+            elif 326 <= pos_mouse[0] <= 343 and 450 <= pos_mouse[1] <= 490:
+                self.screen.fill(self.background_color)
+                value_1 = self.title_font.render(
+                    str('Select your difficulty'), True, self.text_color)
+                for i in range(0, 5):
+                    if i+1 <= curr_diff and i+1 != 3:
+                        color = self.text_color
+                    elif i+1 > curr_diff:
+                        color = self.grid_color
+                    elif i+1 == 3:
+                        color = self.hint_text_color
+                    value = self.text_font.render(str(i+1), True, color)
+                    self.screen.blit(value, (326, 250 + 100*i))
+                value_2 = self.text_font.render(str('Back'), True, self.text_color)
+                self.screen.blit(value_1, (130, 150))
+                self.screen.blit(value_2, (450, 700))
+                pygame.display.update()
+            elif 326 <= pos_mouse[0] <= 343 and 550 <= pos_mouse[1] <= 590:
+                self.screen.fill(self.background_color)
+                value_1 = self.title_font.render(
+                    str('Select your difficulty'), True, self.text_color)
+                for i in range(0, 5):
+                    if i+1 <= curr_diff and i+1 != 4:
+                        color = self.text_color
+                    elif i+1 > curr_diff:
+                        color = self.grid_color
+                    elif i+1 == 4:
+                        color = self.hint_text_color
+                    value = self.text_font.render(str(i+1), True, color)
+                    self.screen.blit(value, (326, 250 + 100*i))
+                value_2 = self.text_font.render(str('Back'), True, self.text_color)
+                self.screen.blit(value_1, (130, 150))
+                self.screen.blit(value_2, (450, 700))
+                pygame.display.update()
+            elif 326 <= pos_mouse[0] <= 343 and 650 <= pos_mouse[1] <= 690:
+                self.screen.fill(self.background_color)
+                value_1 = self.title_font.render(
+                    str('Select your difficulty'), True, self.text_color)
+                for i in range(0, 5):
+                    if i+1 <= curr_diff and i+1 != 5:
+                        color = self.text_color
+                    elif i+1 > curr_diff:
+                        color = self.grid_color
+                    elif i+1 == 5:
+                        color = self.hint_text_color
+                    value = self.text_font.render(str(i+1), True, color)
+                    self.screen.blit(value, (326, 250 + 100*i))
+                value_2 = self.text_font.render(str('Back'), True, self.text_color)
+                self.screen.blit(value_1, (130, 150))
+                self.screen.blit(value_2, (450, 700))
+                pygame.display.update()
+            elif 450 <= pos_mouse[0] <= 525 and 700 <= pos_mouse[1] <= 740:
+                self.screen.fill(self.background_color)
+                value_1 = self.title_font.render(
+                    str('Select your difficulty'), True, self.text_color)
+                for i in range(0, 5):
+                    if i+1 <= curr_diff:
+                        color = self.text_color
+                    else:
+                        color = self.grid_color
+                    value = self.text_font.render(str(i+1), True, color)
+                    self.screen.blit(value, (326, 250 + 100*i))
+                value_2 = self.text_font.render(str('Back'), True, self.hint_text_color)
+                self.screen.blit(value_1, (130, 150))
+                self.screen.blit(value_2, (450, 700))
+                pygame.display.update()
+            else:
+                self.screen.fill(self.background_color)
+                value_1 = self.title_font.render(
+                    str('Select your difficulty'), True, self.text_color)
+                for i in range(0, 5):
+                    if i+1 <= curr_diff:
+                        color = self.text_color
+                    else:
+                        color = self.grid_color
+                    value = self.text_font.render(str(i+1), True, color)
+                    self.screen.blit(value, (326, 250 + 100*i))
+                value_2 = self.text_font.render(str('Back'), True, self.text_color)
+                self.screen.blit(value_1, (130, 150))
+                self.screen.blit(value_2, (450, 700))
+                pygame.display.update()
+
             # get event of clicking mouse in game
             for event in pygame.event.get():
                 # if the event type is clicking the left button of nouse
