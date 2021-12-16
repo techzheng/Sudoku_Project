@@ -57,7 +57,7 @@ class UI:
         pygame.display.set_icon(icon)
         # while true loop to maintain the window
         while True:
-            # capture the position of mouse and change color of the botton when the mouse is on the botton
+            # capture the position of mouse and change color of the button when the mouse is on the button
             pos_mouse = pygame.mouse.get_pos()
             if 240 <= pos_mouse[0] <= 410 and 450 <= pos_mouse[1] <= 490:
                 # fill the screen with background color
@@ -119,7 +119,7 @@ class UI:
         status = True
         # while true loop to maintain the window
         while status:
-            # capture the position of mouse and change color of the botton when the mouse is on the botton
+            # capture the position of mouse and change color of the button when the mouse is on the button
             pos_mouse = pygame.mouse.get_pos()
             if 326 <= pos_mouse[0] <= 343 and 250 <= pos_mouse[1] <= 290:
                 self.screen.fill(self.background_color)
@@ -279,7 +279,7 @@ class UI:
         # puzzle selection window
         # while true loop to maintain the window
         while True:
-            # capture the position of the mouse to realize the color change when mouse is on the botton
+            # capture the position of the mouse to realize the color change when mouse is on the button
             pos_mouse = pygame.mouse.get_pos()
             if 326 <= pos_mouse[0] <= 343 and 250 <= pos_mouse[1] <= 290:
                 # fill the window background color
@@ -861,9 +861,9 @@ class UI:
         # save game
         start_game.save_profile(username, score, curr_diff, curr_puzzle)
         while True:
-            # capture the position of the mouse to realize the color change when mouse is on the botton
+            # capture the position of the mouse to realize the color change when mouse is on the button
             pos_mouse = pygame.mouse.get_pos()
-            # if this is puzzle 5-5, then no 'Next level' botton is blit on the screen
+            # if this is puzzle 5-5, then no 'Next level' button is blit on the screen
             if (diff == 5 and puzzle == 5) or (diff >= 6):
                 if 210 <= pos_mouse[0] <= 440 and 580 <= pos_mouse[1] <= 620:
                     self.screen.fill(self.background_color)
@@ -922,7 +922,7 @@ class UI:
                     self.screen.blit(value_6, (210, 580))
                     self.screen.blit(value_7, (285, 680))
                     pygame.display.update()
-            # # if this is NOT puzzle 5-5, the 'Next level' botton should be blit on the screen
+            # # if this is NOT puzzle 5-5, the 'Next level' button should be blit on the screen
             else:
                 if 210 <= pos_mouse[0] <= 440 and 580 <= pos_mouse[1] <= 620:
                     self.screen.fill(self.background_color)
@@ -1059,7 +1059,7 @@ class UI:
         start_game.save_profile(username, score, curr_diff, curr_puzzle)
         # show buttom
         while True:
-            # capture the position of the mouse to realize the color change when mouse is on the botton
+            # capture the position of the mouse to realize the color change when mouse is on the button
             pos_mouse = pygame.mouse.get_pos()
             if 250 <= pos_mouse[0] <= 385 and 510 <= pos_mouse[1] <= 550:
                 self.screen.fill(self.background_color)
