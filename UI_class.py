@@ -279,7 +279,7 @@ class UI:
         # puzzle selection window
         # while true loop to maintain the window
         while True:
-
+            # capture the position of the mouse to realize the color change when mouse is on the botton
             pos_mouse = pygame.mouse.get_pos()
             if 326 <= pos_mouse[0] <= 343 and 250 <= pos_mouse[1] <= 290:
                 # fill the window background color
@@ -860,33 +860,158 @@ class UI:
                 curr_diff += 1
         # save game
         start_game.save_profile(username, score, curr_diff, curr_puzzle)
-        # show botton
         while True:
-            self.screen.fill(self.background_color)
-            value_1 = self.text_font.render('WIN!', True, self.text_color)
-            value_2 = self.text_font.render(
-                'Time: ' + (str(round(t_tot, 1))) + 's', True, self.text_color)
-            value_3 = self.text_font.render(
-                'Score earned: ' + (str(score_earned)) + 'pt', True, self.text_color)
-            value_4 = self.text_font.render(
-                'Total score: ' + (str(score)) + 'pt', True, self.text_color)
-            value_5 = self.text_font.render(
-                'Next level', True, self.text_color)
-            value_6 = self.text_font.render(
-                'Return to menu', True, self.text_color)
-            value_7 = self.text_font.render('Quit', True, self.text_color)
-            self.screen.blit(value_1, (280, 80))
-            self.screen.blit(value_2, (240, 180))
-            self.screen.blit(value_3, (185, 280))
-            self.screen.blit(value_4, (195, 380))
-            self.screen.blit(value_5, (245, 480))
-            self.screen.blit(value_6, (210, 580))
-            self.screen.blit(value_7, (285, 680))
-            # if reaching 5-5, which is the last puzzle, there is no 'next level' button
-            if diff == 5 and puzzle == 5:
-                pygame.draw.rect(
-                    self.screen, self.background_color, (245, 480, 145, 75))
-            pygame.display.update()
+            # capture the position of the mouse to realize the color change when mouse is on the botton
+            pos_mouse = pygame.mouse.get_pos()
+            # if this is puzzle 5-5, then no 'Next level' botton is blit on the screen
+            if (diff == 5 and puzzle == 5) or (diff >= 6):
+                if 210 <= pos_mouse[0] <= 440 and 580 <= pos_mouse[1] <= 620:
+                    self.screen.fill(self.background_color)
+                    value_1 = self.text_font.render('WIN!', True, self.text_color)
+                    value_2 = self.text_font.render(
+                        'Time: ' + (str(round(t_tot, 1))) + 's', True, self.text_color)
+                    value_3 = self.text_font.render(
+                        'Score earned: ' + (str(score_earned)) + 'pt', True, self.text_color)
+                    value_4 = self.text_font.render(
+                        'Total score: ' + (str(score)) + 'pt', True, self.text_color)
+                    value_6 = self.text_font.render(
+                        'Return to menu', True, self.hint_text_color)
+                    value_7 = self.text_font.render('Quit', True, self.text_color)
+                    self.screen.blit(value_1, (280, 80))
+                    self.screen.blit(value_2, (240, 180))
+                    self.screen.blit(value_3, (185, 280))
+                    self.screen.blit(value_4, (195, 380))
+                    self.screen.blit(value_6, (210, 580))
+                    self.screen.blit(value_7, (285, 680))
+                    pygame.display.update()
+                elif 285 <= pos_mouse[0] <= 363 and 680 <= pos_mouse[1] <= 720:
+                    self.screen.fill(self.background_color)
+                    value_1 = self.text_font.render('WIN!', True, self.text_color)
+                    value_2 = self.text_font.render(
+                        'Time: ' + (str(round(t_tot, 1))) + 's', True, self.text_color)
+                    value_3 = self.text_font.render(
+                        'Score earned: ' + (str(score_earned)) + 'pt', True, self.text_color)
+                    value_4 = self.text_font.render(
+                        'Total score: ' + (str(score)) + 'pt', True, self.text_color)
+                    value_6 = self.text_font.render(
+                        'Return to menu', True, self.text_color)
+                    value_7 = self.text_font.render('Quit', True, self.hint_text_color)
+                    self.screen.blit(value_1, (280, 80))
+                    self.screen.blit(value_2, (240, 180))
+                    self.screen.blit(value_3, (185, 280))
+                    self.screen.blit(value_4, (195, 380))
+                    self.screen.blit(value_6, (210, 580))
+                    self.screen.blit(value_7, (285, 680))
+                    pygame.display.update()
+                else:
+                    self.screen.fill(self.background_color)
+                    value_1 = self.text_font.render('WIN!', True, self.text_color)
+                    value_2 = self.text_font.render(
+                        'Time: ' + (str(round(t_tot, 1))) + 's', True, self.text_color)
+                    value_3 = self.text_font.render(
+                        'Score earned: ' + (str(score_earned)) + 'pt', True, self.text_color)
+                    value_4 = self.text_font.render(
+                        'Total score: ' + (str(score)) + 'pt', True, self.text_color)
+                    value_6 = self.text_font.render(
+                        'Return to menu', True, self.text_color)
+                    value_7 = self.text_font.render('Quit', True, self.text_color)
+                    self.screen.blit(value_1, (280, 80))
+                    self.screen.blit(value_2, (240, 180))
+                    self.screen.blit(value_3, (185, 280))
+                    self.screen.blit(value_4, (195, 380))
+                    self.screen.blit(value_6, (210, 580))
+                    self.screen.blit(value_7, (285, 680))
+                    pygame.display.update()
+            # # if this is NOT puzzle 5-5, the 'Next level' botton should be blit on the screen
+            else:
+                if 210 <= pos_mouse[0] <= 440 and 580 <= pos_mouse[1] <= 620:
+                    self.screen.fill(self.background_color)
+                    value_1 = self.text_font.render('WIN!', True, self.text_color)
+                    value_2 = self.text_font.render(
+                        'Time: ' + (str(round(t_tot, 1))) + 's', True, self.text_color)
+                    value_3 = self.text_font.render(
+                        'Score earned: ' + (str(score_earned)) + 'pt', True, self.text_color)
+                    value_4 = self.text_font.render(
+                        'Total score: ' + (str(score)) + 'pt', True, self.text_color)
+                    value_5 = self.text_font.render(
+                        'Next level', True, self.text_color)
+                    value_6 = self.text_font.render(
+                        'Return to menu', True, self.hint_text_color)
+                    value_7 = self.text_font.render('Quit', True, self.text_color)
+                    self.screen.blit(value_1, (280, 80))
+                    self.screen.blit(value_2, (240, 180))
+                    self.screen.blit(value_3, (185, 280))
+                    self.screen.blit(value_4, (195, 380))
+                    self.screen.blit(value_5, (245, 480))
+                    self.screen.blit(value_6, (210, 580))
+                    self.screen.blit(value_7, (285, 680))
+                    pygame.display.update()
+                elif 245 <= pos_mouse[0] <= 390 and 480 <= pos_mouse[1] <= 520:
+                    self.screen.fill(self.background_color)
+                    value_1 = self.text_font.render('WIN!', True, self.text_color)
+                    value_2 = self.text_font.render(
+                        'Time: ' + (str(round(t_tot, 1))) + 's', True, self.text_color)
+                    value_3 = self.text_font.render(
+                        'Score earned: ' + (str(score_earned)) + 'pt', True, self.text_color)
+                    value_4 = self.text_font.render(
+                        'Total score: ' + (str(score)) + 'pt', True, self.text_color)
+                    value_5 = self.text_font.render(
+                        'Next level', True, self.hint_text_color)
+                    value_6 = self.text_font.render(
+                        'Return to menu', True, self.text_color)
+                    value_7 = self.text_font.render('Quit', True, self.text_color)
+                    self.screen.blit(value_1, (280, 80))
+                    self.screen.blit(value_2, (240, 180))
+                    self.screen.blit(value_3, (185, 280))
+                    self.screen.blit(value_4, (195, 380))
+                    self.screen.blit(value_5, (245, 480))
+                    self.screen.blit(value_6, (210, 580))
+                    self.screen.blit(value_7, (285, 680))
+                    pygame.display.update()
+                elif 285 <= pos_mouse[0] <= 363 and 680 <= pos_mouse[1] <= 720:
+                    self.screen.fill(self.background_color)
+                    value_1 = self.text_font.render('WIN!', True, self.text_color)
+                    value_2 = self.text_font.render(
+                        'Time: ' + (str(round(t_tot, 1))) + 's', True, self.text_color)
+                    value_3 = self.text_font.render(
+                        'Score earned: ' + (str(score_earned)) + 'pt', True, self.text_color)
+                    value_4 = self.text_font.render(
+                        'Total score: ' + (str(score)) + 'pt', True, self.text_color)
+                    value_5 = self.text_font.render(
+                        'Next level', True, self.text_color)
+                    value_6 = self.text_font.render(
+                        'Return to menu', True, self.text_color)
+                    value_7 = self.text_font.render('Quit', True, self.hint_text_color)
+                    self.screen.blit(value_1, (280, 80))
+                    self.screen.blit(value_2, (240, 180))
+                    self.screen.blit(value_3, (185, 280))
+                    self.screen.blit(value_4, (195, 380))
+                    self.screen.blit(value_5, (245, 480))
+                    self.screen.blit(value_6, (210, 580))
+                    self.screen.blit(value_7, (285, 680))
+                    pygame.display.update()
+                else:
+                    self.screen.fill(self.background_color)
+                    value_1 = self.text_font.render('WIN!', True, self.text_color)
+                    value_2 = self.text_font.render(
+                        'Time: ' + (str(round(t_tot, 1))) + 's', True, self.text_color)
+                    value_3 = self.text_font.render(
+                        'Score earned: ' + (str(score_earned)) + 'pt', True, self.text_color)
+                    value_4 = self.text_font.render(
+                        'Total score: ' + (str(score)) + 'pt', True, self.text_color)
+                    value_5 = self.text_font.render(
+                        'Next level', True, self.text_color)
+                    value_6 = self.text_font.render(
+                        'Return to menu', True, self.text_color)
+                    value_7 = self.text_font.render('Quit', True, self.text_color)
+                    self.screen.blit(value_1, (280, 80))
+                    self.screen.blit(value_2, (240, 180))
+                    self.screen.blit(value_3, (185, 280))
+                    self.screen.blit(value_4, (195, 380))
+                    self.screen.blit(value_5, (245, 480))
+                    self.screen.blit(value_6, (210, 580))
+                    self.screen.blit(value_7, (285, 680))
+                    pygame.display.update()
             # get mouse clicking
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -908,6 +1033,8 @@ class UI:
                         if diff <= 5:
                             self.sudoku_window(
                                 score, diff, puzzle, curr_diff, curr_puzzle, username)
+                        print(diff)
+                        print(puzzle)
                     if 285 <= position[0] <= 363 and 680 <= position[1] <= 720:
                         pygame.quit()
                         return
@@ -918,17 +1045,12 @@ class UI:
         Args:
             screen (pygame.Surface): The game window.
             t_tot (float): The time consumed when doing one puzzle.
-            text_font (pygame.font.Font): Font of normal text.
-            background_color (tuple): The RGB value of the window background color.
-            text_color (tuple): The RGB value of the text color.
             score (int): The points earned by users.
-            grid_color (tuple): The RGB value of the dark grid color.
-            hint_text_color (tuple): The RGB value of the hint text color.
-            line_color (tuple): The RGB value of the line color.
-            shaded_color (tuple): The RGB value of the selected grid color.
-            text_insert_color (tuple): The RGB value of the inserted text color.
             diff (int): The difficulty selected by users.
             puzzle (int): The puzzle number selected by users.
+            curr_diff (int): The stored highest difficulty the user accomplish.
+            curr_puzzle (int): The stored highest number of puzzle the user accomplish.
+            username (str): The input username to locate saving file.
         """
         # calculate the score changing
         score_earned = self.time_to_score(t_tot, score, diff)
@@ -937,26 +1059,92 @@ class UI:
         start_game.save_profile(username, score, curr_diff, curr_puzzle)
         # show buttom
         while True:
-            self.screen.fill(self.background_color)
-            value_1 = self.text_font.render('WIN!', True, self.text_color)
-            value_2 = self.text_font.render(
-                'Time: ' + (str(round(t_tot, 1))) + 's', True, self.text_color)
-            value_3 = self.text_font.render(
-                'Score earned: ' + (str(score_earned)) + 'pt', True, self.text_color)
-            value_4 = self.text_font.render(
-                'Total score: ' + (str(score)) + 'pt', True, self.text_color)
-            value_5 = self.text_font.render('Continue', True, self.text_color)
-            value_6 = self.text_font.render(
-                'Return to menu', True, self.text_color)
-            value_7 = self.text_font.render('Quit', True, self.text_color)
-            self.screen.blit(value_1, (280, 80))
-            self.screen.blit(value_2, (240, 180))
-            self.screen.blit(value_3, (185, 280))
-            self.screen.blit(value_4, (195, 380))
-            self.screen.blit(value_5, (250, 510))
-            self.screen.blit(value_6, (210, 580))
-            self.screen.blit(value_7, (285, 650))
-            pygame.display.update()
+            # capture the position of the mouse to realize the color change when mouse is on the botton
+            pos_mouse = pygame.mouse.get_pos()
+            if 250 <= pos_mouse[0] <= 385 and 510 <= pos_mouse[1] <= 550:
+                self.screen.fill(self.background_color)
+                value_1 = self.text_font.render('WIN!', True, self.text_color)
+                value_2 = self.text_font.render(
+                    'Time: ' + (str(round(t_tot, 1))) + 's', True, self.text_color)
+                value_3 = self.text_font.render(
+                    'Score earned: ' + (str(score_earned)) + 'pt', True, self.text_color)
+                value_4 = self.text_font.render(
+                    'Total score: ' + (str(score)) + 'pt', True, self.text_color)
+                value_5 = self.text_font.render('Continue', True, self.hint_text_color)
+                value_6 = self.text_font.render(
+                    'Return to menu', True, self.text_color)
+                value_7 = self.text_font.render('Quit', True, self.text_color)
+                self.screen.blit(value_1, (280, 80))
+                self.screen.blit(value_2, (240, 180))
+                self.screen.blit(value_3, (185, 280))
+                self.screen.blit(value_4, (195, 380))
+                self.screen.blit(value_5, (250, 510))
+                self.screen.blit(value_6, (210, 580))
+                self.screen.blit(value_7, (285, 650))
+                pygame.display.update()
+            elif 210 <= pos_mouse[0] <= 440 and 580 <= pos_mouse[1] <= 620:
+                self.screen.fill(self.background_color)
+                value_1 = self.text_font.render('WIN!', True, self.text_color)
+                value_2 = self.text_font.render(
+                    'Time: ' + (str(round(t_tot, 1))) + 's', True, self.text_color)
+                value_3 = self.text_font.render(
+                    'Score earned: ' + (str(score_earned)) + 'pt', True, self.text_color)
+                value_4 = self.text_font.render(
+                    'Total score: ' + (str(score)) + 'pt', True, self.text_color)
+                value_5 = self.text_font.render('Continue', True, self.text_color)
+                value_6 = self.text_font.render(
+                    'Return to menu', True, self.hint_text_color)
+                value_7 = self.text_font.render('Quit', True, self.text_color)
+                self.screen.blit(value_1, (280, 80))
+                self.screen.blit(value_2, (240, 180))
+                self.screen.blit(value_3, (185, 280))
+                self.screen.blit(value_4, (195, 380))
+                self.screen.blit(value_5, (250, 510))
+                self.screen.blit(value_6, (210, 580))
+                self.screen.blit(value_7, (285, 650))
+                pygame.display.update()
+            elif 285 <= pos_mouse[0] <= 363 and 650 <= pos_mouse[1] <= 690:
+                self.screen.fill(self.background_color)
+                value_1 = self.text_font.render('WIN!', True, self.text_color)
+                value_2 = self.text_font.render(
+                    'Time: ' + (str(round(t_tot, 1))) + 's', True, self.text_color)
+                value_3 = self.text_font.render(
+                    'Score earned: ' + (str(score_earned)) + 'pt', True, self.text_color)
+                value_4 = self.text_font.render(
+                    'Total score: ' + (str(score)) + 'pt', True, self.text_color)
+                value_5 = self.text_font.render('Continue', True, self.text_color)
+                value_6 = self.text_font.render(
+                    'Return to menu', True, self.text_color)
+                value_7 = self.text_font.render('Quit', True, self.hint_text_color)
+                self.screen.blit(value_1, (280, 80))
+                self.screen.blit(value_2, (240, 180))
+                self.screen.blit(value_3, (185, 280))
+                self.screen.blit(value_4, (195, 380))
+                self.screen.blit(value_5, (250, 510))
+                self.screen.blit(value_6, (210, 580))
+                self.screen.blit(value_7, (285, 650))
+                pygame.display.update()
+            else:
+                self.screen.fill(self.background_color)
+                value_1 = self.text_font.render('WIN!', True, self.text_color)
+                value_2 = self.text_font.render(
+                    'Time: ' + (str(round(t_tot, 1))) + 's', True, self.text_color)
+                value_3 = self.text_font.render(
+                    'Score earned: ' + (str(score_earned)) + 'pt', True, self.text_color)
+                value_4 = self.text_font.render(
+                    'Total score: ' + (str(score)) + 'pt', True, self.text_color)
+                value_5 = self.text_font.render('Continue', True, self.text_color)
+                value_6 = self.text_font.render(
+                    'Return to menu', True, self.text_color)
+                value_7 = self.text_font.render('Quit', True, self.text_color)
+                self.screen.blit(value_1, (280, 80))
+                self.screen.blit(value_2, (240, 180))
+                self.screen.blit(value_3, (185, 280))
+                self.screen.blit(value_4, (195, 380))
+                self.screen.blit(value_5, (250, 510))
+                self.screen.blit(value_6, (210, 580))
+                self.screen.blit(value_7, (285, 650))
+                pygame.display.update()
             # get mouse clicking
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -1065,4 +1253,4 @@ class UI:
 
 
 if __name__ == "__main__":
-    UI().home_window(99999, 4, 4, 'zmz')
+    UI().home_window(99999, 5, 5, 'zmz')
