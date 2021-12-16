@@ -5,7 +5,7 @@ import start_game
 
 
 class UI:
-    """The UI class aims to establish all the game window operation gy using the pygame package.
+    """The UI class aims to establish all the game window-setup and opration capture with the pygame package.
     """
 
     def __init__(self):
