@@ -1,14 +1,11 @@
-import pygame
-import copy
-import time
-import random
+import pygame, copy, time, random
 import generate_sudo
 import read_level
 import start_game
 
 
 class UI:
-    """The UI class aims to establish all the game window operation gy using the pygame pachage.
+    """The UI class aims to establish all the game window operation gy using the pygame package.
     """
 
     def __init__(self):
@@ -22,15 +19,12 @@ class UI:
         self.grid_color = (180, 180, 180)
         self.hint_text_color = (0, 150, 0)
         self.text_insert_color = (0, 0, 200)
-        # initialize dark location
+        # initialize dark location coordinates
         self.dark_grid_loc = [[1, 1], [1, 2], [1, 3], [2, 1], [2, 2], [2, 3], [3, 1], [3, 2], [3, 3],
-                              [7, 1], [7, 2], [7, 3], [8, 1], [8, 2], [
-            8, 3], [9, 1], [9, 2], [9, 3],
-            [4, 4], [4, 5], [4, 6], [5, 4], [5, 5], [
-            5, 6], [6, 4], [6, 5], [6, 6],
-            [1, 7], [1, 8], [1, 9], [2, 7], [2, 8], [
-            2, 9], [3, 7], [3, 8], [3, 9],
-            [7, 7], [7, 8], [7, 9], [8, 7], [8, 8], [8, 9], [9, 7], [9, 8], [9, 9]]
+                              [7, 1], [7, 2], [7, 3], [8, 1], [8, 2], [8, 3], [9, 1], [9, 2], [9, 3],
+                              [4, 4], [4, 5], [4, 6], [5, 4], [5, 5], [5, 6], [6, 4], [6, 5], [6, 6],
+                              [1, 7], [1, 8], [1, 9], [2, 7], [2, 8], [2, 9], [3, 7], [3, 8], [3, 9],
+                              [7, 7], [7, 8], [7, 9], [8, 7], [8, 8], [8, 9], [9, 7], [9, 8], [9, 9]]
         # initialize the pygame
         pygame.init()
         # initialize the screen with 660 pixel in width and 800 pixel in hight
@@ -63,22 +57,28 @@ class UI:
                 # fill the screen with background color
                 self.screen.fill(self.background_color)
                 # setup words and text colors
-                value_1 = self.title_font.render(str('SUDOKU'), True, self.text_color)
+                value_1 = self.title_font.render(
+                    str('SUDOKU'), True, self.text_color)
                 value_2 = self.text_font.render(
                     str('Start game'), True, self.hint_text_color)
-                value_3 = self.text_font.render(str('Quit'), True, self.text_color)
+                value_3 = self.text_font.render(
+                    str('Quit'), True, self.text_color)
             elif 285 <= pos_mouse[0] <= 365 and 650 <= pos_mouse[1] <= 690:
                 self.screen.fill(self.background_color)
-                value_1 = self.title_font.render(str('SUDOKU'), True, self.text_color)
+                value_1 = self.title_font.render(
+                    str('SUDOKU'), True, self.text_color)
                 value_2 = self.text_font.render(
                     str('Start game'), True, self.text_color)
-                value_3 = self.text_font.render(str('Quit'), True, self.hint_text_color)
-            else: 
+                value_3 = self.text_font.render(
+                    str('Quit'), True, self.hint_text_color)
+            else:
                 self.screen.fill(self.background_color)
-                value_1 = self.title_font.render(str('SUDOKU'), True, self.text_color)
+                value_1 = self.title_font.render(
+                    str('SUDOKU'), True, self.text_color)
                 value_2 = self.text_font.render(
                     str('Start game'), True, self.text_color)
-                value_3 = self.text_font.render(str('Quit'), True, self.text_color)
+                value_3 = self.text_font.render(
+                    str('Quit'), True, self.text_color)
             # blit the words on thr screen
             self.screen.blit(value_1, (230, 150))
             self.screen.blit(value_2, (240, 450))
@@ -121,10 +121,12 @@ class UI:
         while status:
             # capture the position of mouse and change color of the button when the mouse is on the button
             pos_mouse = pygame.mouse.get_pos()
+            # when mouse is on '1'
             if 326 <= pos_mouse[0] <= 343 and 250 <= pos_mouse[1] <= 290:
                 self.screen.fill(self.background_color)
                 value_1 = self.title_font.render(
                     str('Select your difficulty'), True, self.text_color)
+                # change the color of number according to the difficulty accomplished and selected
                 for i in range(0, 5):
                     if i+1 <= curr_diff and i+1 != 1:
                         color = self.text_color
@@ -134,10 +136,12 @@ class UI:
                         color = self.hint_text_color
                     value = self.text_font.render(str(i+1), True, color)
                     self.screen.blit(value, (326, 250 + 100*i))
-                value_2 = self.text_font.render(str('Back'), True, self.text_color)
+                value_2 = self.text_font.render(
+                    str('Back'), True, self.text_color)
                 self.screen.blit(value_1, (130, 150))
                 self.screen.blit(value_2, (450, 700))
                 pygame.display.update()
+            # when mouse is on '2'
             elif 326 <= pos_mouse[0] <= 343 and 350 <= pos_mouse[1] <= 390:
                 self.screen.fill(self.background_color)
                 value_1 = self.title_font.render(
@@ -151,10 +155,12 @@ class UI:
                         color = self.hint_text_color
                     value = self.text_font.render(str(i+1), True, color)
                     self.screen.blit(value, (326, 250 + 100*i))
-                value_2 = self.text_font.render(str('Back'), True, self.text_color)
+                value_2 = self.text_font.render(
+                    str('Back'), True, self.text_color)
                 self.screen.blit(value_1, (130, 150))
                 self.screen.blit(value_2, (450, 700))
                 pygame.display.update()
+            # when mouse is on '3'
             elif 326 <= pos_mouse[0] <= 343 and 450 <= pos_mouse[1] <= 490:
                 self.screen.fill(self.background_color)
                 value_1 = self.title_font.render(
@@ -168,10 +174,12 @@ class UI:
                         color = self.hint_text_color
                     value = self.text_font.render(str(i+1), True, color)
                     self.screen.blit(value, (326, 250 + 100*i))
-                value_2 = self.text_font.render(str('Back'), True, self.text_color)
+                value_2 = self.text_font.render(
+                    str('Back'), True, self.text_color)
                 self.screen.blit(value_1, (130, 150))
                 self.screen.blit(value_2, (450, 700))
                 pygame.display.update()
+            # when mouse is on '4'
             elif 326 <= pos_mouse[0] <= 343 and 550 <= pos_mouse[1] <= 590:
                 self.screen.fill(self.background_color)
                 value_1 = self.title_font.render(
@@ -185,10 +193,12 @@ class UI:
                         color = self.hint_text_color
                     value = self.text_font.render(str(i+1), True, color)
                     self.screen.blit(value, (326, 250 + 100*i))
-                value_2 = self.text_font.render(str('Back'), True, self.text_color)
+                value_2 = self.text_font.render(
+                    str('Back'), True, self.text_color)
                 self.screen.blit(value_1, (130, 150))
                 self.screen.blit(value_2, (450, 700))
                 pygame.display.update()
+            # when mouse is on '5'
             elif 326 <= pos_mouse[0] <= 343 and 650 <= pos_mouse[1] <= 690:
                 self.screen.fill(self.background_color)
                 value_1 = self.title_font.render(
@@ -202,10 +212,12 @@ class UI:
                         color = self.hint_text_color
                     value = self.text_font.render(str(i+1), True, color)
                     self.screen.blit(value, (326, 250 + 100*i))
-                value_2 = self.text_font.render(str('Back'), True, self.text_color)
+                value_2 = self.text_font.render(
+                    str('Back'), True, self.text_color)
                 self.screen.blit(value_1, (130, 150))
                 self.screen.blit(value_2, (450, 700))
                 pygame.display.update()
+            # when mouse is on 'Back'
             elif 450 <= pos_mouse[0] <= 525 and 700 <= pos_mouse[1] <= 740:
                 self.screen.fill(self.background_color)
                 value_1 = self.title_font.render(
@@ -217,10 +229,12 @@ class UI:
                         color = self.grid_color
                     value = self.text_font.render(str(i+1), True, color)
                     self.screen.blit(value, (326, 250 + 100*i))
-                value_2 = self.text_font.render(str('Back'), True, self.hint_text_color)
+                value_2 = self.text_font.render(
+                    str('Back'), True, self.hint_text_color)
                 self.screen.blit(value_1, (130, 150))
                 self.screen.blit(value_2, (450, 700))
                 pygame.display.update()
+            # when mouse is on other blank area
             else:
                 self.screen.fill(self.background_color)
                 value_1 = self.title_font.render(
@@ -232,7 +246,8 @@ class UI:
                         color = self.grid_color
                     value = self.text_font.render(str(i+1), True, color)
                     self.screen.blit(value, (326, 250 + 100*i))
-                value_2 = self.text_font.render(str('Back'), True, self.text_color)
+                value_2 = self.text_font.render(
+                    str('Back'), True, self.text_color)
                 self.screen.blit(value_1, (130, 150))
                 self.screen.blit(value_2, (450, 700))
                 pygame.display.update()
@@ -275,8 +290,7 @@ class UI:
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     return
-
-        # puzzle selection window
+        ### puzzle selection window (same as difficulty selection window)
         # while true loop to maintain the window
         while True:
             # capture the position of the mouse to realize the color change when mouse is on the button
@@ -305,9 +319,11 @@ class UI:
                         value = self.text_font.render(str(i+1), True, color)
                         self.screen.blit(value, (326, 250 + 80*i))
                     else:
-                        value = self.text_font.render(str('Endless'), True, color)
+                        value = self.text_font.render(
+                            str('Endless'), True, color)
                         self.screen.blit(value, (275, 250 + 80*i))
-                value_4 = self.text_font.render(str('Back'), True, self.text_color)
+                value_4 = self.text_font.render(
+                    str('Back'), True, self.text_color)
                 # blit all text on the window
                 self.screen.blit(value_3, (140, 150))
                 self.screen.blit(value_4, (450, 700))
@@ -336,9 +352,11 @@ class UI:
                         value = self.text_font.render(str(i+1), True, color)
                         self.screen.blit(value, (326, 250 + 80*i))
                     else:
-                        value = self.text_font.render(str('Endless'), True, color)
+                        value = self.text_font.render(
+                            str('Endless'), True, color)
                         self.screen.blit(value, (275, 250 + 80*i))
-                value_4 = self.text_font.render(str('Back'), True, self.text_color)
+                value_4 = self.text_font.render(
+                    str('Back'), True, self.text_color)
                 # blit all text on the window
                 self.screen.blit(value_3, (140, 150))
                 self.screen.blit(value_4, (450, 700))
@@ -367,9 +385,11 @@ class UI:
                         value = self.text_font.render(str(i+1), True, color)
                         self.screen.blit(value, (326, 250 + 80*i))
                     else:
-                        value = self.text_font.render(str('Endless'), True, color)
+                        value = self.text_font.render(
+                            str('Endless'), True, color)
                         self.screen.blit(value, (275, 250 + 80*i))
-                value_4 = self.text_font.render(str('Back'), True, self.text_color)
+                value_4 = self.text_font.render(
+                    str('Back'), True, self.text_color)
                 # blit all text on the window
                 self.screen.blit(value_3, (140, 150))
                 self.screen.blit(value_4, (450, 700))
@@ -398,9 +418,11 @@ class UI:
                         value = self.text_font.render(str(i+1), True, color)
                         self.screen.blit(value, (326, 250 + 80*i))
                     else:
-                        value = self.text_font.render(str('Endless'), True, color)
+                        value = self.text_font.render(
+                            str('Endless'), True, color)
                         self.screen.blit(value, (275, 250 + 80*i))
-                value_4 = self.text_font.render(str('Back'), True, self.text_color)
+                value_4 = self.text_font.render(
+                    str('Back'), True, self.text_color)
                 # blit all text on the window
                 self.screen.blit(value_3, (140, 150))
                 self.screen.blit(value_4, (450, 700))
@@ -429,9 +451,11 @@ class UI:
                         value = self.text_font.render(str(i+1), True, color)
                         self.screen.blit(value, (326, 250 + 80*i))
                     else:
-                        value = self.text_font.render(str('Endless'), True, color)
+                        value = self.text_font.render(
+                            str('Endless'), True, color)
                         self.screen.blit(value, (275, 250 + 80*i))
-                value_4 = self.text_font.render(str('Back'), True, self.text_color)
+                value_4 = self.text_font.render(
+                    str('Back'), True, self.text_color)
                 # blit all text on the window
                 self.screen.blit(value_3, (140, 150))
                 self.screen.blit(value_4, (450, 700))
@@ -460,9 +484,11 @@ class UI:
                         value = self.text_font.render(str(i+1), True, color)
                         self.screen.blit(value, (326, 250 + 80*i))
                     else:
-                        value = self.text_font.render(str('Endless'), True, color)
+                        value = self.text_font.render(
+                            str('Endless'), True, color)
                         self.screen.blit(value, (275, 250 + 80*i))
-                value_4 = self.text_font.render(str('Back'), True, self.text_color)
+                value_4 = self.text_font.render(
+                    str('Back'), True, self.text_color)
                 # blit all text on the window
                 self.screen.blit(value_3, (140, 150))
                 self.screen.blit(value_4, (450, 700))
@@ -476,7 +502,7 @@ class UI:
                 # change the color if the puzzle is still lock
                 for i in range(0, 6):
                     if diff == curr_diff:
-                        if i+1 <= curr_puzzle :
+                        if i+1 <= curr_puzzle:
                             color = self.text_color
                         elif i+1 > curr_puzzle:
                             color = self.grid_color
@@ -486,9 +512,11 @@ class UI:
                         value = self.text_font.render(str(i+1), True, color)
                         self.screen.blit(value, (326, 250 + 80*i))
                     else:
-                        value = self.text_font.render(str('Endless'), True, color)
+                        value = self.text_font.render(
+                            str('Endless'), True, color)
                         self.screen.blit(value, (275, 250 + 80*i))
-                value_4 = self.text_font.render(str('Back'), True, self.hint_text_color)
+                value_4 = self.text_font.render(
+                    str('Back'), True, self.hint_text_color)
                 # blit all text on the window
                 self.screen.blit(value_3, (140, 150))
                 self.screen.blit(value_4, (450, 700))
@@ -502,7 +530,7 @@ class UI:
                 # change the color if the puzzle is still lock
                 for i in range(0, 6):
                     if diff == curr_diff:
-                        if i+1 <= curr_puzzle :
+                        if i+1 <= curr_puzzle:
                             color = self.text_color
                         else:
                             color = self.grid_color
@@ -512,14 +540,15 @@ class UI:
                         value = self.text_font.render(str(i+1), True, color)
                         self.screen.blit(value, (326, 250 + 80*i))
                     else:
-                        value = self.text_font.render(str('Endless'), True, color)
+                        value = self.text_font.render(
+                            str('Endless'), True, color)
                         self.screen.blit(value, (275, 250 + 80*i))
-                value_4 = self.text_font.render(str('Back'), True, self.text_color)
+                value_4 = self.text_font.render(
+                    str('Back'), True, self.text_color)
                 # blit all text on the window
                 self.screen.blit(value_3, (140, 150))
                 self.screen.blit(value_4, (450, 700))
                 pygame.display.update()
-
             for event in pygame.event.get():
                 # if the event type is clicking the left button of nouse, obtain the position and give corresponding values to variables
                 if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
@@ -827,9 +856,12 @@ class UI:
         Args:
             t0 (float): The initial time when a puzzle starts.
         """
+        # locate the timing area in screen (for refreashing)
         pygame.draw.rect(self.screen, self.background_color,
                          (60, 610, 600, 40))
+        # calculate time by substracting the real time with initial time
         t = time.time() - t0
+        # show time on the screen
         value = self.text_font.render(
             'Time(s): ' + (str(round(t, 1))), True, self.text_color)
         self.screen.blit(value, (60, 610))
@@ -865,9 +897,11 @@ class UI:
             pos_mouse = pygame.mouse.get_pos()
             # if this is puzzle 5-5, then no 'Next level' button is blit on the screen
             if (diff == 5 and puzzle == 5) or (diff >= 6):
+                # when mouse is on 'Return to menu'
                 if 210 <= pos_mouse[0] <= 440 and 580 <= pos_mouse[1] <= 620:
                     self.screen.fill(self.background_color)
-                    value_1 = self.text_font.render('WIN!', True, self.text_color)
+                    value_1 = self.text_font.render(
+                        'WIN!', True, self.text_color)
                     value_2 = self.text_font.render(
                         'Time: ' + (str(round(t_tot, 1))) + 's', True, self.text_color)
                     value_3 = self.text_font.render(
@@ -876,7 +910,8 @@ class UI:
                         'Total score: ' + (str(score)) + 'pt', True, self.text_color)
                     value_6 = self.text_font.render(
                         'Return to menu', True, self.hint_text_color)
-                    value_7 = self.text_font.render('Quit', True, self.text_color)
+                    value_7 = self.text_font.render(
+                        'Quit', True, self.text_color)
                     self.screen.blit(value_1, (280, 80))
                     self.screen.blit(value_2, (240, 180))
                     self.screen.blit(value_3, (185, 280))
@@ -884,9 +919,11 @@ class UI:
                     self.screen.blit(value_6, (210, 580))
                     self.screen.blit(value_7, (285, 680))
                     pygame.display.update()
+                # when mouse is on 'Quit'
                 elif 285 <= pos_mouse[0] <= 363 and 680 <= pos_mouse[1] <= 720:
                     self.screen.fill(self.background_color)
-                    value_1 = self.text_font.render('WIN!', True, self.text_color)
+                    value_1 = self.text_font.render(
+                        'WIN!', True, self.text_color)
                     value_2 = self.text_font.render(
                         'Time: ' + (str(round(t_tot, 1))) + 's', True, self.text_color)
                     value_3 = self.text_font.render(
@@ -895,7 +932,8 @@ class UI:
                         'Total score: ' + (str(score)) + 'pt', True, self.text_color)
                     value_6 = self.text_font.render(
                         'Return to menu', True, self.text_color)
-                    value_7 = self.text_font.render('Quit', True, self.hint_text_color)
+                    value_7 = self.text_font.render(
+                        'Quit', True, self.hint_text_color)
                     self.screen.blit(value_1, (280, 80))
                     self.screen.blit(value_2, (240, 180))
                     self.screen.blit(value_3, (185, 280))
@@ -903,9 +941,11 @@ class UI:
                     self.screen.blit(value_6, (210, 580))
                     self.screen.blit(value_7, (285, 680))
                     pygame.display.update()
+                # # when mouse is on the blank area
                 else:
                     self.screen.fill(self.background_color)
-                    value_1 = self.text_font.render('WIN!', True, self.text_color)
+                    value_1 = self.text_font.render(
+                        'WIN!', True, self.text_color)
                     value_2 = self.text_font.render(
                         'Time: ' + (str(round(t_tot, 1))) + 's', True, self.text_color)
                     value_3 = self.text_font.render(
@@ -914,7 +954,8 @@ class UI:
                         'Total score: ' + (str(score)) + 'pt', True, self.text_color)
                     value_6 = self.text_font.render(
                         'Return to menu', True, self.text_color)
-                    value_7 = self.text_font.render('Quit', True, self.text_color)
+                    value_7 = self.text_font.render(
+                        'Quit', True, self.text_color)
                     self.screen.blit(value_1, (280, 80))
                     self.screen.blit(value_2, (240, 180))
                     self.screen.blit(value_3, (185, 280))
@@ -922,11 +963,13 @@ class UI:
                     self.screen.blit(value_6, (210, 580))
                     self.screen.blit(value_7, (285, 680))
                     pygame.display.update()
-            # # if this is NOT puzzle 5-5, the 'Next level' button should be blit on the screen
+            # if this is NOT puzzle 5-5, the 'Next level' button should be blit on the screen
+            # same as above
             else:
                 if 210 <= pos_mouse[0] <= 440 and 580 <= pos_mouse[1] <= 620:
                     self.screen.fill(self.background_color)
-                    value_1 = self.text_font.render('WIN!', True, self.text_color)
+                    value_1 = self.text_font.render(
+                        'WIN!', True, self.text_color)
                     value_2 = self.text_font.render(
                         'Time: ' + (str(round(t_tot, 1))) + 's', True, self.text_color)
                     value_3 = self.text_font.render(
@@ -937,7 +980,8 @@ class UI:
                         'Next level', True, self.text_color)
                     value_6 = self.text_font.render(
                         'Return to menu', True, self.hint_text_color)
-                    value_7 = self.text_font.render('Quit', True, self.text_color)
+                    value_7 = self.text_font.render(
+                        'Quit', True, self.text_color)
                     self.screen.blit(value_1, (280, 80))
                     self.screen.blit(value_2, (240, 180))
                     self.screen.blit(value_3, (185, 280))
@@ -948,7 +992,8 @@ class UI:
                     pygame.display.update()
                 elif 245 <= pos_mouse[0] <= 390 and 480 <= pos_mouse[1] <= 520:
                     self.screen.fill(self.background_color)
-                    value_1 = self.text_font.render('WIN!', True, self.text_color)
+                    value_1 = self.text_font.render(
+                        'WIN!', True, self.text_color)
                     value_2 = self.text_font.render(
                         'Time: ' + (str(round(t_tot, 1))) + 's', True, self.text_color)
                     value_3 = self.text_font.render(
@@ -959,7 +1004,8 @@ class UI:
                         'Next level', True, self.hint_text_color)
                     value_6 = self.text_font.render(
                         'Return to menu', True, self.text_color)
-                    value_7 = self.text_font.render('Quit', True, self.text_color)
+                    value_7 = self.text_font.render(
+                        'Quit', True, self.text_color)
                     self.screen.blit(value_1, (280, 80))
                     self.screen.blit(value_2, (240, 180))
                     self.screen.blit(value_3, (185, 280))
@@ -970,7 +1016,8 @@ class UI:
                     pygame.display.update()
                 elif 285 <= pos_mouse[0] <= 363 and 680 <= pos_mouse[1] <= 720:
                     self.screen.fill(self.background_color)
-                    value_1 = self.text_font.render('WIN!', True, self.text_color)
+                    value_1 = self.text_font.render(
+                        'WIN!', True, self.text_color)
                     value_2 = self.text_font.render(
                         'Time: ' + (str(round(t_tot, 1))) + 's', True, self.text_color)
                     value_3 = self.text_font.render(
@@ -981,7 +1028,8 @@ class UI:
                         'Next level', True, self.text_color)
                     value_6 = self.text_font.render(
                         'Return to menu', True, self.text_color)
-                    value_7 = self.text_font.render('Quit', True, self.hint_text_color)
+                    value_7 = self.text_font.render(
+                        'Quit', True, self.hint_text_color)
                     self.screen.blit(value_1, (280, 80))
                     self.screen.blit(value_2, (240, 180))
                     self.screen.blit(value_3, (185, 280))
@@ -992,7 +1040,8 @@ class UI:
                     pygame.display.update()
                 else:
                     self.screen.fill(self.background_color)
-                    value_1 = self.text_font.render('WIN!', True, self.text_color)
+                    value_1 = self.text_font.render(
+                        'WIN!', True, self.text_color)
                     value_2 = self.text_font.render(
                         'Time: ' + (str(round(t_tot, 1))) + 's', True, self.text_color)
                     value_3 = self.text_font.render(
@@ -1003,7 +1052,8 @@ class UI:
                         'Next level', True, self.text_color)
                     value_6 = self.text_font.render(
                         'Return to menu', True, self.text_color)
-                    value_7 = self.text_font.render('Quit', True, self.text_color)
+                    value_7 = self.text_font.render(
+                        'Quit', True, self.text_color)
                     self.screen.blit(value_1, (280, 80))
                     self.screen.blit(value_2, (240, 180))
                     self.screen.blit(value_3, (185, 280))
@@ -1060,6 +1110,7 @@ class UI:
         # show buttom
         while True:
             # capture the position of the mouse to realize the color change when mouse is on the button
+            # same as above
             pos_mouse = pygame.mouse.get_pos()
             if 250 <= pos_mouse[0] <= 385 and 510 <= pos_mouse[1] <= 550:
                 self.screen.fill(self.background_color)
@@ -1070,7 +1121,8 @@ class UI:
                     'Score earned: ' + (str(score_earned)) + 'pt', True, self.text_color)
                 value_4 = self.text_font.render(
                     'Total score: ' + (str(score)) + 'pt', True, self.text_color)
-                value_5 = self.text_font.render('Continue', True, self.hint_text_color)
+                value_5 = self.text_font.render(
+                    'Continue', True, self.hint_text_color)
                 value_6 = self.text_font.render(
                     'Return to menu', True, self.text_color)
                 value_7 = self.text_font.render('Quit', True, self.text_color)
@@ -1091,7 +1143,8 @@ class UI:
                     'Score earned: ' + (str(score_earned)) + 'pt', True, self.text_color)
                 value_4 = self.text_font.render(
                     'Total score: ' + (str(score)) + 'pt', True, self.text_color)
-                value_5 = self.text_font.render('Continue', True, self.text_color)
+                value_5 = self.text_font.render(
+                    'Continue', True, self.text_color)
                 value_6 = self.text_font.render(
                     'Return to menu', True, self.hint_text_color)
                 value_7 = self.text_font.render('Quit', True, self.text_color)
@@ -1112,10 +1165,12 @@ class UI:
                     'Score earned: ' + (str(score_earned)) + 'pt', True, self.text_color)
                 value_4 = self.text_font.render(
                     'Total score: ' + (str(score)) + 'pt', True, self.text_color)
-                value_5 = self.text_font.render('Continue', True, self.text_color)
+                value_5 = self.text_font.render(
+                    'Continue', True, self.text_color)
                 value_6 = self.text_font.render(
                     'Return to menu', True, self.text_color)
-                value_7 = self.text_font.render('Quit', True, self.hint_text_color)
+                value_7 = self.text_font.render(
+                    'Quit', True, self.hint_text_color)
                 self.screen.blit(value_1, (280, 80))
                 self.screen.blit(value_2, (240, 180))
                 self.screen.blit(value_3, (185, 280))
@@ -1133,7 +1188,8 @@ class UI:
                     'Score earned: ' + (str(score_earned)) + 'pt', True, self.text_color)
                 value_4 = self.text_font.render(
                     'Total score: ' + (str(score)) + 'pt', True, self.text_color)
-                value_5 = self.text_font.render('Continue', True, self.text_color)
+                value_5 = self.text_font.render(
+                    'Continue', True, self.text_color)
                 value_6 = self.text_font.render(
                     'Return to menu', True, self.text_color)
                 value_7 = self.text_font.render('Quit', True, self.text_color)
@@ -1251,6 +1307,5 @@ class UI:
             add_score = 99999 - score
         return add_score
 
-
 if __name__ == "__main__":
-    UI().home_window(99999, 5, 5, 'zmz')
+    UI().home_window(99999, 5, 5, 'lzx')
